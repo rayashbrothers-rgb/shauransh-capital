@@ -1,0 +1,33 @@
+{
+  "entities": {
+    "lead": {
+      "title": "Lead",
+      "description": "A lead inquiry from the website contact or application forms",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "service": { "type": "string" },
+        "amount": { "type": "string" },
+        "status": { 
+          "type": "string", 
+          "enum": ["New", "In Progress", "Completed", "Instant Approved", "Under Review"] 
+        },
+        "salary": { "type": "number" },
+        "cibil": { "type": "number" },
+        "type": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "phone", "service", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/leads/{leadId}": {
+      "schema": "lead",
+      "description": "Collection of customer leads/inquiries"
+    }
+  }
+}
