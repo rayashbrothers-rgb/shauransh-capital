@@ -6,9 +6,10 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 interface LeadFormProps {
   defaultLoanType?: string;
+  defaultAmount?: string;
 }
 
-export default function LeadForm({ defaultLoanType }: LeadFormProps) {
+export default function LeadForm({ defaultLoanType, defaultAmount }: LeadFormProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ export default function LeadForm({ defaultLoanType }: LeadFormProps) {
     mobileNumber: '',
     loanType: defaultLoanType || 'Personal Loan',
     monthlyIncome: '',
+    desiredAmount: defaultAmount || '',
     city: ''
   });
 
@@ -24,7 +26,10 @@ export default function LeadForm({ defaultLoanType }: LeadFormProps) {
     if (defaultLoanType) {
       setFormData(prev => ({ ...prev, loanType: defaultLoanType }));
     }
-  }, [defaultLoanType]);
+    if (defaultAmount) {
+      setFormData(prev => ({ ...prev, desiredAmount: defaultAmount }));
+    }
+  }, [defaultLoanType, defaultAmount]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +40,8 @@ export default function LeadForm({ defaultLoanType }: LeadFormProps) {
         email: formData.email,
         phone: formData.mobileNumber,
         service: formData.loanType,
-        amount: formData.monthlyIncome,
+        income: formData.monthlyIncome,
+        amount: formData.desiredAmount,
         city: formData.city,
         status: 'New',
         createdAt: serverTimestamp()
@@ -47,6 +53,7 @@ export default function LeadForm({ defaultLoanType }: LeadFormProps) {
         mobileNumber: '',
         loanType: 'Personal Loan',
         monthlyIncome: '',
+        desiredAmount: '',
         city: ''
       });
       setTimeout(() => setIsSubmitted(false), 8000);
@@ -220,16 +227,28 @@ export default function LeadForm({ defaultLoanType }: LeadFormProps) {
                     />
                   </div>
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 ml-2">Metro Residence (City)</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 ml-2">Desired Loan Amount</label>
                     <input 
                       required
-                      type="text"
-                      placeholder="e.g. Mumbai"
+                      type="number"
+                      placeholder="e.g. 1000000"
                       className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 focus:outline-none focus:border-brand-gold/40 focus:bg-white/[0.05] transition-all duration-500 text-white placeholder:text-white/20 font-light"
-                      value={formData.city}
-                      onChange={(e) => setFormData({...formData, city: e.target.value})}
+                      value={formData.desiredAmount}
+                      onChange={(e) => setFormData({...formData, desiredAmount: e.target.value})}
                     />
                   </div>
+                </div>
+
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 ml-2">Metro Residence (City)</label>
+                  <input 
+                    required
+                    type="text"
+                    placeholder="e.g. Mumbai"
+                    className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 focus:outline-none focus:border-brand-gold/40 focus:bg-white/[0.05] transition-all duration-500 text-white placeholder:text-white/20 font-light"
+                    value={formData.city}
+                    onChange={(e) => setFormData({...formData, city: e.target.value})}
+                  />
                 </div>
 
                 <div className="pt-6">

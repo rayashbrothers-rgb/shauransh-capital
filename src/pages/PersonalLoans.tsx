@@ -25,6 +25,7 @@ export default function PersonalLoans() {
   const [loanAmount, setLoanAmount] = useState(500000);
   const [interestRate, setInterestRate] = useState(10.5);
   const [tenure, setTenure] = useState(3);
+  const [showFormWithAmount, setShowFormWithAmount] = useState<string | undefined>(undefined);
   const [results, setResults] = useState({
     emi: 0,
     totalInterest: 0,
@@ -142,23 +143,35 @@ export default function PersonalLoans() {
   const faqs = [
     {
       q: "What is the maximum loan amount available for personal needs?",
-      a: "We facilitate capital ranging from ₹1 Lakh up to ₹1 Crore, depending on your financial profile, income stability, and existing credit commitments."
+      a: "We facilitate capital ranging from ₹1 Lakh up to ₹1 Crore. The specific limit is mathematically determined based on your verified income, professional stability, and existing Debt-to-Income (DTI) ratio."
     },
     {
       q: "How fast can I expect the funds in my account?",
-      a: "With our 'Priority Disbursement' track, approved applications can see funds transferred within 24–48 business hours of digital document sign-off."
+      a: "Our priority processing engine allows for approvals in as little as 4 hours. Once the digital contract is executed, disbursement typically occurs within 24 to 48 business hours."
     },
     {
       q: "Are there any prepayment or foreclosure charges?",
-      a: "Terms vary by banking partner, but we specialize in structuring loans with zero to minimal foreclosure charges after a specific lock-in period."
+      a: "To provide maximum financial agility, we offer plans with zero foreclosure charges after the first 12 EMIs. Standard bank foreclosure rates (1-4%) apply for early exits, depending on the chosen partner."
     },
     {
-      q: "What are the primary documents required?",
-      a: "Typically, we require KYC (Aadhar & PAN), last 3 months' salary slips, and 6 months' bank statements. For self-employed individuals, 2 years of ITR is standard."
+      q: "What are the primary documents required for application?",
+      a: "Our digital-first approach requires only essential documentation: KYC (PAN & Aadhar), the last 3 months' salary slips, 6 months' bank statements, and current address proof. No physical copies are needed."
+    },
+    {
+      q: "What is the standard processing fee for these loans?",
+      a: "Processing fees typically range from 1% to 2.5% of the loan amount. We negotiate with our banking partners to secure the lowest possible administration costs for our premium clientele."
     },
     {
       q: "Does applying through Shauransh Capital affect my credit score?",
-      a: "Our initial eligibility check is a 'soft pull' and does not impact your credit score. A formal credit inquiry is only initiated once you decide to proceed with a specific offer."
+      a: "Our initial consultation and eligibility assessment involve a 'soft inquiry' which has zero impact on your credit score. A formal hard pull is only initiated once you provide consent to move forward with a specific offer."
+    },
+    {
+      q: "Can I apply for a personal loan jointly with a co-applicant?",
+      a: "Yes. Adding a co-applicant (spouse or parent) can significantly enhance your eligibility and help you secure a higher loan amount or a more competitive interest rate by combining metabolic income streams."
+    },
+    {
+      q: "Is there a minimum and maximum tenure for repayment?",
+      a: "We offer high flexibility with tenures ranging from 12 months up to 84 months (7 years), allowing you to structure EMIs that align perfectly with your monthly cash flow."
     }
   ];
 
@@ -516,7 +529,13 @@ export default function PersonalLoans() {
                               <span className="text-xl font-serif font-bold text-white italic">{formatCurrency(results.totalPayment)}</span>
                             </div>
                         </div>
-                        <button className="w-full py-6 gold-gradient rounded-3xl font-black text-[13px] uppercase tracking-[0.3em] text-brand-blue shadow-2xl hover:scale-[1.02] transition-all duration-500">
+                        <button 
+                          onClick={() => {
+                            setShowFormWithAmount(loanAmount.toString());
+                            document.getElementById('personal-form')?.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                          className="w-full py-6 gold-gradient rounded-3xl font-black text-[13px] uppercase tracking-[0.3em] text-brand-blue shadow-2xl hover:scale-[1.02] transition-all duration-500"
+                        >
                           Secure This Quote
                         </button>
                       </div>
@@ -524,47 +543,6 @@ export default function PersonalLoans() {
                   </div>
                </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-32 relative">
-        <div className="max-w-4xl mx-auto px-8 lg:px-12">
-          <div className="text-center mb-20">
-            <span className="text-brand-gold text-xs font-black uppercase tracking-[0.4em] mb-6 block">Intelligence Base</span>
-            <h2 className="text-5xl md:text-6xl font-serif font-medium leading-[1.2] tracking-tight">Strategic Inquiries</h2>
-          </div>
-
-          <div className="flex flex-col gap-6">
-            {faqs.map((faq, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="glass-card rounded-[32px] border-white/5 overflow-hidden transition-all duration-500"
-              >
-                <button 
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full p-8 lg:p-10 flex items-center justify-between text-left group"
-                >
-                  <span className={`text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
-                  <div className={`w-10 h-10 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
-                    <Plus size={20} strokeWidth={3} />
-                  </div>
-                </button>
-                <motion.div 
-                  initial={false}
-                  animate={{ height: openFaq === i ? 'auto' : 0, opacity: openFaq === i ? 1 : 0 }}
-                  className="overflow-hidden"
-                >
-                  <div className="p-10 pt-0 text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-10">
-                    {faq.a}
-                  </div>
-                </motion.div>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
@@ -610,8 +588,72 @@ export default function PersonalLoans() {
       </section>
 
       <div id="personal-form">
-        <LeadForm defaultLoanType="Personal Loan" />
+        <LeadForm defaultLoanType="Personal Loan" defaultAmount={showFormWithAmount} />
       </div>
+
+      {/* FAQ Section */}
+      <section className="py-32 relative bg-white/[0.01]">
+        <div className="max-w-4xl mx-auto px-8 lg:px-12 relative z-10">
+          <div className="text-center mb-20">
+            <motion.span 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="text-brand-gold text-xs font-black uppercase tracking-[0.4em] mb-6 block"
+            >
+              Intelligence Base
+            </motion.span>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-5xl md:text-6xl font-serif font-medium leading-[1.2] tracking-tight"
+            >
+              Strategic Inquiries
+            </motion.h2>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            {faqs.map((faq, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="glass-card rounded-[32px] border-white/5 overflow-hidden transition-all duration-500"
+              >
+                <button 
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full p-8 lg:p-10 flex items-center justify-between text-left group"
+                >
+                  <span className={`text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
+                  <div className={`w-10 h-10 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
+                    <Plus size={20} strokeWidth={3} />
+                  </div>
+                </button>
+                <motion.div 
+                  initial={false}
+                  animate={{ 
+                    height: openFaq === i ? 'auto' : 0, 
+                    opacity: openFaq === i ? 1 : 0 
+                  }}
+                  transition={{ 
+                    duration: 0.5, 
+                    ease: [0.22, 1, 0.36, 1] 
+                  }}
+                  className="overflow-hidden"
+                >
+                  <div className="p-10 pt-0 text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-10">
+                    {faq.a}
+                  </div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Subtle background decoration for the bottom FAQ */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_100%,rgba(212,164,55,0.05)_0%,transparent_50%)] pointer-events-none" />
+      </section>
 
       <Footer />
     </div>

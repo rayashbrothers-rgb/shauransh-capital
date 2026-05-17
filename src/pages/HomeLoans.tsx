@@ -23,6 +23,7 @@ export default function HomeLoans() {
   const [loanAmount, setLoanAmount] = useState(5000000);
   const [interestRate, setInterestRate] = useState(8.5);
   const [tenure, setTenure] = useState(20);
+  const [showFormWithAmount, setShowFormWithAmount] = useState<string | undefined>(undefined);
   const [results, setResults] = useState({
     emi: 0,
     totalInterest: 0,
@@ -365,7 +366,13 @@ export default function HomeLoans() {
                             </div>
                           </div>
                           
-                          <button className="w-full py-7 gold-gradient rounded-[32px] font-black text-[14px] uppercase tracking-[0.4em] text-brand-blue shadow-2xl hover:scale-[1.02] transition-all duration-500">
+                          <button 
+                            onClick={() => {
+                              setShowFormWithAmount(loanAmount.toString());
+                              document.getElementById('home-form')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            className="w-full py-7 gold-gradient rounded-[32px] font-black text-[14px] uppercase tracking-[0.4em] text-brand-blue shadow-2xl hover:scale-[1.02] transition-all duration-500"
+                          >
                              Seal Interest Agreement
                           </button>
                         </div>
@@ -491,7 +498,7 @@ export default function HomeLoans() {
       </section>
 
       <div id="home-form">
-        <LeadForm defaultLoanType="Home Loan" />
+        <LeadForm defaultLoanType="Home Loan" defaultAmount={showFormWithAmount} />
       </div>
 
       <Footer />

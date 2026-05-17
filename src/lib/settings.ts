@@ -2,6 +2,8 @@ import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from './firebase';
 
 export async function getSettings(key: string) {
+  const defaultRates = { homeLoan: 8.5, personalLoan: 10.5, vehicleLoan: 9.5 };
+
   try {
     const docRef = doc(db, 'settings', key);
     const docSnap = await getDoc(docRef);
@@ -10,14 +12,19 @@ export async function getSettings(key: string) {
     }
     // Return defaults if not found
     if (key === 'emi_rates') {
-      return { homeLoan: 8.5, personalLoan: 10.5, vehicleLoan: 9.5 };
+      return defaultRates;
     }
     return null;
   } catch (error) {
-    console.error(`Error getting settings for ${key}:`, error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    // Don't log expected offline errors to console to improve DX
+    if (!errorMessage.includes('offline') && !errorMessage.includes('Could not reach')) {
+      console.error(`Error getting settings for ${key}:`, error);
+    }
+    
     // Return defaults on error to keep app running
     if (key === 'emi_rates') {
-      return { homeLoan: 8.5, personalLoan: 10.5, vehicleLoan: 9.5 };
+      return defaultRates;
     }
     return null;
   }

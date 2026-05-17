@@ -23,6 +23,7 @@ export default function VehicleLoans() {
   const [loanAmount, setLoanAmount] = useState(1000000);
   const [interestRate, setInterestRate] = useState(8.9);
   const [tenure, setTenure] = useState(5);
+  const [showFormWithAmount, setShowFormWithAmount] = useState<string | undefined>(undefined);
   const [results, setResults] = useState({
     emi: 0,
     totalInterest: 0,
@@ -441,6 +442,10 @@ export default function VehicleLoans() {
                           <motion.button 
                             whileHover={{ y: -5, scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
+                            onClick={() => {
+                              setShowFormWithAmount(loanAmount.toString());
+                              document.getElementById('vehicle-form')?.scrollIntoView({ behavior: 'smooth' });
+                            }}
                             className="w-full py-8 gold-gradient rounded-[40px] font-black text-[14px] uppercase tracking-[0.4em] text-brand-blue shadow-[0_20px_50px_rgba(212,164,55,0.3)] transition-all duration-500"
                           >
                              Approve This Limit
@@ -570,7 +575,7 @@ export default function VehicleLoans() {
       </section>
 
       <div id="vehicle-form">
-        <LeadForm defaultLoanType="Vehicle Loan" />
+        <LeadForm defaultLoanType="Vehicle Loan" defaultAmount={showFormWithAmount} />
       </div>
 
       <Footer />

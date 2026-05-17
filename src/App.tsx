@@ -6,6 +6,7 @@ import HomeLoans from './pages/HomeLoans';
 import VehicleLoans from './pages/VehicleLoans';
 import FinancialSolutions from './pages/FinancialSolutions';
 import Insurance from './pages/Insurance';
+import FloatingActions from './components/FloatingActions';
 import AdminLayout from './pages/admin/AdminLayout';
 import DashboardOverview from './pages/admin/DashboardOverview';
 import WebsiteManagement from './pages/admin/WebsiteManagement';
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
       </Routes>
+      <FloatingActions />
     </Router>
   );
 }

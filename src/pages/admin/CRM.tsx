@@ -50,6 +50,7 @@ interface Lead {
   email: string;
   phone: string;
   service: string;
+  income?: string;
   amount: string;
   city: string;
   status: 'New' | 'In Progress' | 'Completed' | 'Instant Approved' | 'Under Review';
@@ -202,7 +203,12 @@ export default function CRM() {
                     </td>
                     <td className="py-6">
                       <div className="flex flex-col gap-0.5">
-                        <span className="text-sm font-serif text-brand-gold/80">₹{lead.amount}</span>
+                        <span className="text-sm font-serif text-brand-gold/80">Req: ₹{lead.amount || '---'}</span>
+                        {lead.income && (
+                          <span className="text-[9px] text-white/40 uppercase tracking-tighter">
+                            Income: ₹{lead.income}
+                          </span>
+                        )}
                         {lead.type === 'eligibility' && (
                           <span className="text-[9px] text-white/40 uppercase tracking-tighter">
                             CIBIL: {lead.cibil} | Salary: ₹{lead.salary?.toLocaleString()}
