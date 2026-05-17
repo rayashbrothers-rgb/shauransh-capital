@@ -24,37 +24,65 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="py-24 bg-black/20" id="testimonials">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
-          <span className="text-brand-gold text-xs font-bold uppercase tracking-[0.4em] mb-4 inline-block">Voices of Trust</span>
-          <h2 className="text-4xl md:text-5xl font-serif font-bold italic gold-text-gradient">Client Experiences</h2>
+    <section className="py-32 relative overflow-hidden" id="testimonials">
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-gold/5 blur-[120px] rounded-full pointer-events-none" />
+      
+      <div className="max-w-[1400px] mx-auto px-8 lg:px-12 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+          <div className="flex flex-col gap-6">
+            <motion.span 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="text-brand-gold text-xs font-black uppercase tracking-[0.4em]"
+            >
+              Institutional Legacy
+            </motion.span>
+            <h2 className="text-5xl md:text-6xl lg:text-[70px] font-serif font-medium leading-[0.9] tracking-tight text-white italic">
+              Trusted by <span className="gold-text-gradient font-semibold not-italic">Captains of Industry</span>
+            </h2>
+          </div>
+          <p className="text-lg text-white/40 font-light max-w-sm border-l border-white/10 pl-6">
+            Our commitment to excellence is reflected in the journeys of those we serve.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-10">
           {reviews.map((review, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.1 }}
-              className="glass-card p-8 rounded-[40px] relative group"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.2, duration: 1, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="glass-card p-12 lg:p-14 rounded-[60px] relative group border-white/5 hover:border-brand-gold/20 shadow-2xl transition-all duration-700"
             >
-              <div className="absolute top-0 right-0 p-8 opacity-10 text-brand-gold group-hover:opacity-20 transition-opacity">
-                <Quote size={48} />
+              <div className="absolute top-12 right-12 opacity-5 text-brand-gold group-hover:opacity-20 transition-all duration-700 group-hover:scale-125 rotate-12 group-hover:rotate-0">
+                <Quote size={80} strokeWidth={1} />
               </div>
               
-              <div className="flex gap-1 mb-6 text-brand-gold">
-                {[...Array(5)].map((_, j) => <Star key={j} size={14} fill="currentColor" />)}
+              <div className="flex gap-2 mb-10 text-brand-gold/40 group-hover:text-brand-gold transition-colors duration-700">
+                {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="currentColor" />)}
               </div>
               
-              <p className="text-white/60 mb-8 leading-relaxed font-light italic">"{review.content}"</p>
+              <p className="text-xl lg:text-2xl text-white/70 mb-12 leading-relaxed font-serif italic tracking-wide group-hover:text-white transition-colors duration-700">
+                "{review.content}"
+              </p>
               
-              <div className="flex items-center gap-4 pt-6 border-t border-white/5">
-                <img src={review.image} alt={review.name} className="w-12 h-12 rounded-full object-cover grayscale" />
-                <div>
-                  <h4 className="font-bold text-white/90">{review.name}</h4>
-                  <p className="text-xs font-bold uppercase tracking-widest text-white/30">{review.role}</p>
+              <div className="flex items-center gap-6 pt-10 border-t border-white/10">
+                <div className="relative">
+                  <img 
+                    src={review.image} 
+                    alt={review.name} 
+                    className="w-16 h-16 rounded-[20px] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 border-2 border-white/5 group-hover:border-brand-gold/30" 
+                  />
+                  <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-brand-gold flex items-center justify-center text-brand-blue shadow-lg scale-0 group-hover:scale-100 transition-transform duration-500 delay-200">
+                    <Star size={10} fill="currentColor" />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <h4 className="text-xl font-bold text-white tracking-tight">{review.name}</h4>
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-gold/60">{review.role}</p>
                 </div>
               </div>
             </motion.div>

@@ -9,105 +9,134 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="pt-24 pb-12 bg-black/40 border-t border-white/5 relative overflow-hidden" id="footer">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-2 lg:grid-cols-12 gap-16 mb-20">
-          <div className="lg:col-span-4 flex flex-col gap-6">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full overflow-hidden border border-brand-gold/30 bg-white shadow-lg flex-shrink-0">
+    <footer className="pt-32 pb-12 bg-[#030d1d] border-t border-white/5 relative overflow-hidden" id="footer">
+      {/* Cinematic End-Cap Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-blue/50 to-brand-blue opacity-80" />
+      <div className="absolute bottom-0 left-0 w-full h-[600px] bg-gradient-to-t from-brand-gold/10 to-transparent pointer-events-none opacity-50" />
+      
+      <div className="max-w-[1400px] mx-auto px-8 lg:px-12 relative z-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-12 gap-16 mb-24">
+          <div className="lg:col-span-5 flex flex-col gap-10">
+            <div className="flex items-center gap-6">
+              <motion.div 
+                whileHover={{ rotate: 5, scale: 1.05 }}
+                className="w-20 h-20 rounded-full overflow-hidden border-2 border-brand-gold/30 bg-white shadow-2xl p-1 shrink-0"
+              >
                 <img 
                   src="/src/assets/images/official_shauransh_logo_v2_1779023780680.png" 
                   alt="Shauransh Capital Logo" 
                   className="w-full h-full object-contain"
                   referrerPolicy="no-referrer"
                 />
-              </div>
+              </motion.div>
               <div className="flex flex-col leading-tight">
-                <span className="text-2xl font-serif font-bold gold-text-gradient tracking-tight">
+                <span className="text-3xl font-sans font-black text-white tracking-[0.1em]">
                   SHAURANSH
                 </span>
-                <span className="text-[12px] uppercase tracking-[0.3em] font-medium text-white/60">
+                <span className="text-[12px] uppercase tracking-[0.5em] font-black italic gold-text-gradient mt-0.5">
                   CAPITAL SERVICES
                 </span>
               </div>
             </div>
-            <p className="text-white/40 text-sm leading-relaxed max-w-sm">
-              Premium financial solutions engineered for long-term growth and security. Guided by the vision of Shaurya Agrawal, we build trust and create value.
+            
+            <p className="text-lg text-white/40 leading-relaxed max-w-md font-light italic">
+              Premium financial solutions engineered for long-term growth and security. Guided by the visionary leadership of Shaurya Agrawal, we bridge the gap between aspirations and institutional capital.
             </p>
-            <div className="flex gap-4 mt-4">
+            
+            <div className="flex gap-6 items-center">
               {[Linkedin, Twitter, Facebook, Instagram].map((Icon, i) => (
                 <motion.a
                   key={i}
                   href="#"
-                  whileHover={{ y: -5, color: '#D4A437' }}
-                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:border-brand-gold transition-colors"
+                  whileHover={{ y: -5, backgroundColor: 'rgba(212,164,55,0.1)', borderColor: 'rgba(212,164,55,0.5)' }}
+                  className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-brand-gold transition-all duration-500 shadow-xl"
                 >
-                  <Icon size={18} />
+                  <Icon size={20} strokeWidth={1.5} />
                 </motion.a>
               ))}
             </div>
           </div>
 
-          <div className="lg:col-span-2 space-y-6">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-brand-gold">Company</h4>
-            <ul className="space-y-4">
-              {['About', 'Careers', 'Partners', 'News'].map(item => (
-                <li key={item}>
-                  <a href="#" className="text-sm text-white/40 hover:text-white transition-colors">{item}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div className="lg:col-span-7 grid md:grid-cols-3 gap-12 pt-4">
+            <div className="space-y-8">
+              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-gold border-l-2 border-brand-gold/50 pl-4 py-1">Ecosystem</h4>
+              <ul className="space-y-4">
+                {['About Us', 'Case Studies', 'Partnerships', 'Global News'].map(item => (
+                  <li key={item}>
+                    <motion.a 
+                      href="#" 
+                      whileHover={{ x: 5, color: '#D4A437' }}
+                      className="text-sm font-medium text-white/30 transition-all duration-300 block"
+                    >
+                      {item}
+                    </motion.a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div className="lg:col-span-2 space-y-6">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-brand-gold">Services</h4>
-            <ul className="space-y-4">
-              {['Personal Loans', 'Business Loans', 'Home Loans', 'LAP'].map(item => (
-                <li key={item}>
-                  <a href="#" className="text-sm text-white/40 hover:text-white transition-colors">{item}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <div className="space-y-8">
+              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-gold border-l-2 border-brand-gold/50 pl-4 py-1">Directives</h4>
+              <ul className="space-y-4">
+                {['Personal Banking', 'Enterprise Fund', 'Estate Realty', 'Wealth Management'].map(item => (
+                  <li key={item}>
+                    <motion.a 
+                      href="#" 
+                      whileHover={{ x: 5, color: '#D4A437' }}
+                      className="text-sm font-medium text-white/30 transition-all duration-300 block"
+                    >
+                      {item}
+                    </motion.a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div className="lg:col-span-4 space-y-8">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-brand-gold">Stay Informed</h4>
-            <div className="flex flex-col gap-4">
-              <p className="text-sm text-white/40">Subscribe to receive institutional financial updates.</p>
-              <div className="flex gap-2 p-1 border border-white/10 rounded-xl bg-white/5">
-                <input 
-                  type="email" 
-                  placeholder="Email address"
-                  className="bg-transparent border-none focus:ring-0 text-sm px-4 flex-grow placeholder:text-white/20"
-                />
-                <button className="px-5 py-2 gold-gradient rounded-lg text-xs font-bold uppercase tracking-widest">
-                  Join
-                </button>
+            <div className="space-y-8">
+              <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-gold border-l-2 border-brand-gold/50 pl-4 py-1">Updates</h4>
+              <div className="flex flex-col gap-6">
+                <p className="text-xs text-white/30 font-medium leading-relaxed">Subscribe to receive institutional financial updates and private market insights.</p>
+                <div className="flex flex-col gap-3">
+                  <input 
+                    type="email" 
+                    placeholder="Institutional Email"
+                    className="w-full bg-white/[0.03] border border-white/5 rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-gold/40 text-xs text-white placeholder:text-white/20 transition-all"
+                  />
+                  <button className="w-full py-3.5 gold-gradient rounded-xl text-[10px] font-black uppercase tracking-[0.3em] text-brand-blue shadow-lg">
+                    Join Network
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/30 text-center md:text-left">
-            © {currentYear} Shauransh Capital Services. All rights reserved. <br className="md:hidden" />
-            <span className="hidden md:inline"> | </span> Regulatory Disclosures | Privacy Policy | <a href="/admin" className="hover:text-brand-gold transition-colors underline decoration-brand-gold/30">Admin Portal</a>
+        <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
+          <div className="flex flex-col gap-2 text-center md:text-left">
+            <div className="text-[10px] uppercase font-black tracking-[0.3em] text-white/20">
+              © {currentYear} SHAURANSH CAPITAL SERVICES. Institutional Standards Applied.
+            </div>
+            <div className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-2 text-[9px] uppercase font-bold tracking-[0.2em] text-white/20">
+              <a href="#" className="hover:text-brand-gold transition-colors">Regulatory Disclosures</a>
+              <a href="#" className="hover:text-brand-gold transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-brand-gold transition-colors">Terms of Engagement</a>
+              <a href="/admin" className="text-brand-gold/40 hover:text-brand-gold transition-colors underline decoration-brand-gold/20">Admin Gateway</a>
+            </div>
           </div>
           
-          <button 
+          <motion.button 
             onClick={scrollToTop}
-            className="group flex flex-col items-center gap-2 text-white/20 hover:text-brand-gold transition-colors"
+            whileHover={{ y: -5 }}
+            className="flex flex-col items-center gap-3 text-white/20 hover:text-brand-gold transition-all duration-500 group"
           >
-            <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-brand-gold transition-colors">
-              <ArrowUp size={18} />
+            <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:border-brand-gold group-hover:bg-brand-gold/5 transition-all duration-500 shadow-2xl">
+              <ArrowUp size={20} strokeWidth={2.5} />
             </div>
-            <span className="text-[10px] uppercase font-bold tracking-widest">To Top</span>
-          </button>
+            <span className="text-[10px] uppercase font-black tracking-[0.4em]">To Top</span>
+          </motion.button>
         </div>
       </div>
-      
-      {/* Decorative Gradient Overlay */}
-      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-brand-gold/5 to-transparent pointer-events-none" />
     </footer>
+
   );
 }

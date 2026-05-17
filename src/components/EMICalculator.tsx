@@ -67,66 +67,87 @@ export default function EMICalculator() {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-8 glass-card p-8 md:p-12 rounded-[40px] space-y-12"
+            className="lg:col-span-7 glass-card p-10 md:p-14 rounded-[50px] space-y-16 border-white/5 shadow-2xl relative overflow-hidden"
           >
+            {/* Background Accent */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/5 blur-[100px] rounded-full pointer-events-none" />
+
             {/* Loan Amount */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div className="flex justify-between items-end">
-                <label className="text-sm font-bold uppercase tracking-widest text-white/60">Loan Amount</label>
-                <div className="text-2xl font-bold font-mono gold-text-gradient">{formatCurrency(loanAmount)}</div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Capital Required</label>
+                  <h3 className="text-xl font-bold text-white tracking-tight">Loan Amount</h3>
+                </div>
+                <div className="text-3xl font-serif font-black gold-text-gradient italic tracking-tighter">{formatCurrency(loanAmount)}</div>
               </div>
-              <input 
-                type="range" 
-                min="100000" 
-                max="10000000" 
-                step="50000"
-                className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand-gold"
-                value={loanAmount}
-                onChange={(e) => setLoanAmount(Number(e.target.value))}
-              />
-              <div className="flex justify-between text-[10px] text-white/30 uppercase font-bold tracking-widest">
-                <span>₹1 Lakh</span>
-                <span>₹1 Cr</span>
+              <div className="relative pt-2">
+                <input 
+                  type="range" 
+                  min="100000" 
+                  max="10000000" 
+                  step="50000"
+                  className="w-full h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer accent-brand-gold relative z-10"
+                  value={loanAmount}
+                  onChange={(e) => setLoanAmount(Number(e.target.value))}
+                />
+                <div className="absolute top-1/2 left-0 h-1.5 bg-brand-gold rounded-full pointer-events-none -translate-y-1/2" style={{ width: `${((loanAmount - 100000) / (10000000 - 100000)) * 100}%` }} />
+              </div>
+              <div className="flex justify-between text-[11px] text-white/20 uppercase font-black tracking-[0.2em]">
+                <span>1 Lakh</span>
+                <span>100 Lakhs</span>
               </div>
             </div>
 
             {/* Interest Rate */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div className="flex justify-between items-end">
-                <label className="text-sm font-bold uppercase tracking-widest text-white/60">Interest Rate (% p.a)</label>
-                <div className="text-2xl font-bold font-mono gold-text-gradient">{interestRate}%</div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Interest Yield</label>
+                  <h3 className="text-xl font-bold text-white tracking-tight">Annual Percentage Rate</h3>
+                </div>
+                <div className="text-3xl font-serif font-black gold-text-gradient italic tracking-tighter">{interestRate}%</div>
               </div>
-              <input 
-                type="range" 
-                min="5" 
-                max="25" 
-                step="0.1"
-                className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand-gold"
-                value={interestRate}
-                onChange={(e) => setInterestRate(Number(e.target.value))}
-              />
-              <div className="flex justify-between text-[10px] text-white/30 uppercase font-bold tracking-widest">
+              <div className="relative pt-2">
+                <input 
+                  type="range" 
+                  min="5" 
+                  max="25" 
+                  step="0.1"
+                  className="w-full h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer accent-brand-gold relative z-10"
+                  value={interestRate}
+                  onChange={(e) => setInterestRate(Number(e.target.value))}
+                />
+                <div className="absolute top-1/2 left-0 h-1.5 bg-brand-gold rounded-full pointer-events-none -translate-y-1/2" style={{ width: `${((interestRate - 5) / (25 - 5)) * 100}%` }} />
+              </div>
+              <div className="flex justify-between text-[11px] text-white/20 uppercase font-black tracking-[0.2em]">
                 <span>5%</span>
                 <span>25%</span>
               </div>
             </div>
 
             {/* Tenure */}
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div className="flex justify-between items-end">
-                <label className="text-sm font-bold uppercase tracking-widest text-white/60">Tenure (Years)</label>
-                <div className="text-2xl font-bold font-mono gold-text-gradient">{tenure} Years</div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Amortization Period</label>
+                  <h3 className="text-xl font-bold text-white tracking-tight">Tenure in Years</h3>
+                </div>
+                <div className="text-3xl font-serif font-black gold-text-gradient italic tracking-tighter">{tenure} <span className="text-sm font-sans tracking-normal opacity-60">Years</span></div>
               </div>
-              <input 
-                type="range" 
-                min="1" 
-                max="30" 
-                step="1"
-                className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-brand-gold"
-                value={tenure}
-                onChange={(e) => setTenure(Number(e.target.value))}
-              />
-              <div className="flex justify-between text-[10px] text-white/30 uppercase font-bold tracking-widest">
+              <div className="relative pt-2">
+                <input 
+                  type="range" 
+                  min="1" 
+                  max="30" 
+                  step="1"
+                  className="w-full h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer accent-brand-gold relative z-10"
+                  value={tenure}
+                  onChange={(e) => setTenure(Number(e.target.value))}
+                />
+                <div className="absolute top-1/2 left-0 h-1.5 bg-brand-gold rounded-full pointer-events-none -translate-y-1/2" style={{ width: `${((tenure - 1) / (30 - 1)) * 100}%` }} />
+              </div>
+              <div className="flex justify-between text-[11px] text-white/20 uppercase font-black tracking-[0.2em]">
                 <span>1 Year</span>
                 <span>30 Years</span>
               </div>
@@ -135,36 +156,58 @@ export default function EMICalculator() {
 
           {/* Results Card */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.9, x: 30 }}
+            whileInView={{ opacity: 1, scale: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-4 gold-gradient p-1 rounded-[40px] shadow-2xl relative group"
+            className="lg:col-span-5 h-full"
           >
-            <div className="bg-brand-blue rounded-[38px] p-8 h-full flex flex-col justify-between">
-              <div>
-                <div className="w-16 h-16 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold mb-8">
-                  <Calculator size={32} />
-                </div>
-                <h3 className="text-xl font-bold mb-2">Monthly EMI</h3>
-                <p className="text-white/40 text-sm mb-6 font-light">Estimated monthly repayment for your selected loan parameters.</p>
-                <div className="text-5xl font-bold font-serif italic mb-8 gold-text-gradient">
-                  {formatCurrency(results.emi)}
-                </div>
-              </div>
+            <div className="relative h-full p-[2px] rounded-[50px] bg-gradient-to-br from-brand-gold via-brand-gold/20 to-transparent group overflow-hidden">
+              <div className="absolute inset-0 bg-brand-gold/10 blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
               
-              <div className="space-y-4">
-                <div className="flex justify-between text-sm py-3 border-b border-white/5">
-                  <span className="text-white/40">Total Interest</span>
-                  <span className="font-bold">{formatCurrency(results.totalInterest)}</span>
-                </div>
-                <div className="flex justify-between text-sm py-3 border-b border-white/5">
-                  <span className="text-white/40">Total Repayment</span>
-                  <span className="font-bold">{formatCurrency(results.totalPayment)}</span>
+              <div className="relative bg-[#061633] rounded-[48px] p-10 lg:p-12 h-full flex flex-col justify-between border-white/5">
+                <div className="flex flex-col gap-10">
+                  <div className="flex justify-between items-start">
+                    <div className="w-20 h-20 rounded-[24px] bg-brand-gold/10 flex items-center justify-center text-brand-gold shadow-[0_10px_30px_rgba(212,164,55,0.1)] border border-brand-gold/20">
+                      <Calculator size={36} strokeWidth={1.5} />
+                    </div>
+                    <div className="px-5 py-2 bg-brand-gold/10 border border-brand-gold/20 rounded-full">
+                      <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-gold italic">Premium Estimator</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/30">Monthly Installment</h3>
+                    <motion.div 
+                      key={results.emi}
+                      initial={{ scale: 0.95, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="text-6xl lg:text-7xl font-serif font-black italic gold-text-gradient tracking-tighter"
+                    >
+                      {formatCurrency(results.emi)}
+                    </motion.div>
+                    <p className="text-sm text-white/30 font-light max-w-[240px]">Estimated monthly obligations based on institutional interest structures.</p>
+                  </div>
                 </div>
                 
-                <button className="w-full py-4 gold-gradient rounded-xl font-bold mt-6 shadow-lg">
-                  Instant Approval
-                </button>
+                <div className="mt-16 space-y-6">
+                  <div className="flex justify-between items-center py-4 border-b border-white/5">
+                    <span className="text-[11px] uppercase font-black tracking-[0.2em] text-white/30">Total Interest Payable</span>
+                    <span className="text-lg font-serif font-bold text-white italic tracking-tight">{formatCurrency(results.totalInterest)}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-4 border-b border-white/5">
+                    <span className="text-[11px] uppercase font-black tracking-[0.2em] text-white/30">Total Repayment Sum</span>
+                    <span className="text-lg font-serif font-bold text-white italic tracking-tight">{formatCurrency(results.totalPayment)}</span>
+                  </div>
+                  
+                  <motion.button 
+                    whileHover={{ y: -4, boxShadow: '0 20px 40px rgba(212, 164, 55, 0.3)' }}
+                    whileTap={{ y: 0 }}
+                    onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="w-full py-6 gold-gradient rounded-3xl font-black mt-10 text-[13px] uppercase tracking-[0.3em] text-brand-blue shadow-[0_15px_30px_rgba(212,164,55,0.2)] transition-all duration-500"
+                  >
+                    Lock This Rate
+                  </motion.button>
+                </div>
               </div>
             </div>
           </motion.div>

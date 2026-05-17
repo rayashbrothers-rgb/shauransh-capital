@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Send, CheckCircle2, Loader2 } from 'lucide-react';
+import { Send, CheckCircle2, Loader2, ChevronRight } from 'lucide-react';
 import { db } from '../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
@@ -59,156 +59,188 @@ export default function LeadForm() {
   ];
 
   return (
-    <section className="py-24 relative overflow-hidden" id="lead-form">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="flex flex-col gap-6">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold leading-tight">
-              Begin Your Journey to <br />
-              <span className="gold-text-gradient">Financial Success</span>
-            </h2>
-            <p className="text-lg text-white/60 leading-relaxed max-w-lg font-light">
-              Submit your details and let our expert advisors curate the perfect financial solution for your specific needs.
-            </p>
+    <section className="py-32 relative overflow-hidden" id="lead-form">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-brand-gold/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-20 items-start">
+          <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-6">
+              <motion.span 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                className="text-brand-gold text-xs font-black uppercase tracking-[0.4em]"
+              >
+                Direct Advisory
+              </motion.span>
+              <h2 className="text-5xl md:text-6xl lg:text-[70px] font-serif font-medium leading-[0.9] tracking-tight text-white mb-4">
+                Begin Your <br />
+                <span className="gold-text-gradient italic font-semibold">Financial Success</span>
+              </h2>
+              <p className="text-xl text-white/40 leading-relaxed max-w-lg font-light">
+                Submit your details and let our expert advisors curate the perfect financial solution for your specific needs.
+              </p>
+            </div>
             
-            <div className="flex flex-col gap-8 mt-4">
+            <div className="flex flex-col gap-10 mt-6">
               {[
-                { title: 'Personalized Advisory', desc: 'Expert guidance tailored to your goals.' },
-                { title: 'Swift Processing', desc: 'Minimal documentation, faster approvals.' },
-                { title: 'Global Network', desc: 'Access to top-tier banking partners.' }
+                { title: 'Personalized Advisory', desc: 'Expert guidance tailored to your specific goals.' },
+                { title: 'Swift Processing', desc: 'Institutional-grade documentation and rapid approvals.' },
+                { title: 'Global Network', desc: 'Exclusive priority access to top-tier banking partners.' }
               ].map((item, i) => (
-                <div key={i} className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-brand-gold/10 flex items-center justify-center text-brand-gold shrink-0">
-                    <CheckCircle2 size={24} />
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.15 }}
+                  className="flex gap-6 group"
+                >
+                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-gold shrink-0 transition-all duration-500 group-hover:bg-brand-gold group-hover:text-brand-blue group-hover:scale-110 shadow-xl">
+                    <CheckCircle2 size={24} strokeWidth={2.5} />
                   </div>
-                  <div>
-                    <h4 className="font-bold text-white/90">{item.title}</h4>
-                    <p className="text-sm text-white/50">{item.desc}</p>
+                  <div className="flex flex-col gap-1 pt-1">
+                    <h4 className="text-lg font-bold text-white transition-colors group-hover:text-brand-gold">{item.title}</h4>
+                    <p className="text-sm text-white/40 font-light leading-relaxed">{item.desc}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
 
           <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
-            className="glass-card p-8 md:p-12 rounded-[40px] relative"
+            className="glass-card p-10 lg:p-14 rounded-[50px] relative border-brand-gold/10 shadow-[0_50px_100px_rgba(0,0,0,0.5)] overflow-hidden"
           >
-            <div className="absolute top-0 right-12 w-24 h-24 bg-brand-gold/10 blur-3xl rounded-full" />
+            {/* Form Background Pattern */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/5 blur-[80px] rounded-full pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-gold/5 blur-[80px] rounded-full pointer-events-none" />
             
             {isSubmitted ? (
               <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-center justify-center text-center py-12 gap-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex flex-col items-center justify-center text-center py-20 gap-8"
               >
-                <div className="w-20 h-20 rounded-full bg-brand-gold flex items-center justify-center text-brand-blue">
-                  <CheckCircle2 size={40} />
+                <div className="w-24 h-24 rounded-full bg-brand-gold flex items-center justify-center text-brand-blue shadow-[0_0_50px_rgba(212,164,55,0.4)]">
+                  <CheckCircle2 size={48} strokeWidth={2.5} />
                 </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">Thank You!</h3>
-                  <p className="text-white/60">Our advisor will reach out to you within 24 hours.</p>
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-3xl font-serif font-bold text-white">Application Received</h3>
+                  <p className="text-lg text-white/40 font-light max-w-xs">Our senior advisor will reach out to you within 24 business hours.</p>
                 </div>
                 <button 
                   onClick={() => setIsSubmitted(false)}
-                  className="px-6 py-2 border border-brand-gold/50 text-brand-gold rounded-lg hover:bg-brand-gold/10 transition-all"
+                  className="px-8 py-3.5 border-2 border-brand-gold/30 text-brand-gold rounded-full font-black uppercase tracking-[0.2em] text-[12px] hover:bg-brand-gold hover:text-brand-blue transition-all duration-500 hover:border-brand-gold"
                 >
-                  Submit Another Request
+                  New Consultation
                 </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-white/40 ml-1">Full Name</label>
+              <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 ml-2">Full Name</label>
                     <input 
                       required
                       type="text"
-                      placeholder="Enter your full name"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-brand-gold/50 transition-all"
+                      placeholder="e.g. Shaurya Agrawal"
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 focus:outline-none focus:border-brand-gold/40 focus:bg-white/[0.05] transition-all duration-500 text-white placeholder:text-white/20 font-light"
                       value={formData.fullName}
                       onChange={(e) => setFormData({...formData, fullName: e.target.value})}
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-white/40 ml-1">Email Address</label>
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 ml-2">Email Identity</label>
                     <input 
                       required
                       type="email"
-                      placeholder="name@example.com"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-brand-gold/50 transition-all"
+                      placeholder="identity@domain.com"
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 focus:outline-none focus:border-brand-gold/40 focus:bg-white/[0.05] transition-all duration-500 text-white placeholder:text-white/20 font-light"
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                     />
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-white/40 ml-1">Mobile Number</label>
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 ml-2">Financial Category</label>
+                    <div className="relative">
+                      <select 
+                        className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 focus:outline-none focus:border-brand-gold/40 focus:bg-white/[0.05] transition-all duration-500 text-white appearance-none cursor-pointer font-light"
+                        value={formData.loanType}
+                        onChange={(e) => setFormData({...formData, loanType: e.target.value})}
+                      >
+                        {loanTypes.map(type => <option key={type} value={type} className="bg-brand-blue text-white py-4">{type}</option>)}
+                      </select>
+                      <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">
+                        <Send size={14} className="rotate-90" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 ml-2">Mobile Number</label>
                     <input 
                       required
                       type="tel"
-                      placeholder="+91 00000 00000"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-brand-gold/50 transition-all font-mono"
+                      placeholder="+91"
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 focus:outline-none focus:border-brand-gold/40 focus:bg-white/[0.05] transition-all duration-500 text-white placeholder:text-white/20 font-mono tracking-widest"
                       value={formData.mobileNumber}
                       onChange={(e) => setFormData({...formData, mobileNumber: e.target.value})}
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-white/40 ml-1">Loan Type</label>
-                    <select 
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-brand-gold/50 transition-all appearance-none text-white/80"
-                      value={formData.loanType}
-                      onChange={(e) => setFormData({...formData, loanType: e.target.value})}
-                    >
-                      {loanTypes.map(type => <option key={type} value={type} className="bg-brand-blue">{type}</option>)}
-                    </select>
-                  </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-white/40 ml-1">Monthly Income (₹)</label>
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 ml-2">Monthly Income (INR)</label>
                     <input 
                       required
                       type="number"
-                      placeholder="e.g. 50000"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-brand-gold/50 transition-all"
+                      placeholder="e.g. 250000"
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 focus:outline-none focus:border-brand-gold/40 focus:bg-white/[0.05] transition-all duration-500 text-white placeholder:text-white/20 font-light"
                       value={formData.monthlyIncome}
                       onChange={(e) => setFormData({...formData, monthlyIncome: e.target.value})}
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-white/40 ml-1">City</label>
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 ml-2">Metro Residence (City)</label>
                     <input 
                       required
                       type="text"
-                      placeholder="Enter your city"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 focus:outline-none focus:border-brand-gold/50 transition-all"
+                      placeholder="e.g. Mumbai"
+                      className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-5 focus:outline-none focus:border-brand-gold/40 focus:bg-white/[0.05] transition-all duration-500 text-white placeholder:text-white/20 font-light"
                       value={formData.city}
                       onChange={(e) => setFormData({...formData, city: e.target.value})}
                     />
                   </div>
                 </div>
 
-                <motion.button 
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-5 gold-gradient rounded-xl font-bold flex items-center justify-center gap-3 shadow-[0_20px_40px_rgba(212,164,55,0.2)] mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
-                  id="lead-submit"
-                >
-                  {isSubmitting ? (
-                    <>Processing... <Loader2 size={20} className="animate-spin" /></>
-                  ) : (
-                    <>Submit Consultation Request <Send size={20} /></>
-                  )}
-                </motion.button>
+                <div className="pt-6">
+                  <motion.button 
+                    whileHover={{ y: -4, boxShadow: '0 25px 50px rgba(212, 164, 55, 0.3)' }}
+                    whileTap={{ y: 0 }}
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-6 gold-gradient rounded-2xl font-black flex items-center justify-center gap-4 shadow-[0_15px_30px_rgba(212,164,55,0.2)] text-[13px] uppercase tracking-[0.3em] text-brand-blue disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-500"
+                    id="lead-submit"
+                  >
+                    {isSubmitting ? (
+                      <>Processing Consultation... <Loader2 size={18} className="animate-spin" /></>
+                    ) : (
+                      <>Request Priority Consultation <ChevronRight size={18} strokeWidth={4} /></>
+                    )}
+                  </motion.button>
+                  <p className="text-[10px] text-center text-white/20 mt-6 uppercase tracking-[0.2em] font-medium italic">
+                    Institutional Privacy Standards • Absolute Confidentiality Guaranteed
+                  </p>
+                </div>
               </form>
             )}
           </motion.div>
