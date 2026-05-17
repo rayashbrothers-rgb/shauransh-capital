@@ -13,13 +13,23 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-12 gap-16 mb-20">
           <div className="lg:col-span-4 flex flex-col gap-6">
-            <div className="flex flex-col leading-tight">
-              <span className="text-2xl font-serif font-bold gold-text-gradient tracking-tight">
-                SHAURANSH
-              </span>
-              <span className="text-[12px] uppercase tracking-[0.3em] font-medium text-white/60">
-                CAPITAL SERVICES
-              </span>
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-full overflow-hidden border border-brand-gold/30 bg-white shadow-lg flex-shrink-0">
+                <img 
+                  src="/src/assets/images/official_shauransh_logo_v2_1779023780680.png" 
+                  alt="Shauransh Capital Logo" 
+                  className="w-full h-full object-contain"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="text-2xl font-serif font-bold gold-text-gradient tracking-tight">
+                  SHAURANSH
+                </span>
+                <span className="text-[12px] uppercase tracking-[0.3em] font-medium text-white/60">
+                  CAPITAL SERVICES
+                </span>
+              </div>
             </div>
             <p className="text-white/40 text-sm leading-relaxed max-w-sm">
               Premium financial solutions engineered for long-term growth and security. Guided by the vision of Shaurya Agrawal, we build trust and create value.

@@ -26,24 +26,29 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <div className="inline-flex items-center gap-3 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm shadow-xl">
-                  <div className="w-6 h-6 rounded-full bg-brand-gold/20 flex items-center justify-center">
-                    <Users size={12} className="text-brand-gold" />
+                <div className="inline-flex items-center gap-4 px-6 py-3 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm shadow-xl group hover:border-brand-gold/30 transition-all">
+                  <div className="w-14 h-14 rounded-full overflow-hidden border border-brand-gold/40 bg-white p-0.5 shadow-lg ring-4 ring-brand-gold/10 flex-shrink-0">
+                    <img 
+                      src="/src/assets/images/official_shauransh_logo_v2_1779023780680.png" 
+                      alt="Logo" 
+                      className="w-full h-full object-contain"
+                      referrerPolicy="no-referrer"
+                    />
                   </div>
-                  <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-brand-gold">
-                    Directorship of Shaurya Agrawal
+                  <span className="text-[14px] uppercase font-black tracking-[0.3em] text-brand-gold">
+                    SHAURANSH CAPITAL SERVICES
                   </span>
                 </div>
               </motion.div>
               
               <motion.h1 
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                className="text-6xl md:text-8xl lg:text-8xl font-serif font-bold leading-[1] tracking-tight text-white"
+                className="text-7xl md:text-8xl lg:text-[140px] font-serif font-medium leading-[0.9] tracking-tight text-white space-y-4"
               >
                 Building Trust. <br />
-                <span className="text-brand-gold">Creating Value.</span> <br />
+                <span className="gold-text-gradient font-serif italic font-semibold">Creating Value.</span> <br />
                 Growing <br />
                 Together.
               </motion.h1>
@@ -99,17 +104,6 @@ export default function Hero() {
                   referrerPolicy="no-referrer"
                   className="rounded-[32px] w-full h-full object-cover transition-all duration-700 hover:scale-105"
                 />
-                
-                {/* Overlay Badge */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1, duration: 0.8 }}
-                  className="absolute bottom-10 left-6 right-6 glass-card p-6 rounded-2xl border-brand-gold/20 backdrop-blur-2xl"
-                >
-                  <p className="text-[10px] uppercase tracking-widest text-brand-gold font-bold mb-1">Institutional Advisor</p>
-                  <p className="text-lg font-serif font-bold text-white">Bespoke Wealth Strategies</p>
-                </motion.div>
               </div>
             </div>
           </motion.div>

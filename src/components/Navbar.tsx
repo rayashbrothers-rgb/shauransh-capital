@@ -34,37 +34,41 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <motion.div 
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-3 group cursor-pointer"
+            whileHover={{ scale: 1.02 }}
+            className="flex items-center gap-4 group cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <div className="w-12 h-12 rounded-full border border-brand-gold/40 flex items-center justify-center relative overflow-hidden bg-white/5 backdrop-blur-sm">
-              <div className="relative z-10 flex flex-col items-center">
-                <span className="text-xl font-serif font-bold text-white leading-none">S</span>
-                <div className="flex gap-0.5 mt-[-2px]">
-                  <div className="w-[1.5px] h-2 bg-brand-gold/80 rounded-full" />
-                  <div className="w-[1.5px] h-3 bg-brand-gold rounded-full" />
-                  <div className="w-[1.5px] h-1.5 bg-brand-gold/60 rounded-full" />
-                </div>
-              </div>
+            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-brand-gold/30 bg-white shadow-xl transition-all group-hover:border-brand-gold/60 group-hover:shadow-brand-gold/20">
+              <img 
+                src="/src/assets/images/official_shauransh_logo_v2_1779023780680.png" 
+                alt="Shauransh Capital Logo" 
+                className="w-full h-full object-contain scale-110"
+                referrerPolicy="no-referrer"
+              />
             </div>
             <div className="flex flex-col leading-tight">
-              <span className="text-xl font-sans font-extrabold tracking-tight text-white leading-none">
+              <span className="text-xl font-sans font-black tracking-widest text-white leading-none">
                 SHAURANSH
               </span>
-              <span className="text-[9px] uppercase tracking-[0.4em] font-semibold text-white/50 mt-1">
-                CAPITAL SERVICES
-              </span>
+              <div className="flex flex-col mt-1">
+                <span className="text-[10px] uppercase tracking-[0.35em] font-bold text-brand-gold/80">
+                  CAPITAL
+                </span>
+                <span className="text-[9px] uppercase tracking-[0.25em] font-medium text-white/40 mt-[-1px]">
+                  SERVICES
+                </span>
+              </div>
             </div>
           </motion.div>
         </div>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-10">
+        <div className="hidden md:flex items-center gap-8 lg:gap-12">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className={`text-sm font-medium transition-colors relative group ${
+              className={`text-[13px] uppercase tracking-widest font-bold transition-colors relative group ${
                 link.name === 'Home' ? 'text-brand-gold' : 'text-white/70 hover:text-white'
               }`}
             >
@@ -72,22 +76,22 @@ export default function Navbar() {
               {link.name === 'Home' && (
                 <motion.span 
                   layoutId="nav-underline"
-                  className="absolute -bottom-1.5 left-0 w-full h-[1.5px] bg-brand-gold rounded-full" 
+                  className="absolute -bottom-2 left-0 w-8 h-[2px] bg-brand-gold rounded-full" 
                 />
               )}
             </a>
           ))}
           <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ y: -2 }}
+            whileTap={{ y: 0 }}
             onClick={() => {
               const el = document.getElementById('eligibility');
               el?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-8 py-3 gold-gradient rounded-md text-[13px] font-bold flex items-center gap-2 shadow-lg transition-all"
+            className="px-10 py-5 bg-brand-gold rounded-lg text-[13px] font-black uppercase tracking-widest text-[#061633] flex items-center gap-3 shadow-[6px_6px_0px_rgba(212,164,55,0.2)] hover:shadow-[4px_4px_0px_rgba(212,164,55,0.3)] transition-all"
             id="nav-apply-now"
           >
-            Apply Now <ChevronRight size={16} strokeWidth={3} />
+            Apply Now <ChevronRight size={14} strokeWidth={4} />
           </motion.button>
           
           <a 
