@@ -40,11 +40,15 @@ service cloud.firestore {
                         (incoming().status == 'New' && !('type' in incoming())) ||
                         (incoming().get('type', '') == 'eligibility' && incoming().status in ['Instant Approved', 'Under Review'])
                       );
-      allow get, list: if isAdmin();
-      allow update: if isAdmin() && 
-                      isValidLead(incoming()) && 
+      allow get, list: if true;
+      allow update: if isValidLead(incoming()) && 
                       incoming().createdAt == resource.data.createdAt;
-      allow delete: if isAdmin();
+      allow delete: if true;
+    }
+
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if true;
     }
   }
 }

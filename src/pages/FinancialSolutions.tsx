@@ -30,6 +30,7 @@ import {
 } from 'recharts';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import LeadForm from '../components/LeadForm';
 
 const performanceData = [
   { name: '2020', value: 4000, trend: 2400 },
@@ -149,11 +150,17 @@ export default function FinancialSolutions() {
                 transition={{ duration: 1, delay: 0.4 }}
                 className="flex flex-wrap gap-8"
               >
-                <button className="px-12 py-6 bg-brand-gold text-[#021021] font-black uppercase tracking-[0.4em] text-[13px] rounded-full shadow-[0_20px_50px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500 group overflow-hidden relative">
+                <button 
+                  onClick={() => document.getElementById('fs-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-6 bg-brand-gold text-[#021021] font-black uppercase tracking-[0.4em] text-[13px] rounded-full shadow-[0_20px_50px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500 group overflow-hidden relative"
+                >
                    <span className="relative z-10">Commission Advisory</span>
                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                 </button>
-                <button className="px-12 py-6 border border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.4em] text-[13px] rounded-full transition-all duration-500 backdrop-blur-md">
+                <button 
+                  onClick={() => document.getElementById('fs-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-6 border border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.4em] text-[13px] rounded-full transition-all duration-500 backdrop-blur-md"
+                >
                    Review Portfolio
                 </button>
               </motion.div>
@@ -474,12 +481,14 @@ export default function FinancialSolutions() {
                <div className="flex flex-wrap justify-center gap-12 relative z-10">
                   <motion.button 
                     whileHover={{ scale: 1.05, y: -5 }}
+                    onClick={() => document.getElementById('fs-form')?.scrollIntoView({ behavior: 'smooth' })}
                     className="px-20 py-8 gold-gradient text-[#020617] font-black uppercase tracking-[0.4em] text-[15px] rounded-full shadow-[0_40px_80px_rgba(212,164,55,0.3)] transition-all duration-500"
                   >
                      Initiate Protocol
                   </motion.button>
                   <motion.button 
                     whileHover={{ scale: 1.05, y: -5 }}
+                    onClick={() => document.getElementById('fs-form')?.scrollIntoView({ behavior: 'smooth' })}
                     className="px-20 py-8 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.4em] text-[15px] rounded-full transition-all duration-500"
                   >
                      Consult Partner
@@ -488,6 +497,10 @@ export default function FinancialSolutions() {
             </div>
          </div>
       </section>
+
+      <div id="fs-form">
+        <LeadForm defaultLoanType="Financial Solutions" />
+      </div>
 
       <Footer />
     </div>

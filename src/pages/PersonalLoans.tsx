@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import LeadForm from '../components/LeadForm';
+import { getSettings } from '../lib/settings';
 
 export default function PersonalLoans() {
   const [loanAmount, setLoanAmount] = useState(500000);
@@ -28,6 +30,16 @@ export default function PersonalLoans() {
     totalInterest: 0,
     totalPayment: 0
   });
+
+  useEffect(() => {
+    async function load() {
+      const data = await getSettings('emi_rates');
+      if (data && data.personalLoan) {
+        setInterestRate(Number(data.personalLoan));
+      }
+    }
+    load();
+  }, []);
 
   useEffect(() => {
     const P = loanAmount;
@@ -205,10 +217,16 @@ export default function PersonalLoans() {
                 transition={{ duration: 1, delay: 0.6 }}
                 className="flex flex-wrap gap-6"
               >
-                <button className="px-12 py-5 bg-brand-gold text-brand-blue font-black uppercase tracking-[0.3em] text-[13px] rounded-full shadow-[0_20px_40px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500">
+                <button 
+                  onClick={() => document.getElementById('personal-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-5 bg-brand-gold text-brand-blue font-black uppercase tracking-[0.3em] text-[13px] rounded-full shadow-[0_20px_40px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500"
+                >
                   Apply Now
                 </button>
-                <button className="px-12 py-5 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.3em] text-[13px] rounded-full transition-all duration-500">
+                <button 
+                  onClick={() => document.getElementById('personal-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-5 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.3em] text-[13px] rounded-full transition-all duration-500"
+                >
                   Speak to Advisor
                 </button>
               </motion.div>
@@ -573,6 +591,7 @@ export default function PersonalLoans() {
               <motion.button 
                 whileHover={{ y: -5, boxShadow: '0 25px 50px rgba(212, 164, 55, 0.3)' }}
                 whileTap={{ y: 0 }}
+                onClick={() => document.getElementById('personal-form')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-16 py-6 gold-gradient rounded-full text-brand-blue font-black uppercase tracking-[0.3em] text-[14px] shadow-2xl transition-all duration-500"
               >
                 Apply Now
@@ -580,6 +599,7 @@ export default function PersonalLoans() {
               <motion.button 
                 whileHover={{ y: -5 }}
                 whileTap={{ y: 0 }}
+                onClick={() => document.getElementById('personal-form')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-16 py-6 border-2 border-white/10 hover:border-brand-gold/50 rounded-full text-white font-black uppercase tracking-[0.3em] text-[14px] transition-all duration-500"
               >
                 Book Consultation
@@ -588,6 +608,10 @@ export default function PersonalLoans() {
           </div>
         </div>
       </section>
+
+      <div id="personal-form">
+        <LeadForm defaultLoanType="Personal Loan" />
+      </div>
 
       <Footer />
     </div>

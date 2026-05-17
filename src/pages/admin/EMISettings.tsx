@@ -7,10 +7,51 @@ import {
   Save,
   Plus,
   Trash2,
-  RefreshCw
+  RefreshCw,
+  Loader2
 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { getSettings, saveSettings } from '../../lib/settings';
 
 export default function EMISettings() {
+  const [rates, setRates] = useState({
+    homeLoan: '8.4',
+    personalLoan: '10.5',
+    businessLoan: '9.2'
+  });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    async function load() {
+      const data = await getSettings('emi_rates');
+      if (data) {
+        setRates({
+          homeLoan: data.homeLoan?.toString() || '8.4',
+          personalLoan: data.personalLoan?.toString() || '10.5',
+          businessLoan: data.businessLoan?.toString() || '9.2'
+        });
+      }
+      setLoading(false);
+    }
+    load();
+  }, []);
+
+  const handleSave = async () => {
+    setSaving(true);
+    await saveSettings('emi_rates', rates);
+    setSaving(false);
+  };
+
+  if (loading) {
+     return (
+        <div className="flex flex-col items-center justify-center py-32 gap-4">
+           <Loader2 className="text-brand-gold animate-spin" size={40} />
+           <p className="text-white/40 text-sm font-bold uppercase tracking-widest">Accessing Algorithms...</p>
+        </div>
+     );
+  }
+
   return (
     <div className="space-y-10 pb-20">
       {/* Header */}
@@ -27,8 +68,13 @@ export default function EMISettings() {
             Configure loan plans, interest rate formulas, and mathematical models.
           </p>
         </div>
-        <button className="px-8 py-3 gold-gradient rounded-lg text-[13px] font-bold uppercase tracking-widest flex items-center gap-2 shadow-xl">
-           <Save size={18} /> Update Matrix
+        <button 
+          onClick={handleSave}
+          disabled={saving}
+          className="px-8 py-3 gold-gradient rounded-lg text-[13px] font-bold uppercase tracking-widest flex items-center gap-2 shadow-xl disabled:opacity-50"
+        >
+           {saving ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />} 
+           {saving ? 'Updating...' : 'Update Matrix'}
         </button>
       </div>
 
@@ -38,9 +84,21 @@ export default function EMISettings() {
             <div className="bg-brand-blue/30 backdrop-blur-xl border border-white/10 rounded-2xl p-10">
                <h3 className="text-xs font-bold uppercase tracking-widest text-brand-gold mb-8">Basel III Compliant Interest Matrix</h3>
                <div className="grid md:grid-cols-3 gap-8">
-                  <RateInput label="Home Loan Base" value="8.4" />
-                  <RateInput label="Personal Loan" value="10.5" />
-                  <RateInput label="Business Sector" value="9.2" />
+                  <RateInput 
+                    label="Home Loan Base" 
+                    value={rates.homeLoan} 
+                    onChange={(val) => setRates({...rates, homeLoan: val})} 
+                  />
+                  <RateInput 
+                    label="Personal Loan" 
+                    value={rates.personalLoan} 
+                    onChange={(val) => setRates({...rates, personalLoan: val})}
+                  />
+                  <RateInput 
+                    label="Business Sector" 
+                    value={rates.businessLoan} 
+                    onChange={(val) => setRates({...rates, businessLoan: val})}
+                  />
                </div>
             </div>
 
@@ -131,14 +189,15 @@ export default function EMISettings() {
   );
 }
 
-function RateInput({ label, value }: { label: string, value: string }) {
+function RateInput({ label, value, onChange }: { label: string, value: string, onChange: (val: string) => void }) {
    return (
       <div className="space-y-3">
          <label className="text-[9px] uppercase tracking-widest font-bold text-white/40 block leading-none">{label}</label>
          <div className="relative group">
             <input 
                type="text" 
-               defaultValue={value}
+               value={value}
+               onChange={(e) => onChange(e.target.value)}
                className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3 text-white font-serif text-lg focus:outline-none focus:border-brand-gold group-hover:border-white/20 transition-all text-center"
             />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-brand-gold font-bold text-sm">%</span>

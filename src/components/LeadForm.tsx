@@ -1,20 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Send, CheckCircle2, Loader2, ChevronRight } from 'lucide-react';
 import { db } from '../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
-export default function LeadForm() {
+interface LeadFormProps {
+  defaultLoanType?: string;
+}
+
+export default function LeadForm({ defaultLoanType }: LeadFormProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     mobileNumber: '',
-    loanType: 'Personal Loan',
+    loanType: defaultLoanType || 'Personal Loan',
     monthlyIncome: '',
     city: ''
   });
+
+  useEffect(() => {
+    if (defaultLoanType) {
+      setFormData(prev => ({ ...prev, loanType: defaultLoanType }));
+    }
+  }, [defaultLoanType]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

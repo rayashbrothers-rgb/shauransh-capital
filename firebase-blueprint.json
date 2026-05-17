@@ -28,6 +28,12 @@
     "/leads/{leadId}": {
       "schema": "lead",
       "description": "Collection of customer leads/inquiries"
+    },
+    "/settings/{settingId}": {
+      "schema": {
+        "type": "object"
+      },
+      "description": "System settings and configuration"
     }
   }
 }

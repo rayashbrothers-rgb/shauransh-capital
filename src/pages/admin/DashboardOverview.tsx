@@ -27,19 +27,12 @@ import { db } from '../../lib/firebase';
 import { collection, query, onSnapshot, orderBy, limit } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 
-const conversionData = [
-  { name: 'Home Loan', value: 65 },
-  { name: 'Personal Loan', value: 45 },
-  { name: 'Insurance', value: 85 },
-  { name: 'Business Loan', value: 35 },
-  { name: 'Gold Loan', value: 55 },
-];
-
 export default function DashboardOverview() {
   const [leadCount, setLeadCount] = useState(0);
   const [recentLeads, setRecentLeads] = useState<any[]>([]);
   const [newTodayCount, setNewTodayCount] = useState(0);
   const [chartData, setChartData] = useState<any[]>([]);
+  const [conversionData, setConversionData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -59,7 +52,19 @@ export default function DashboardOverview() {
       }).length;
       setNewTodayCount(newToday);
 
-      // Aggregate data for chart
+      // Aggregate data for conversion chart
+      const services = docs.map(d => d.service).filter(Boolean);
+      const counts: {[key: string]: number} = {};
+      services.forEach(s => {
+        counts[s] = (counts[s] || 0) + 1;
+      });
+      const topServices = Object.entries(counts)
+        .map(([name, value]) => ({ name, value }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 5);
+      setConversionData(topServices);
+
+      // Aggregate data for growth chart
       const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       const last6Months = [];
       const now = new Date();

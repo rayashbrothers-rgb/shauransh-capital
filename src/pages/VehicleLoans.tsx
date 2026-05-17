@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import LeadForm from '../components/LeadForm';
+import { getSettings } from '../lib/settings';
 
 export default function VehicleLoans() {
   const [loanAmount, setLoanAmount] = useState(1000000);
@@ -26,6 +28,16 @@ export default function VehicleLoans() {
     totalInterest: 0,
     totalPayment: 0
   });
+
+  useEffect(() => {
+    async function load() {
+      const data = await getSettings('emi_rates');
+      if (data && data.vehicleLoan) {
+        setInterestRate(Number(data.vehicleLoan));
+      }
+    }
+    load();
+  }, []);
 
   useEffect(() => {
     const P = loanAmount;
@@ -184,10 +196,16 @@ export default function VehicleLoans() {
                 transition={{ duration: 1, delay: 0.6 }}
                 className="flex flex-wrap gap-6"
               >
-                <button className="px-12 py-5 bg-brand-gold text-brand-blue font-black uppercase tracking-[0.3em] text-[13px] rounded-full shadow-[0_20px_40px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500">
+                <button 
+                  onClick={() => document.getElementById('vehicle-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-5 bg-brand-gold text-brand-blue font-black uppercase tracking-[0.3em] text-[13px] rounded-full shadow-[0_20px_40px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500"
+                >
                   Fund Your Drive
                 </button>
-                <button className="px-12 py-5 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.3em] text-[13px] rounded-full transition-all duration-500">
+                <button 
+                  onClick={() => document.getElementById('vehicle-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-5 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.3em] text-[13px] rounded-full transition-all duration-500"
+                >
                   Asset Consulting
                 </button>
               </motion.div>
@@ -533,6 +551,7 @@ export default function VehicleLoans() {
                  <motion.button 
                    whileHover={{ y: -5, boxShadow: '0 30px 60px rgba(212, 164, 55, 0.4)' }}
                    whileTap={{ y: 0 }}
+                   onClick={() => document.getElementById('vehicle-form')?.scrollIntoView({ behavior: 'smooth' })}
                    className="px-20 py-8 gold-gradient rounded-full text-brand-blue font-black uppercase tracking-[0.4em] text-[15px] shadow-2xl transition-all duration-500"
                  >
                     Apply Now
@@ -540,6 +559,7 @@ export default function VehicleLoans() {
                  <motion.button 
                    whileHover={{ y: -5 }}
                    whileTap={{ y: 0 }}
+                   onClick={() => document.getElementById('vehicle-form')?.scrollIntoView({ behavior: 'smooth' })}
                    className="px-20 py-8 border-2 border-white/10 hover:border-brand-gold/50 rounded-full text-white font-black uppercase tracking-[0.4em] text-[15px] transition-all duration-500"
                  >
                     Book Consultation
@@ -548,6 +568,10 @@ export default function VehicleLoans() {
            </div>
         </div>
       </section>
+
+      <div id="vehicle-form">
+        <LeadForm defaultLoanType="Vehicle Loan" />
+      </div>
 
       <Footer />
     </div>

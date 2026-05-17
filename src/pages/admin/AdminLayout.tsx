@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import AdminNavbar from '../../components/admin/AdminNavbar';
 import { motion } from 'motion/react';
 import { Lock, LogIn, Loader2 } from 'lucide-react';
-
-const ADMIN_EMAIL = 'rayashbrothers@gmail.com';
 
 export default function AdminLayout() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -13,6 +11,7 @@ export default function AdminLayout() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const authSession = localStorage.getItem('shauransh_admin_auth');
@@ -58,7 +57,7 @@ export default function AdminLayout() {
           </div>
           <h1 className="text-3xl font-serif font-bold text-white mb-4">Institutional Access</h1>
           <p className="text-white/40 text-sm mb-10 leading-relaxed font-light">
-            Authorized personnel only. Please verify your identity via the Google Intelligence gateway to manage Shauransh Capital assets.
+            Authorized personnel only. Please verify your identity via the secure systems gateway to manage Shauransh Capital assets.
           </p>
           
           <form onSubmit={handleLogin} className="space-y-4">
@@ -89,7 +88,7 @@ export default function AdminLayout() {
               <motion.p 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-red-400 text-xs font-bold"
+                className="text-red-400 text-xs font-bold mb-4"
               >
                 {error}
               </motion.p>
@@ -97,7 +96,7 @@ export default function AdminLayout() {
 
             <button 
               type="submit"
-              className="w-full py-4 gold-gradient rounded-xl font-bold flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(212,164,55,0.2)] hover:-translate-y-1 transition-all mt-6 text-sm uppercase tracking-widest"
+              className="w-full py-4 gold-gradient rounded-xl font-bold flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(212,164,55,0.2)] hover:-translate-y-1 transition-all mt-6 text-sm uppercase tracking-widest text-brand-blue"
             >
               <LogIn size={18} /> Authenticate System
             </button>
@@ -105,7 +104,7 @@ export default function AdminLayout() {
 
           <div className="mt-8 flex flex-col gap-4">
              <p className="text-[10px] uppercase tracking-widest text-white/20 font-bold">Encrypted System v2.0</p>
-             <a href="/" className="text-xs text-white/40 hover:text-white transition-colors underline decoration-white/10 underline-offset-4">Return to Public Interface</a>
+             <button onClick={() => navigate('/')} className="text-xs text-white/40 hover:text-white transition-colors underline decoration-white/10 underline-offset-4">Return to Public Interface</button>
           </div>
         </motion.div>
       </div>

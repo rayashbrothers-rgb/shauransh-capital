@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import LeadForm from '../components/LeadForm';
 
 export default function Insurance() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -132,10 +133,16 @@ export default function Insurance() {
                 transition={{ duration: 1, delay: 0.6 }}
                 className="flex flex-wrap gap-6"
               >
-                <button className="px-12 py-5 bg-brand-gold text-brand-blue font-black uppercase tracking-[0.3em] text-[13px] rounded-full shadow-[0_20px_40px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500">
+                <button 
+                  onClick={() => document.getElementById('ins-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-5 bg-brand-gold text-brand-blue font-black uppercase tracking-[0.3em] text-[13px] rounded-full shadow-[0_20px_40px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500"
+                >
                   Secure Protection
                 </button>
-                <button className="px-12 py-5 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.3em] text-[13px] rounded-full transition-all duration-500">
+                <button 
+                  onClick={() => document.getElementById('ins-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-5 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.3em] text-[13px] rounded-full transition-all duration-500"
+                >
                   Risk Audit
                 </button>
               </motion.div>
@@ -297,6 +304,7 @@ export default function Insurance() {
               <motion.button 
                 whileHover={{ y: -5, boxShadow: '0 30px 60px rgba(212, 164, 55, 0.4)' }}
                 whileTap={{ y: 0 }}
+                onClick={() => document.getElementById('ins-form')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-20 py-7 gold-gradient rounded-full text-brand-blue font-black uppercase tracking-[0.4em] text-[14px] shadow-2xl transition-all duration-500"
               >
                 Inquire Protection
@@ -304,6 +312,7 @@ export default function Insurance() {
               <motion.button 
                 whileHover={{ y: -5 }}
                 whileTap={{ y: 0 }}
+                onClick={() => document.getElementById('ins-form')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-20 py-7 border-2 border-white/10 hover:border-brand-gold/50 rounded-full text-white font-black uppercase tracking-[0.4em] text-[14px] transition-all duration-500"
               >
                 Request Risk Audit
@@ -312,6 +321,10 @@ export default function Insurance() {
           </div>
         </div>
       </section>
+
+      <div id="ins-form">
+        <LeadForm defaultLoanType="Insurance" />
+      </div>
 
       <Footer />
     </div>

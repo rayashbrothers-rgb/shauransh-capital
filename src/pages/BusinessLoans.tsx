@@ -26,6 +26,7 @@ import {
 } from 'recharts';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import LeadForm from '../components/LeadForm';
 
 const growthData = [
   { month: 'Jan', expansion: 1000, capital: 800 },
@@ -167,10 +168,16 @@ export default function BusinessLoans() {
                 transition={{ duration: 1, delay: 0.6 }}
                 className="flex flex-wrap gap-6"
               >
-                <button className="px-12 py-5 bg-brand-gold text-brand-blue font-black uppercase tracking-[0.3em] text-[13px] rounded-full shadow-[0_20px_40px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500">
+                <button 
+                  onClick={() => document.getElementById('business-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-5 bg-brand-gold text-brand-blue font-black uppercase tracking-[0.3em] text-[13px] rounded-full shadow-[0_20px_40px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500"
+                >
                   Initiate Growth
                 </button>
-                <button className="px-12 py-5 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.3em] text-[13px] rounded-full transition-all duration-500">
+                <button 
+                  onClick={() => document.getElementById('business-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-5 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.3em] text-[13px] rounded-full transition-all duration-500"
+                >
                   Expansion Advisory
                 </button>
               </motion.div>
@@ -449,6 +456,7 @@ export default function BusinessLoans() {
               <motion.button 
                 whileHover={{ y: -5, boxShadow: '0 30px 60px rgba(212, 164, 55, 0.4)' }}
                 whileTap={{ y: 0 }}
+                onClick={() => document.getElementById('business-form')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-16 py-6 gold-gradient rounded-full text-brand-blue font-black uppercase tracking-[0.3em] text-[14px] shadow-2xl transition-all duration-500"
               >
                 Apply for Priority Funding
@@ -456,6 +464,7 @@ export default function BusinessLoans() {
               <motion.button 
                 whileHover={{ y: -5 }}
                 whileTap={{ y: 0 }}
+                onClick={() => document.getElementById('business-form')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-16 py-6 border-2 border-white/10 hover:border-brand-gold/50 rounded-full text-white font-black uppercase tracking-[0.3em] text-[14px] transition-all duration-500"
               >
                 Book Strategic Consultation
@@ -464,6 +473,10 @@ export default function BusinessLoans() {
           </div>
         </div>
       </section>
+
+      <div id="business-form">
+        <LeadForm defaultLoanType="Business Loan" />
+      </div>
 
       <Footer />
     </div>

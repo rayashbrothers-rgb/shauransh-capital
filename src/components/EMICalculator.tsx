@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Calculator, Info } from 'lucide-react';
+import { Calculator } from 'lucide-react';
+import { getSettings } from '../lib/settings';
 
 export default function EMICalculator() {
   const [loanAmount, setLoanAmount] = useState(1000000);
@@ -11,6 +12,16 @@ export default function EMICalculator() {
     totalInterest: 0,
     totalPayment: 0
   });
+
+  useEffect(() => {
+    async function loadRates() {
+      const rates = await getSettings('emi_rates');
+      if (rates && rates.homeLoan) {
+        setInterestRate(Number(rates.homeLoan));
+      }
+    }
+    loadRates();
+  }, []);
 
   useEffect(() => {
     const P = loanAmount;

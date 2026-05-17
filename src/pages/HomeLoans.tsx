@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import LeadForm from '../components/LeadForm';
+import { getSettings } from '../lib/settings';
 
 export default function HomeLoans() {
   const [loanAmount, setLoanAmount] = useState(5000000);
@@ -26,6 +28,16 @@ export default function HomeLoans() {
     totalInterest: 0,
     totalPayment: 0
   });
+
+  useEffect(() => {
+    async function load() {
+      const data = await getSettings('emi_rates');
+      if (data && data.homeLoan) {
+        setInterestRate(Number(data.homeLoan));
+      }
+    }
+    load();
+  }, []);
 
   useEffect(() => {
     const P = loanAmount;
@@ -172,10 +184,16 @@ export default function HomeLoans() {
                 transition={{ duration: 1, delay: 0.6 }}
                 className="flex flex-wrap gap-6"
               >
-                <button className="px-12 py-5 bg-brand-gold text-brand-blue font-black uppercase tracking-[0.3em] text-[13px] rounded-full shadow-[0_20px_40px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500">
+                <button 
+                  onClick={() => document.getElementById('home-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-5 bg-brand-gold text-brand-blue font-black uppercase tracking-[0.3em] text-[13px] rounded-full shadow-[0_20px_40px_rgba(212,164,55,0.2)] hover:scale-105 transition-all duration-500"
+                >
                   Begin Application
                 </button>
-                <button className="px-12 py-5 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.3em] text-[13px] rounded-full transition-all duration-500">
+                <button 
+                  onClick={() => document.getElementById('home-form')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-12 py-5 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.3em] text-[13px] rounded-full transition-all duration-500"
+                >
                   Property Consulting
                 </button>
               </motion.div>
@@ -454,6 +472,7 @@ export default function HomeLoans() {
               <motion.button 
                 whileHover={{ y: -5, boxShadow: '0 30px 60px rgba(212, 164, 55, 0.4)' }}
                 whileTap={{ y: 0 }}
+                onClick={() => document.getElementById('home-form')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-20 py-7 gold-gradient rounded-full text-brand-blue font-black uppercase tracking-[0.4em] text-[14px] shadow-2xl transition-all duration-500"
               >
                 Claim Priority Funding
@@ -461,6 +480,7 @@ export default function HomeLoans() {
               <motion.button 
                 whileHover={{ y: -5 }}
                 whileTap={{ y: 0 }}
+                onClick={() => document.getElementById('home-form')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-20 py-7 border-2 border-white/10 hover:border-brand-gold/50 rounded-full text-white font-black uppercase tracking-[0.4em] text-[14px] transition-all duration-500"
               >
                 Inquire Property Terms
@@ -469,6 +489,10 @@ export default function HomeLoans() {
           </div>
         </div>
       </section>
+
+      <div id="home-form">
+        <LeadForm defaultLoanType="Home Loan" />
+      </div>
 
       <Footer />
     </div>
