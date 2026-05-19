@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { 
   ChevronRight, 
@@ -64,12 +64,14 @@ export default function PersonalLoans() {
     });
   }, [loanAmount, interestRate, tenure]);
 
+  const formatter = useMemo(() => new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0
+  }), []);
+
   const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(val);
+    return formatter.format(val);
   };
 
   const benefits = [
@@ -209,7 +211,7 @@ export default function PersonalLoans() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="text-6xl md:text-7xl lg:text-[100px] font-serif font-medium leading-[0.9] tracking-tight"
+                className="text-4xl md:text-7xl lg:text-[100px] font-serif font-medium leading-[1.1] md:leading-[0.9] tracking-tight"
               >
                 Personal Loans <br />
                 <span className="italic gold-text-gradient font-semibold">Designed for Ambition.</span>
@@ -289,6 +291,7 @@ export default function PersonalLoans() {
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 className="glass-card p-10 rounded-[40px] border-white/5 text-center flex flex-col gap-2 group hover:border-brand-gold/20 transition-all duration-500"
               >
@@ -325,12 +328,15 @@ export default function PersonalLoans() {
                 key={i}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 className="glass-card p-10 lg:p-12 rounded-[50px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-500"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 blur-[60px] rounded-full group-hover:bg-brand-gold/10 transition-all" />
-                <div className="w-16 h-16 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-lg">
-                  {benefit.icon}
+                <div className="w-16 h-16 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:shadow-brand-gold/30">
+                  <div className="transition-transform duration-500 group-hover:scale-110">
+                    {benefit.icon}
+                  </div>
                 </div>
                 <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-brand-gold transition-colors">{benefit.title}</h3>
                 <p className="text-white/40 font-light leading-relaxed">{benefit.desc}</p>
@@ -358,6 +364,7 @@ export default function PersonalLoans() {
                   key={i}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ delay: i * 0.2 }}
                   className="flex flex-col items-center lg:items-start text-center lg:text-left group"
                 >
@@ -407,6 +414,7 @@ export default function PersonalLoans() {
                   key={i}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   className="glass-card p-10 rounded-[50px] border-white/5 flex flex-col gap-1 hover:border-brand-gold/20 transition-all duration-500"
                 >
@@ -515,7 +523,7 @@ export default function PersonalLoans() {
                       <div className="flex flex-col gap-10">
                         <div className="flex flex-col gap-4">
                           <span className="text-[11px] uppercase font-black tracking-[0.4em] text-white/30">Contractual Monthly EMI</span>
-                          <div className="text-6xl lg:text-7xl font-serif font-black italic gold-text-gradient tracking-tighter">
+                          <div className="text-5xl lg:text-7xl font-serif font-black italic gold-text-gradient tracking-tighter">
                             {formatCurrency(results.emi)}
                           </div>
                         </div>

@@ -63,9 +63,11 @@ export default function WhyChooseUs() {
                   viewport={{ once: true }}
                   className="p-8 rounded-[32px] glass-card border-white/5 hover:border-brand-gold/20 transition-all duration-500 group"
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-lg">
+                <div className="w-14 h-14 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:shadow-brand-gold/30">
+                  <div className="transition-transform duration-500 group-hover:scale-110">
                     {point.icon}
                   </div>
+                </div>
                   <h4 className="text-lg font-bold mb-3 text-white group-hover:text-brand-gold transition-colors">{point.title}</h4>
                   <p className="text-sm text-white/40 leading-relaxed font-light">{point.desc}</p>
                 </motion.div>

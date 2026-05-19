@@ -5,8 +5,8 @@ import { useState } from 'react';
 export default function FloatingActions() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const whatsappNumber = "919876543210"; // Replace with actual number
-  const phoneNumber = "+919876543210"; // Replace with actual number
+  const whatsappNumber = "919599034002";
+  const phoneNumber = "+919599034002";
   const message = "Hello, I am interested in Shauransh Capital's services.";
 
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
@@ -33,7 +33,7 @@ export default function FloatingActions() {
             >
               <span className="text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">WhatsApp Us</span>
               <div className="w-10 h-10 flex items-center justify-center">
-                <MessageSquare size={24} fill="currentColor" />
+                <MessageSquare size={24} />
               </div>
             </motion.a>
 

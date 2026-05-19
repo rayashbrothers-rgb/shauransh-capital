@@ -164,7 +164,7 @@ export default function HomeLoans() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="text-6xl md:text-7xl lg:text-[85px] font-serif font-medium leading-[0.95] tracking-tight"
+                className="text-4xl md:text-7xl lg:text-[85px] font-serif font-medium leading-[1.1] md:leading-[0.95] tracking-tight"
               >
                 Turning Aspirations <br />
                 <span className="italic gold-text-gradient font-semibold">Into Addresses.</span>
@@ -249,8 +249,10 @@ export default function HomeLoans() {
                 viewport={{ once: true }}
                 className="p-10 lg:p-14 glass-card rounded-[60px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-700"
               >
-                <div className="w-20 h-20 rounded-[28px] bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-xl border border-brand-gold/10">
-                  {benefit.icon}
+                <div className="w-20 h-20 rounded-[28px] bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-xl border border-brand-gold/10 group-hover:scale-110 group-hover:shadow-brand-gold/30">
+                  <div className="transition-transform duration-500 group-hover:scale-110">
+                    {benefit.icon}
+                  </div>
                 </div>
                 <h3 className="text-2xl font-bold mb-6 text-white group-hover:text-brand-gold transition-colors">{benefit.title}</h3>
                 <p className="text-white/40 font-light leading-relaxed text-lg italic">{benefit.desc}</p>
@@ -350,7 +352,7 @@ export default function HomeLoans() {
                         <div className="flex flex-col gap-12 text-center lg:text-left">
                           <div className="flex flex-col gap-4">
                             <span className="text-[11px] font-black uppercase tracking-[0.5em] text-white/20">Amortized Monthly Installment</span>
-                            <div className="text-7xl lg:text-8xl font-serif font-black italic gold-text-gradient tracking-tighter leading-none">
+                            <div className="text-5xl md:text-7xl lg:text-8xl font-serif font-black italic gold-text-gradient tracking-tighter leading-none">
                               {formatCurrency(results.emi)}
                             </div>
                           </div>

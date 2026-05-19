@@ -6,12 +6,18 @@ import {
   ChevronDown,
   User as UserIcon,
   ExternalLink,
-  LogOut
+  LogOut,
+  Menu,
+  X
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { auth } from '../../lib/firebase';
 
-export default function AdminNavbar() {
+interface AdminNavbarProps {
+  onMenuClick: () => void;
+}
+
+export default function AdminNavbar({ onMenuClick }: AdminNavbarProps) {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -25,15 +31,25 @@ export default function AdminNavbar() {
   };
 
   return (
-    <nav className="h-20 bg-brand-blue/30 backdrop-blur-xl border-b border-white/5 px-8 flex items-center justify-between sticky top-0 z-40">
-      {/* Search Box */}
-      <div className="flex items-center gap-4 bg-white/5 border border-white/10 px-4 py-2 rounded-lg w-96 group focus-within:border-brand-gold/50 transition-all">
-        <Search size={18} className="text-white/30 group-focus-within:text-brand-gold transition-colors" />
-        <input 
-          type="text" 
-          placeholder="Search for analytics, clients, or content..." 
-          className="bg-transparent border-none text-sm text-white focus:outline-none w-full placeholder:text-white/20"
-        />
+    <nav className="h-20 bg-brand-blue/30 backdrop-blur-xl border-b border-white/5 px-4 lg:px-8 flex items-center justify-between sticky top-0 z-40">
+      <div className="flex items-center gap-4">
+        {/* Mobile Menu Toggle */}
+        <button 
+          onClick={onMenuClick}
+          className="lg:hidden p-2 text-white/70 hover:text-brand-gold transition-colors"
+        >
+          <Menu size={24} />
+        </button>
+
+        {/* Search Box - Hidden on small mobile */}
+        <div className="hidden sm:flex items-center gap-4 bg-white/5 border border-white/10 px-4 py-2 rounded-lg md:w-96 group focus-within:border-brand-gold/50 transition-all">
+          <Search size={18} className="text-white/30 group-focus-within:text-brand-gold transition-colors" />
+          <input 
+            type="text" 
+            placeholder="Search..." 
+            className="bg-transparent border-none text-sm text-white focus:outline-none w-full placeholder:text-white/20"
+          />
+        </div>
       </div>
 
       {/* Actions */}

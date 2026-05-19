@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Search, 
   Filter, 
@@ -11,7 +11,7 @@ import {
   Trash2
 } from 'lucide-react';
 import { db, auth } from '../../lib/firebase';
-import { collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc, Timestamp } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot, doc, updateDoc, deleteDoc, Timestamp, limit } from 'firebase/firestore';
 
 enum OperationType {
   CREATE = 'create',
@@ -64,23 +64,44 @@ export default function CRM() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isOffline, setIsOffline] = useState(false);
 
   useEffect(() => {
-    const q = query(collection(db, 'leads'), orderBy('createdAt', 'desc'));
+    const q = query(
+      collection(db, 'leads'), 
+      orderBy('createdAt', 'desc'),
+      limit(100)
+    );
     
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const leadsData = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })) as Lead[];
-      setLeads(leadsData);
-      setLoading(false);
-    }, (error) => {
-      handleFirestoreError(error, OperationType.LIST, 'leads');
-      setLoading(false);
-    });
+    let retryTimeout: NodeJS.Timeout;
 
-    return () => unsubscribe();
+    const startListener = () => {
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const leadsData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as Lead[];
+        setLeads(leadsData);
+        setLoading(false);
+        setIsOffline(false);
+      }, (error) => {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        if (errorMessage.includes('offline') || errorMessage.includes('Could not reach')) {
+          setIsOffline(true);
+        } else {
+          handleFirestoreError(error, OperationType.LIST, 'leads');
+        }
+        setLoading(false);
+      });
+      return unsubscribe;
+    };
+
+    const unsubscribe = startListener();
+
+    return () => {
+      unsubscribe();
+      clearTimeout(retryTimeout);
+    };
   }, []);
 
   const updateStatus = async (id: string, newStatus: Lead['status']) => {
@@ -118,6 +139,23 @@ export default function CRM() {
 
   return (
     <div className="space-y-10 pb-20">
+      {/* Offline Alert */}
+      <AnimatePresence>
+        {isOffline && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="bg-brand-gold/10 border border-brand-gold/20 rounded-xl p-4 flex items-center justify-center gap-3"
+          >
+            <div className="w-2 h-2 rounded-full bg-brand-gold animate-pulse" />
+            <p className="text-brand-gold text-[10px] uppercase font-black tracking-widest">
+              Connectivity latency detected. Attempting secure reconnection...
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <div className="flex items-end justify-between">
         <div className="flex flex-col gap-2">

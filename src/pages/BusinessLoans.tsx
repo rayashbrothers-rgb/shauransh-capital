@@ -147,7 +147,7 @@ export default function BusinessLoans() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="text-6xl md:text-7xl lg:text-[90px] font-serif font-medium leading-[0.9] tracking-tight"
+                className="text-4xl md:text-7xl lg:text-[90px] font-serif font-medium leading-[1.1] md:leading-[0.9] tracking-tight"
               >
                 Capital Solutions <br />
                 <span className="italic gold-text-gradient font-semibold">Built for Expansion.</span>
@@ -284,8 +284,10 @@ export default function BusinessLoans() {
                 transition={{ delay: i * 0.1 }}
                 className="glass-card p-10 lg:p-14 rounded-[60px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-700"
               >
-                <div className="w-16 h-16 rounded-[24px] bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-xl border border-brand-gold/10">
-                  {solution.icon}
+                <div className="w-16 h-16 rounded-[24px] bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-xl border border-brand-gold/10 group-hover:scale-110 group-hover:shadow-brand-gold/30">
+                  <div className="transition-transform duration-500 group-hover:scale-110">
+                    {solution.icon}
+                  </div>
                 </div>
                 <h3 className="text-2xl font-bold mb-6 text-white group-hover:text-brand-gold transition-colors">{solution.title}</h3>
                 <p className="text-white/40 font-light leading-relaxed text-lg">{solution.desc}</p>

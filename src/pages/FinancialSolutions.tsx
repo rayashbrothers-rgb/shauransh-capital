@@ -128,11 +128,11 @@ export default function FinancialSolutions() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
-                className="text-6xl md:text-8xl font-serif font-medium leading-[0.9] tracking-tighter"
+                className="text-4xl md:text-8xl font-serif font-medium leading-[1.1] md:leading-[0.9] tracking-tighter"
               >
                 Strategic <br />
                 Financial <span className="italic gold-text-gradient font-black">Intelligence</span> <br />
-                <span className="text-3xl md:text-5xl text-white/40 block mt-4 font-light italic">for Modern Wealth.</span>
+                <span className="text-2xl md:text-5xl text-white/40 block mt-4 font-light italic">for Modern Wealth.</span>
               </motion.h1>
 
               <motion.p 
@@ -269,8 +269,10 @@ export default function FinancialSolutions() {
                >
                  <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 blur-[60px] rounded-full -mr-16 -mt-16 group-hover:bg-brand-gold/10 transition-colors" />
                  
-                 <div className="w-20 h-20 rounded-3xl bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-[#020617] transition-all duration-500 shadow-xl border border-brand-gold/10">
-                   {sol.icon}
+                 <div className="w-20 h-20 rounded-3xl bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-[#020617] transition-all duration-500 shadow-xl border border-brand-gold/10 group-hover:scale-110 group-hover:shadow-brand-gold/30">
+                   <div className="transition-transform duration-500 group-hover:scale-110">
+                    {sol.icon}
+                   </div>
                  </div>
 
                  <h3 className="text-2xl font-serif font-black text-white italic mb-6 group-hover:text-brand-gold transition-colors">{sol.title}</h3>

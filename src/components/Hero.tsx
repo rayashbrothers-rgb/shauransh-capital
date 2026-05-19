@@ -11,6 +11,9 @@ export default function Hero() {
             src="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?auto=format&fit=crop&q=80&w=2400" 
             alt="Premium Metropolitan Night" 
             className="w-full h-full object-cover grayscale-[0.3] scale-110"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-brand-blue via-brand-blue/90 to-brand-blue/40" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(212,164,55,0.05)_0%,transparent_50%)]" />
@@ -27,8 +30,8 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <div className="inline-flex items-center gap-4 px-6 py-3 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm shadow-xl group hover:border-brand-gold/30 transition-all">
-                  <div className="w-14 h-14 rounded-full overflow-hidden border border-brand-gold/40 bg-white p-0.5 shadow-lg ring-4 ring-brand-gold/10 flex-shrink-0">
+                <div className="inline-flex items-center gap-3 lg:gap-4 px-5 lg:px-6 py-2.5 lg:py-3 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm shadow-xl group hover:border-brand-gold/30 transition-all">
+                  <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-full overflow-hidden border border-brand-gold/40 bg-white p-0.5 shadow-lg ring-4 ring-brand-gold/10 flex-shrink-0">
                     <img 
                       src="/src/assets/images/official_shauransh_logo_v2_1779023780680.png" 
                       alt="Logo" 
@@ -36,7 +39,7 @@ export default function Hero() {
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  <span className="text-[14px] uppercase font-black tracking-[0.3em] text-brand-gold">
+                  <span className="text-[10px] lg:text-[14px] uppercase font-black tracking-[0.2em] lg:tracking-[0.3em] text-brand-gold">
                     SHAURANSH CAPITAL SERVICES
                   </span>
                 </div>
@@ -47,10 +50,10 @@ export default function Hero() {
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                  className="text-7xl md:text-8xl lg:text-[130px] xl:text-[145px] font-serif font-medium leading-[0.85] tracking-tight text-white"
+                  className="text-5xl md:text-8xl lg:text-[130px] xl:text-[145px] font-serif font-medium leading-[0.9] md:leading-[0.85] tracking-tight text-white font-medium"
                 >
-                  Building Trust. <br />
-                  <span className="gold-text-gradient font-serif italic font-semibold">Creating Value.</span> <br />
+                  Building Trust. <br className="hidden md:block" />
+                  <span className="gold-text-gradient font-serif italic font-semibold">Creating Value.</span> <br className="hidden md:block" />
                   Growing Together.
                 </motion.h1>
               </div>

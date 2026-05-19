@@ -144,12 +144,18 @@ export default function Services() {
                   <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-brand-gold/10 rounded-full blur-[80px]" />
                 )}
 
-                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-10 transition-all duration-500 shadow-lg ${
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-10 transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:shadow-brand-gold/30 group-hover:ring-brand-gold/50 ${
                   isFeatured 
                     ? 'bg-brand-gold text-brand-blue ring-4 ring-brand-gold/20' 
-                    : 'bg-brand-gold/10 text-brand-gold group-hover:bg-brand-gold group-hover:text-brand-blue'
+                    : 'bg-brand-gold/10 text-brand-gold group-hover:bg-brand-gold group-hover:text-brand-blue group-hover:shadow-[0_0_20px_rgba(212,164,55,0.4)]'
                 }`}>
-                  {service.icon}
+                  <motion.div 
+                    whileHover={{ rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className="transition-transform duration-500 group-hover:scale-110"
+                  >
+                    {service.icon}
+                  </motion.div>
                 </div>
                 
                 <div className="flex flex-col gap-4">

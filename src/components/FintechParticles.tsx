@@ -1,15 +1,21 @@
 import { motion } from 'motion/react';
+import { useMemo } from 'react';
 
 export default function FintechParticles() {
-  // Generate a set of random particles
-  const particles = Array.from({ length: 25 }).map((_, i) => ({
-    id: i,
-    size: Math.random() * 2 + 1,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    duration: Math.random() * 30 + 30,
-    delay: Math.random() * -30,
-  }));
+  // Generate a set of random particles once
+  const particles = useMemo(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const count = isMobile ? 12 : 25;
+    return Array.from({ length: count }).map((_, i) => ({
+      id: i,
+      size: Math.random() * 2 + 1,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      duration: Math.random() * 20 + 20,
+      delay: Math.random() * -30,
+      drift: Math.random() * 40 - 20
+    }));
+  }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-50">
@@ -25,7 +31,7 @@ export default function FintechParticles() {
           }}
           animate={{
             y: [0, -150, 0],
-            x: [0, Math.random() * 60 - 30, 0],
+            x: [0, p.drift, 0],
             opacity: [0.1, 0.6, 0.1],
           }}
           transition={{

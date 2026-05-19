@@ -39,14 +39,14 @@ export default function Navbar() {
       }`}
       id="main-nav"
     >
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-12 flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link to="/">
             <motion.div 
               whileHover={{ scale: 1.02 }}
-              className="flex items-center gap-5 group cursor-pointer"
+              className="flex items-center gap-3 lg:gap-5 group cursor-pointer"
             >
-              <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-full overflow-hidden border-2 border-brand-gold/30 bg-white shadow-2xl transition-all duration-500 group-hover:border-brand-gold/60 group-hover:shadow-brand-gold/20 p-0.5">
+              <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-full overflow-hidden border-2 border-brand-gold/30 bg-white shadow-2xl transition-all duration-500 group-hover:border-brand-gold/60 group-hover:shadow-brand-gold/20 p-0.5">
                 <img 
                   src="/src/assets/images/official_shauransh_logo_v2_1779023780680.png" 
                   alt="Shauransh Capital Logo" 
@@ -55,14 +55,14 @@ export default function Navbar() {
                 />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="text-xl lg:text-2xl font-sans font-black tracking-[0.15em] text-white leading-none">
+                <span className="text-lg lg:text-2xl font-sans font-black tracking-[0.1em] lg:tracking-[0.15em] text-white leading-none">
                   SHAURANSH
                 </span>
-                <div className="flex flex-col mt-1.5">
-                  <span className="text-[10px] lg:text-[11px] uppercase tracking-[0.4em] font-bold text-brand-gold/90">
+                <div className="flex flex-col mt-1 lg:mt-1.5">
+                  <span className="text-[8px] lg:text-[11px] uppercase tracking-[0.3em] lg:tracking-[0.4em] font-bold text-brand-gold/90">
                     CAPITAL
                   </span>
-                  <span className="text-[9px] lg:text-[10px] uppercase tracking-[0.3em] font-medium text-white/40 mt-[-1px]">
+                  <span className="text-[7px] lg:text-[10px] uppercase tracking-[0.2em] lg:tracking-[0.3em] font-medium text-white/40 mt-[-1px]">
                     SERVICES
                   </span>
                 </div>

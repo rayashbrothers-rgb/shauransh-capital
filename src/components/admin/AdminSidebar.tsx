@@ -12,7 +12,8 @@ import {
   ChevronRight,
   Image as ImageIcon,
   Star,
-  Users2
+  Users2,
+  X
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { cn } from '../../lib/utils';
@@ -24,21 +25,47 @@ const menuItems = [
   { icon: Settings, label: 'Settings', path: '/admin/settings' },
 ];
 
-export default function AdminSidebar() {
+interface AdminSidebarProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+}
+
+export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
   return (
-    <aside className="w-72 bg-brand-blue border-r border-white/5 flex flex-col h-screen fixed left-0 top-0 z-50">
-      {/* Sidebar Header */}
-      <div className="p-8 border-b border-white/5">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-brand-gold flex items-center justify-center font-serif font-extrabold text-brand-blue text-xl">
-            S
+    <>
+      {/* Mobile Overlay */}
+      <div 
+        className={cn(
+          "fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] lg:hidden transition-opacity duration-500",
+          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
+        onClick={() => setIsOpen(false)}
+      />
+
+      <aside className={cn(
+        "w-72 bg-brand-blue border-r border-white/5 flex flex-col h-screen fixed left-0 top-0 z-[70] transition-transform duration-500 ease-[0.22, 1, 0.36, 1]",
+        isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+      )}>
+        {/* Sidebar Header */}
+        <div className="p-8 border-b border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-brand-gold flex items-center justify-center font-serif font-extrabold text-brand-blue text-xl">
+              S
+            </div>
+            <div className="flex flex-col">
+              <span className="text-white font-bold tracking-tight text-lg leading-tight">SHAURANSH</span>
+              <span className="text-[9px] text-brand-gold uppercase tracking-[0.3em] font-medium">ADMIN PANEL</span>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <span className="text-white font-bold tracking-tight text-lg">SHAURANSH</span>
-            <span className="text-[9px] text-brand-gold uppercase tracking-[0.3em] font-medium">ADMIN PANEL</span>
-          </div>
+          
+          {/* Close button for mobile */}
+          <button 
+            onClick={() => setIsOpen(false)}
+            className="lg:hidden p-2 text-white/40 hover:text-white"
+          >
+            <X size={20} />
+          </button>
         </div>
-      </div>
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-4 py-8 space-y-1 custom-scrollbar">
@@ -93,5 +120,6 @@ export default function AdminSidebar() {
         }
       `}</style>
     </aside>
+    </>
   );
 }

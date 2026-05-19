@@ -176,7 +176,7 @@ export default function VehicleLoans() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="text-6xl md:text-7xl lg:text-[100px] font-serif font-medium leading-[0.9] tracking-tight"
+                className="text-4xl md:text-7xl lg:text-[100px] font-serif font-medium leading-[1.1] md:leading-[0.9] tracking-tight"
               >
                 Drive Forward <br />
                 <span className="italic gold-text-gradient font-semibold">With Confidence.</span>
@@ -283,8 +283,10 @@ export default function VehicleLoans() {
                 className="glass-card p-12 lg:p-16 rounded-[60px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-700"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 blur-[50px] rounded-full" />
-                <div className="w-20 h-20 rounded-[32px] bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-xl">
-                  {cat.icon}
+                <div className="w-20 h-20 rounded-[32px] bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-xl group-hover:scale-110 group-hover:shadow-brand-gold/30">
+                  <div className="transition-transform duration-500 group-hover:scale-110">
+                    {cat.icon}
+                  </div>
                 </div>
                 <h3 className="text-2xl font-bold mb-6 text-white group-hover:text-brand-gold transition-colors">{cat.title}</h3>
                 <p className="text-lg text-white/40 font-light leading-relaxed italic">{cat.desc}</p>
@@ -422,7 +424,7 @@ export default function VehicleLoans() {
                        <div className="flex flex-col gap-14 relative z-10">
                           <div className="flex flex-col gap-6">
                              <span className="text-[11px] font-black uppercase tracking-[0.5em] text-white/20 group-hover/card:text-brand-gold/50 transition-colors">Monthly Obligation</span>
-                             <div className="text-7xl lg:text-8xl font-serif font-black italic gold-text-gradient tracking-tighter leading-none glow-text">
+                             <div className="text-6xl md:text-8xl font-serif font-black italic gold-text-gradient tracking-tighter leading-none glow-text">
                                 {formatCurrency(results.emi)}
                              </div>
                              <p className="text-sm text-white/30 font-light max-w-xs italic">Estimated repayment sum based on Tier-1 institutional benchmarks.</p>
@@ -471,8 +473,10 @@ export default function VehicleLoans() {
                 transition={{ delay: i * 0.1 }}
                 className="flex flex-col items-center lg:items-start gap-6 group"
               >
-                <div className="w-16 h-16 rounded-[22px] bg-brand-gold/5 border border-brand-gold/10 flex items-center justify-center text-brand-gold group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-lg">
-                  {benefit.icon}
+                <div className="w-16 h-16 rounded-[22px] bg-brand-gold/5 border border-brand-gold/10 flex items-center justify-center text-brand-gold group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:shadow-brand-gold/30">
+                  <div className="transition-transform duration-500 group-hover:scale-110">
+                    {benefit.icon}
+                  </div>
                 </div>
                 <div className="space-y-3 text-center lg:text-left">
                   <h4 className="text-xl font-bold text-white tracking-tight italic group-hover:text-brand-gold transition-colors">{benefit.title}</h4>

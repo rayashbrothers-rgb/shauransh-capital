@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   Users, 
   TrendingUp, 
@@ -34,12 +34,14 @@ export default function DashboardOverview() {
   const [chartData, setChartData] = useState<any[]>([]);
   const [conversionData, setConversionData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isOffline, setIsOffline] = useState(false);
 
   useEffect(() => {
-    const qLeads = query(collection(db, 'leads'));
+    const qLeads = query(collection(db, 'leads'), orderBy('createdAt', 'desc'), limit(1000));
     const unsubscribeLeads = onSnapshot(qLeads, (snapshot) => {
       const docs = snapshot.docs.map(doc => doc.data());
       setLeadCount(snapshot.size);
+      setIsOffline(false);
 
       // Calculate New Today
       const today = new Date();
@@ -98,6 +100,13 @@ export default function DashboardOverview() {
     const unsubscribeRecent = onSnapshot(qRecent, (snapshot) => {
       setRecentLeads(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
       setLoading(false);
+      setIsOffline(false);
+    }, (error) => {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('offline') || errorMessage.includes('Could not reach')) {
+        setIsOffline(true);
+      }
+      setLoading(false);
     });
 
     return () => {
@@ -113,6 +122,23 @@ export default function DashboardOverview() {
 
   return (
     <div className="space-y-10 pb-20">
+      {/* Offline Alert */}
+      <AnimatePresence>
+        {isOffline && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="bg-brand-gold/10 border border-brand-gold/20 rounded-xl p-4 flex items-center justify-center gap-3"
+          >
+            <div className="w-2 h-2 rounded-full bg-brand-gold animate-pulse" />
+            <p className="text-brand-gold text-[10px] uppercase font-black tracking-widest">
+              Connectivity latency detected. Attempting secure reconnection...
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <div className="flex flex-col gap-2">
         <motion.h1 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { Calculator } from 'lucide-react';
 import { getSettings } from '../lib/settings';
@@ -12,6 +12,16 @@ export default function EMICalculator() {
     totalInterest: 0,
     totalPayment: 0
   });
+
+  const formatter = useMemo(() => new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0
+  }), []);
+
+  const formatCurrency = (val: number) => {
+    return formatter.format(val);
+  };
 
   useEffect(() => {
     async function loadRates() {
@@ -44,14 +54,6 @@ export default function EMICalculator() {
       totalPayment: Math.round(totalPaymentValue)
     });
   }, [loanAmount, interestRate, tenure]);
-
-  const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(val);
-  };
 
   return (
     <section className="py-24" id="emi-calculator">
