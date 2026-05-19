@@ -7,9 +7,10 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 interface LeadFormProps {
   defaultLoanType?: string;
   defaultAmount?: string;
+  formSource?: string;
 }
 
-export default function LeadForm({ defaultLoanType, defaultAmount }: LeadFormProps) {
+export default function LeadForm({ defaultLoanType, defaultAmount, formSource = 'consultation' }: LeadFormProps) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -44,6 +45,7 @@ export default function LeadForm({ defaultLoanType, defaultAmount }: LeadFormPro
         amount: formData.desiredAmount,
         city: formData.city,
         status: 'New',
+        formSource,
         createdAt: serverTimestamp()
       });
       setIsSubmitted(true);

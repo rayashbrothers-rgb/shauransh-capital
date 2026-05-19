@@ -36,6 +36,7 @@ export default function EligibilityChecker() {
         cibil: data.cibil,
         status: approved ? 'Instant Approved' : 'Under Review',
         type: 'eligibility',
+        formSource: 'assessment',
         createdAt: serverTimestamp()
       });
       setStep(3);

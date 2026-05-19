@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, FormEvent } from 'react';
 import { motion } from 'motion/react';
 import { Calculator } from 'lucide-react';
 import { getSettings } from '../lib/settings';
@@ -54,6 +54,37 @@ export default function EMICalculator() {
       totalPayment: Math.round(totalPaymentValue)
     });
   }, [loanAmount, interestRate, tenure]);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [contactInfo, setContactInfo] = useState({ name: '', phone: '' });
+
+  const handleLockRate = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const { db } = await import('../lib/firebase');
+      const { collection, addDoc, serverTimestamp } = await import('firebase/firestore');
+      await addDoc(collection(db, 'leads'), {
+        name: contactInfo.name,
+        phone: contactInfo.phone,
+        service: 'Rate Lock Inquiry',
+        amount: formatCurrency(loanAmount),
+        interest: `${interestRate}%`,
+        tenure: `${tenure} Years`,
+        emi: formatCurrency(results.emi),
+        status: 'New',
+        formSource: 'rate_lock',
+        createdAt: serverTimestamp()
+      });
+      setIsSubmitted(true);
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (error) {
+      console.error('Error locking rate:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="py-24" id="emi-calculator">
@@ -212,14 +243,46 @@ export default function EMICalculator() {
                     <span className="text-lg font-serif font-bold text-white italic tracking-tight">{formatCurrency(results.totalPayment)}</span>
                   </div>
                   
-                  <motion.button 
-                    whileHover={{ y: -4, boxShadow: '0 20px 40px rgba(212, 164, 55, 0.3)' }}
-                    whileTap={{ y: 0 }}
-                    onClick={() => document.getElementById('lead-form')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="w-full py-6 gold-gradient rounded-3xl font-black mt-10 text-[13px] uppercase tracking-[0.3em] text-brand-blue shadow-[0_15px_30px_rgba(212,164,55,0.2)] transition-all duration-500"
-                  >
-                    Lock This Rate
-                  </motion.button>
+                  {isSubmitted ? (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-8 p-6 bg-green-500/10 border border-green-500/20 rounded-3xl text-center"
+                    >
+                      <p className="text-green-500 text-sm font-bold uppercase tracking-widest">Rate Interest Locked!</p>
+                      <p className="text-white/40 text-[10px] mt-2 uppercase tracking-wide">Advisor will call within 2h.</p>
+                    </motion.div>
+                  ) : (
+                    <form onSubmit={handleLockRate} className="mt-8 space-y-4">
+                      <div className="flex gap-4">
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="Name"
+                          className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-brand-gold/50 text-white"
+                          value={contactInfo.name}
+                          onChange={(e) => setContactInfo({...contactInfo, name: e.target.value})}
+                        />
+                        <input 
+                          required
+                          type="tel" 
+                          placeholder="Mobile"
+                          className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-brand-gold/50 text-white"
+                          value={contactInfo.phone}
+                          onChange={(e) => setContactInfo({...contactInfo, phone: e.target.value})}
+                        />
+                      </div>
+                      <motion.button 
+                        whileHover={{ y: -4, boxShadow: '0 20px 40px rgba(212, 164, 55, 0.3)' }}
+                        whileTap={{ y: 0 }}
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="w-full py-5 gold-gradient rounded-[24px] font-black text-[11px] uppercase tracking-[0.3em] text-brand-blue shadow-[0_15px_30px_rgba(212,164,55,0.2)] transition-all duration-500 disabled:opacity-50"
+                      >
+                        {isSubmitting ? 'Securing...' : 'Lock This Rate Now'}
+                      </motion.button>
+                    </form>
+                  )}
                 </div>
               </div>
             </div>
