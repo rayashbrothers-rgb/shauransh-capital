@@ -2,6 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Send, X, Bot, User, Loader2, ArrowUpRight, HelpCircle, RotateCcw } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import { db } from '../lib/firebase';
+import { 
+  collection, 
+  addDoc, 
+  doc, 
+  updateDoc, 
+  arrayUnion, 
+  serverTimestamp 
+} from 'firebase/firestore';
 
 interface ChatMessage {
   role: 'user' | 'model';
@@ -191,20 +200,27 @@ export default function GeminiChatbot() {
 
     setIsSubmittingCallback(true);
     try {
-      const { db } = await import('../lib/firebase');
-      const { collection, addDoc, doc, updateDoc, serverTimestamp } = await import('firebase/firestore');
-
+      let docUpdatedSuccess = false;
       if (chatLeadId) {
-        // Link callback information directly to the running conversation log!
-        await updateDoc(doc(db, 'leads', chatLeadId), {
-          name: callbackName,
-          phone: callbackPhone,
-          email: callbackEmail || '---',
-          service: callbackService,
-          status: 'New',
-          updatedAt: serverTimestamp()
-        });
-      } else {
+        try {
+          // Link callback information directly to the running conversation log!
+          await updateDoc(doc(db, 'leads', chatLeadId), {
+            name: callbackName,
+            phone: callbackPhone,
+            email: callbackEmail || '---',
+            service: callbackService,
+            status: 'New',
+            updatedAt: serverTimestamp()
+          });
+          docUpdatedSuccess = true;
+        } catch (updateErr) {
+          console.warn("Could not update existing lead, resetting id and creating new:", updateErr);
+          setChatLeadId(null);
+          localStorage.removeItem('shauransh_chat_lead_id');
+        }
+      }
+
+      if (!docUpdatedSuccess) {
         const newLeadRef = await addDoc(collection(db, 'leads'), {
           name: callbackName,
           phone: callbackPhone,
@@ -260,11 +276,23 @@ export default function GeminiChatbot() {
 
     // Create or append to a live conversation lead in Firestore under leads
     let currentLeadId = chatLeadId;
-    try {
-      const { db } = await import('../lib/firebase');
-      const { collection, addDoc, doc, updateDoc, arrayUnion, serverTimestamp } = await import('firebase/firestore');
+    let fallbackToCreate = false;
 
-      if (!currentLeadId) {
+    if (currentLeadId) {
+      try {
+        // Append user reply to the existing chat lead
+        await updateDoc(doc(db, 'leads', currentLeadId), {
+          chatHistory: arrayUnion({ role: 'user', text: textToSend }),
+          updatedAt: serverTimestamp()
+        });
+      } catch (dbErr) {
+        console.warn("Firestore Logging updateDoc failed, falling back to new doc creation:", dbErr);
+        fallbackToCreate = true;
+      }
+    }
+
+    if (!currentLeadId || fallbackToCreate) {
+      try {
         // Create initial anonymous chat lead
         const newLeadRef = await addDoc(collection(db, 'leads'), {
           name: 'Anonymous Chat Client',
@@ -283,15 +311,9 @@ export default function GeminiChatbot() {
         });
         currentLeadId = newLeadRef.id;
         setChatLeadId(newLeadRef.id);
-      } else {
-        // Append user reply to the existing chat lead
-        await updateDoc(doc(db, 'leads', currentLeadId), {
-          chatHistory: arrayUnion({ role: 'user', text: textToSend }),
-          updatedAt: serverTimestamp()
-        });
+      } catch (dbErr) {
+        console.error("Firestore Logging (User message creation) failed:", dbErr);
       }
-    } catch (dbErr) {
-      console.error("Firestore Logging (User message) failed:", dbErr);
     }
 
     try {
@@ -315,17 +337,15 @@ export default function GeminiChatbot() {
       }]);
 
       // Log model's response to Firestore
-      try {
-        if (currentLeadId) {
-          const { db } = await import('../lib/firebase');
-          const { doc, updateDoc, arrayUnion, serverTimestamp } = await import('firebase/firestore');
+      if (currentLeadId) {
+        try {
           await updateDoc(doc(db, 'leads', currentLeadId), {
             chatHistory: arrayUnion({ role: 'model', text: data.text }),
             updatedAt: serverTimestamp()
           });
+        } catch (dbErr) {
+          console.error("Firestore Logging (Model response update) failed:", dbErr);
         }
-      } catch (dbErr) {
-        console.error("Firestore Logging (Model message) failed:", dbErr);
       }
 
     } catch (err: any) {
