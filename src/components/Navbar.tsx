@@ -110,9 +110,9 @@ export default function Navbar() {
             </motion.button>
             
             <a 
-              href="/admin" 
+              href="/authorized" 
               className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-brand-gold hover:border-brand-gold hover:bg-white/5 transition-all duration-500"
-              title="Admin Login"
+              title="Authorized Login"
             >
               <User size={18} />
             </a>
@@ -158,8 +158,8 @@ export default function Navbar() {
               >
                 Apply Now <ChevronRight size={18} />
               </button>
-              <a href="/admin" className="w-full py-4 border border-white/10 rounded-xl font-bold text-center text-white/50 hover:text-brand-gold transition-colors">
-                Admin Access
+              <a href="/authorized" className="w-full py-4 border border-white/10 rounded-xl font-bold text-center text-white/50 hover:text-brand-gold transition-colors">
+                Authorized Access
               </a>
             </div>
           </motion.div>

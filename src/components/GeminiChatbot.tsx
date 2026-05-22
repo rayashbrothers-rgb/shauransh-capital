@@ -158,8 +158,8 @@ export default function GeminiChatbot() {
 
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  // Hide the chatbot on admin layout pages
-  const isAdminPage = location.pathname.startsWith('/admin');
+  // Hide the chatbot on authorized layout pages
+  const isAuthorizedPage = location.pathname.startsWith('/authorized');
 
   useEffect(() => {
     localStorage.setItem('shauransh_chat_history', JSON.stringify(messages));
@@ -356,7 +356,7 @@ export default function GeminiChatbot() {
     }
   };
 
-  if (isAdminPage) {
+  if (isAuthorizedPage) {
     return null;
   }
 

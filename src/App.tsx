@@ -46,13 +46,13 @@ export default function App() {
           <Route path="/services/financial-solutions" element={<FinancialSolutions />} />
           <Route path="/services/insurance" element={<Insurance />} />
           
-          {/* Admin Routes */}
-          <Route path="/admin" element={<AdminLayout />}>
+          {/* Authorized Routes */}
+          <Route path="/authorized" element={<AdminLayout />}>
             <Route index element={<DashboardOverview />} />
             <Route path="contacts" element={<CRM />} />
             <Route path="analytics" element={<DashboardOverview />} />
             <Route path="settings" element={<AdminSettings />} />
-            <Route path="*" element={<Navigate to="/admin" replace />} />
+            <Route path="*" element={<Navigate to="/authorized" replace />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

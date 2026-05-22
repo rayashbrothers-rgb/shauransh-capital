@@ -112,7 +112,7 @@ export default function AdminSettings() {
             <div className="bg-brand-blue/30 backdrop-blur-xl border border-white/10 rounded-2xl p-8 group overflow-hidden relative">
                <Shield size={60} className="absolute -bottom-4 -right-4 text-white/[0.03] group-hover:text-brand-gold/[0.05] transition-all duration-700" />
                <h4 className="text-sm font-bold text-brand-gold uppercase tracking-[0.2em] mb-4">Security Protocol</h4>
-               <p className="text-xs text-white/40 leading-relaxed mb-6">Your administrative interface is protected by multi-layered institutional encryption protocols.</p>
+               <p className="text-xs text-white/40 leading-relaxed mb-6">Your authorized interface is protected by multi-layered institutional encryption protocols.</p>
                <button className="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-2">
                   <Globe size={14} /> Domain Intelligence
                </button>

@@ -484,7 +484,7 @@ export default function DashboardOverview() {
       >
         <div className="flex items-center justify-between mb-10">
           <h3 className="text-xl font-serif font-bold text-white">Recent Intelligent Inquiry</h3>
-          <Link to="/admin/contacts" className="px-6 py-2 border border-white/10 rounded-lg text-xs font-bold uppercase tracking-widest hover:border-brand-gold/40 transition-all">View All CRM</Link>
+          <Link to="/authorized/contacts" className="px-6 py-2 border border-white/10 rounded-lg text-xs font-bold uppercase tracking-widest hover:border-brand-gold/40 transition-all">View All CRM</Link>
         </div>
         <div className="overflow-x-auto">
           {loading ? (
@@ -529,7 +529,7 @@ export default function DashboardOverview() {
                        {lead.createdAt?.toDate ? lead.createdAt.toDate().toLocaleDateString() : '---'}
                     </td>
                     <td className="py-5 pr-4 text-right">
-                      <Link to="/admin/contacts" className="p-2 text-white/30 hover:text-brand-gold transition-colors inline-block">
+                      <Link to="/authorized/contacts" className="p-2 text-white/30 hover:text-brand-gold transition-colors inline-block">
                         <ArrowUpRight size={18} />
                       </Link>
                     </td>

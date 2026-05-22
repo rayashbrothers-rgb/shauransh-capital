@@ -120,7 +120,7 @@ export default function Footer() {
               <a href="#" className="hover:text-brand-gold transition-colors">Regulatory Disclosures</a>
               <a href="#" className="hover:text-brand-gold transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-brand-gold transition-colors">Terms of Engagement</a>
-              <a href="/admin" className="text-brand-gold/40 hover:text-brand-gold transition-colors underline decoration-brand-gold/20">Admin Gateway</a>
+              <a href="/authorized" className="text-brand-gold/40 hover:text-brand-gold transition-colors underline decoration-brand-gold/20">Authorized Gateway</a>
             </div>
           </div>
           

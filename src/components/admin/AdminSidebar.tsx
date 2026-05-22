@@ -19,10 +19,10 @@ import { NavLink } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 
 const menuItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', path: '/admin' },
-  { icon: MessageSquare, label: 'Contact Requests', path: '/admin/contacts' },
-  { icon: PieChart, label: 'Analytics', path: '/admin/analytics' },
-  { icon: Settings, label: 'Settings', path: '/admin/settings' },
+  { icon: LayoutDashboard, label: 'Dashboard', path: '/authorized' },
+  { icon: MessageSquare, label: 'Contact Requests', path: '/authorized/contacts' },
+  { icon: PieChart, label: 'Analytics', path: '/authorized/analytics' },
+  { icon: Settings, label: 'Settings', path: '/authorized/settings' },
 ];
 
 interface AdminSidebarProps {
@@ -54,7 +54,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
             </div>
             <div className="flex flex-col">
               <span className="text-white font-bold tracking-tight text-lg leading-tight">SHAURANSH</span>
-              <span className="text-[9px] text-brand-gold uppercase tracking-[0.3em] font-medium">ADMIN PANEL</span>
+              <span className="text-[9px] text-brand-gold uppercase tracking-[0.3em] font-medium">AUTHORIZED SECTION</span>
             </div>
           </div>
           
@@ -73,7 +73,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
           <NavLink
             key={item.label}
             to={item.path}
-            end={item.path === '/admin'}
+            end={item.path === '/authorized'}
             className={({ isActive }) => cn(
               "flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-300 group",
               isActive 

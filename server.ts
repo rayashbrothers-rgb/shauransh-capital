@@ -97,7 +97,7 @@ Highlight the website's digital tools (Forms, Calculators, Eligibility checks).`
     // Use vite's connect instance as middleware
     app.use(vite.middlewares);
 
-    // Custom fall-through for local development so that refreshing the /admin page on other devices doesn't return 404
+    // Custom fall-through for local development so that refreshing the /authorized page on other devices doesn't return 404
     app.get("*", async (req, res, next) => {
       const url = req.originalUrl;
       if (url.startsWith('/api') || url.includes('.')) {
