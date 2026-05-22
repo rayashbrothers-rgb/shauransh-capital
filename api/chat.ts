@@ -1,27 +1,41 @@
 import { GoogleGenAI } from "@google/genai";
 
 export const config = {
-  runtime: "nodejs",
+  runtime: "edge",
 };
 
-export default async function handler(req: any, res: any) {
-  // Support CORS if needed or handle POST request
+export default async function handler(req: Request) {
   if (req.method !== "POST") {
-    res.setHeader("Allow", ["POST"]);
-    return res.status(405).json({ error: "Method Not Allowed" });
+    return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
+      status: 405,
+      headers: {
+        "Content-Type": "application/json",
+        "Allow": "POST",
+      },
+    });
   }
 
   try {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ 
-        error: "GEMINI_API_KEY is not configured on the server. Please add it in Settings > Secrets." 
-      });
+      return new Response(
+        JSON.stringify({
+          error: "GEMINI_API_KEY is not configured on the server. Please add it in Settings > Secrets."
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
-    const { messages } = req.body;
+    const body = await req.json();
+    const { messages } = body;
     if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: "Invalid messages format. Expected array." });
+      return new Response(JSON.stringify({ error: "Invalid messages format. Expected array." }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     const ai = new GoogleGenAI({
@@ -62,9 +76,18 @@ Highlight the website's digital tools (Forms, Calculators, Eligibility checks).`
       },
     });
 
-    return res.status(200).json({ text: response.text });
+    return new Response(JSON.stringify({ text: response.text }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error: any) {
     console.error("Gemini API Error in Serverless:", error);
-    return res.status(500).json({ error: error?.message || "Internal server error during AI operations." });
+    return new Response(
+      JSON.stringify({ error: error?.message || "Internal server error during AI operations." }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 }
