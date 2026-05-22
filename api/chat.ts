@@ -1,41 +1,26 @@
 import { GoogleGenAI } from "@google/genai";
 
 export const config = {
-  runtime: "edge",
+  runtime: "nodejs",
 };
 
-export default async function handler(req: Request) {
+export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
-    return new Response(JSON.stringify({ error: "Method Not Allowed" }), {
-      status: 405,
-      headers: {
-        "Content-Type": "application/json",
-        "Allow": "POST",
-      },
-    });
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   try {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return new Response(
-        JSON.stringify({
-          error: "GEMINI_API_KEY is not configured on the server. Please add it in Settings > Secrets."
-        }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return res.status(500).json({ 
+        error: "GEMINI_API_KEY is not configured on the server. Please add it in Settings > Secrets." 
+      });
     }
 
-    const body = await req.json();
-    const { messages } = body;
+    const { messages } = req.body;
     if (!messages || !Array.isArray(messages)) {
-      return new Response(JSON.stringify({ error: "Invalid messages format. Expected array." }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return res.status(400).json({ error: "Invalid messages format. Expected array." });
     }
 
     const ai = new GoogleGenAI({
@@ -76,18 +61,9 @@ Highlight the website's digital tools (Forms, Calculators, Eligibility checks).`
       },
     });
 
-    return new Response(JSON.stringify({ text: response.text }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return res.status(200).json({ text: response.text });
   } catch (error: any) {
     console.error("Gemini API Error in Serverless:", error);
-    return new Response(
-      JSON.stringify({ error: error?.message || "Internal server error during AI operations." }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return res.status(500).json({ error: error?.message || "Internal server error during AI operations." });
   }
 }
