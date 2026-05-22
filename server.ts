@@ -5,8 +5,16 @@ import { fileURLToPath } from "url";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+let currentFilename = "";
+try {
+  currentFilename = __filename;
+} catch (e) {
+  if (typeof import.meta !== "undefined" && import.meta.url) {
+    currentFilename = fileURLToPath(import.meta.url);
+  }
+}
+
+const currentDirname = path.dirname(currentFilename || "");
 
 async function startServer() {
   const app = express();
@@ -96,7 +104,7 @@ Highlight the website's digital tools (Forms, Calculators, Eligibility checks).`
         return next();
       }
       try {
-        let template = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8');
+        let template = fs.readFileSync(path.resolve(currentDirname, 'index.html'), 'utf-8');
         template = await vite.transformIndexHtml(url, template);
         res.status(200).set({ 'Content-Type': 'text/html' }).end(template);
       } catch (e: any) {

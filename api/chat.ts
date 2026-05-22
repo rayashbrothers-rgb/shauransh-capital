@@ -1,7 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 
 export const config = {
-  runtime: "node",
+  runtime: "nodejs",
 };
 
 export default async function handler(req: any, res: any) {
