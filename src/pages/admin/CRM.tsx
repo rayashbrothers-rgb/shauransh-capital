@@ -76,6 +76,7 @@ export default function CRM() {
   const [activeTab, setActiveTab] = useState<'all' | 'consultation' | 'assessment' | 'rate_lock' | 'chat'>('all');
   const [isOffline, setIsOffline] = useState(false);
   const [isSeeding, setIsSeeding] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleInitializeSampleData = async () => {
     setIsSeeding(true);
@@ -201,12 +202,14 @@ export default function CRM() {
         setLeads(leadsData);
         setLoading(false);
         setIsOffline(false);
-      }, (error) => {
-        const errorMessage = error instanceof Error ? error.message : String(error);
+        setError(null);
+      }, (err) => {
+        const errorMessage = err instanceof Error ? err.message : String(err);
         if (errorMessage.includes('offline') || errorMessage.includes('Could not reach')) {
           setIsOffline(true);
         } else {
-          handleFirestoreError(error, OperationType.LIST, 'leads');
+          setError(errorMessage);
+          console.error("Firestore leads subscription error:", err);
         }
         setLoading(false);
       });
@@ -281,6 +284,31 @@ export default function CRM() {
             <div className="w-2 h-2 rounded-full bg-brand-gold animate-pulse" />
             <p className="text-brand-gold text-[10px] uppercase font-black tracking-widest">
               Connectivity latency detected. Attempting secure reconnection...
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Database Error Diagnostic Alert */}
+      <AnimatePresence>
+        {error && (
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6 space-y-3"
+          >
+            <div className="flex items-center gap-3 text-red-400">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+              <h4 className="text-sm font-bold uppercase tracking-wider">Database Communication Handshake Failed</h4>
+            </div>
+            <p className="text-xs text-white/60 leading-relaxed font-light">
+              Shauransh Capital core system detected high latency or handshake permissions timeout. 
+              <br />
+              <span className="font-mono text-[10px] text-red-300">Error Payload: {error}</span>
+            </p>
+            <p className="text-[11px] text-white/40">
+              Please guarantee Firestore is provisioned for this project and the correct security rules are deployed successfully.
             </p>
           </motion.div>
         )}
