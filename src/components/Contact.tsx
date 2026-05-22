@@ -45,8 +45,8 @@ export default function Contact() {
               >
                 Institutional Access
               </motion.span>
-              <h2 className="text-5xl md:text-6xl lg:text-[70px] font-serif font-medium leading-[0.9] tracking-tight text-white">
-                Connect with Our <br />
+              <h2 className="text-4xl md:text-6xl lg:text-[70px] font-serif font-medium leading-[1.1] md:leading-[0.9] tracking-tight text-white">
+                Connect with Our <br className="hidden md:block" />
                 <span className="italic gold-text-gradient font-semibold">Leadership Hub</span>
               </h2>
               <p className="text-xl text-white/40 max-w-lg leading-relaxed font-light">
@@ -101,7 +101,7 @@ export default function Contact() {
 
           <div className="relative group min-h-[500px]">
             <div className="absolute -inset-1 bg-brand-gold/20 rounded-[60px] blur-3xl opacity-30 group-hover:opacity-50 transition-all duration-1000" />
-            <div className="relative h-full rounded-[55px] overflow-hidden glass-card border-white/5 flex flex-col justify-center items-center text-center p-12 lg:p-20 shadow-[0_40px_100px_rgba(0,0,0,0.6)]">
+            <div className="relative h-full rounded-[40px] md:rounded-[55px] overflow-hidden glass-card border-white/5 flex flex-col justify-center items-center text-center p-8 md:p-12 lg:p-20 shadow-[0_40px_100px_rgba(0,0,0,0.6)]">
               
               {/* Cinematic Background Visual */}
               <div className="absolute inset-0 z-0">

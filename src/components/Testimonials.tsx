@@ -55,13 +55,13 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.2, duration: 1, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="glass-card p-12 lg:p-14 rounded-[60px] relative group border-white/5 hover:border-brand-gold/20 shadow-2xl transition-all duration-700"
+              className="glass-card p-8 md:p-12 lg:p-14 rounded-[40px] md:rounded-[60px] relative group border-white/5 hover:border-brand-gold/20 shadow-2xl transition-all duration-700"
             >
-              <div className="absolute top-12 right-12 opacity-5 text-brand-gold group-hover:opacity-20 transition-all duration-700 group-hover:scale-125 rotate-12 group-hover:rotate-0">
-                <Quote size={80} strokeWidth={1} />
+              <div className="absolute top-8 right-8 md:top-12 md:right-12 opacity-5 text-brand-gold group-hover:opacity-20 transition-all duration-700 group-hover:scale-125 rotate-12 group-hover:rotate-0">
+                <Quote size={60} className="md:w-20 md:h-20" strokeWidth={1} />
               </div>
               
-              <div className="flex gap-2 mb-10 text-brand-gold/40 group-hover:text-brand-gold transition-colors duration-700">
+              <div className="flex gap-2 mb-8 md:mb-10 text-brand-gold/40 group-hover:text-brand-gold transition-colors duration-700">
                 {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="currentColor" />)}
               </div>
               

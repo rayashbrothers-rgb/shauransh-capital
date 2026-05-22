@@ -22,7 +22,7 @@ export default function PartnerBanks() {
           </span>
         </div>
         
-        <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-10">
+        <div className="flex flex-wrap items-center justify-center gap-x-8 md:gap-x-16 gap-y-10">
           {partners.map((partner, i) => (
             <motion.div
               key={partner}

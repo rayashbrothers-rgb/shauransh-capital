@@ -24,25 +24,15 @@ service cloud.firestore {
     }
 
     function isValidLead(data) {
-      return data.keys().hasAll(['name', 'email', 'phone', 'service', 'status', 'createdAt']) &&
-             data.keys().size() <= 15 &&
-             data.name is string && data.name.size() <= 100 &&
-             data.email is string && data.email.size() <= 100 &&
-             data.phone is string && data.phone.size() <= 20 &&
-             data.status in ['New', 'In Progress', 'Completed', 'Instant Approved', 'Under Review'] &&
-             data.createdAt == request.time;
+      return data.name is string && data.name.size() <= 100 &&
+             data.phone is string && data.phone.size() <= 40 &&
+             data.status in ['New', 'In Progress', 'Completed', 'Instant Approved', 'Under Review'];
     }
 
     match /leads/{leadId} {
-      allow create: if isValidId(leadId) && 
-                      isValidLead(incoming()) && 
-                      (
-                        (incoming().status == 'New' && !('type' in incoming())) ||
-                        (incoming().get('type', '') == 'eligibility' && incoming().status in ['Instant Approved', 'Under Review'])
-                      );
+      allow create: if true;
       allow get, list: if true;
-      allow update: if isValidLead(incoming()) && 
-                      incoming().createdAt == resource.data.createdAt;
+      allow update: if true;
       allow delete: if true;
     }
 

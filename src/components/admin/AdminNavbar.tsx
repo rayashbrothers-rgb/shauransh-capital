@@ -90,10 +90,12 @@ export default function AdminNavbar({ onMenuClick }: AdminNavbarProps) {
               <UserIcon size={20} className="text-brand-gold" />
             </div>
             <div className="hidden sm:flex flex-col items-start leading-tight">
-              <span className="text-sm font-bold text-white group-hover:text-brand-gold transition-colors truncate max-w-[120px]">
-                Yash
+              <span className="text-sm font-bold text-white group-hover:text-brand-gold transition-colors truncate max-w-[150px]">
+                Yash Malhotra
               </span>
-              <span className="text-[10px] text-white/30 uppercase tracking-widest">Master Admin</span>
+              <span className="text-[10px] text-white/40 tracking-wide font-light">
+                rayashbrothers@gmail.com
+              </span>
             </div>
             
             <button 

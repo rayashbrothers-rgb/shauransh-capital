@@ -9,7 +9,8 @@ import {
   ArrowDownRight,
   MessageSquare,
   Activity,
-  Loader2
+  Loader2,
+  Sparkles
 } from 'lucide-react';
 import { 
   AreaChart, 
@@ -35,6 +36,113 @@ export default function DashboardOverview() {
   const [conversionData, setConversionData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isOffline, setIsOffline] = useState(false);
+  const [isSeeding, setIsSeeding] = useState(false);
+
+  const handleInitializeSampleData = async () => {
+    setIsSeeding(true);
+    try {
+      const { addDoc, collection, Timestamp } = await import('firebase/firestore');
+      const now = new Date();
+      
+      const sampleLeads = [
+        {
+          name: 'Yash Malhotra',
+          email: 'rayashbrothers@gmail.com',
+          phone: '+91 95990 34002',
+          service: 'Business Loan',
+          amount: '12000000',
+          income: '250000',
+          status: 'In Progress',
+          formSource: 'consultation',
+          createdAt: Timestamp.fromDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, 10, 30))
+        },
+        {
+          name: 'Amit Sharma',
+          email: 'amit.sharma@gmail.com',
+          phone: '+91 98111 22233',
+          service: 'Home Loan',
+          amount: '8500000',
+          income: '150000',
+          status: 'Under Review',
+          formSource: 'consultation',
+          createdAt: Timestamp.fromDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() - 3, 14, 15))
+        },
+        {
+          name: 'Priya Patel',
+          email: 'priya.patel@corporate.in',
+          phone: '+91 97722 00456',
+          service: 'Personal Loan',
+          amount: '1500000',
+          salary: 95000,
+          cibil: 790,
+          status: 'Instant Approved',
+          formSource: 'assessment',
+          createdAt: Timestamp.fromDate(new Date(now.getFullYear(), now.getMonth() - 1, 12, 11, 45))
+        },
+        {
+          name: 'Vikram Aditya',
+          email: 'vikram.aditya@rediffmail.com',
+          phone: '+91 91234 56789',
+          service: 'Vehicle Loan',
+          amount: '2500000',
+          status: 'New',
+          formSource: 'consultation',
+          createdAt: Timestamp.fromDate(new Date(now.getFullYear(), now.getMonth() - 2, 8, 16, 20))
+        },
+        {
+          name: 'Neha Gupta',
+          email: 'neha.gupta@yahoo.com',
+          phone: '+91 98989 89898',
+          service: 'Personal Loan',
+          amount: '800000',
+          status: 'New',
+          formSource: 'chat',
+          createdAt: Timestamp.fromDate(new Date(now.getFullYear(), now.getMonth() - 3, 24, 9, 10))
+        },
+        {
+          name: 'Rohan Verma',
+          email: 'rohan.v@techcorp.com',
+          phone: '+91 94444 33333',
+          service: 'Home Loan',
+          amount: '4500000',
+          emi: '₹42,500',
+          interest: '8.4%',
+          tenure: '20 Years',
+          status: 'Completed',
+          formSource: 'rate_lock',
+          createdAt: Timestamp.fromDate(new Date(now.getFullYear(), now.getMonth() - 4, 18, 15, 30))
+        },
+        {
+          name: 'Kabir Singh',
+          email: 'kabir@singhwealth.in',
+          phone: '+91 92222 11111',
+          service: 'Business Loan',
+          amount: '12000000',
+          status: 'Under Review',
+          formSource: 'chat',
+          createdAt: Timestamp.fromDate(new Date(now.getFullYear(), now.getMonth() - 1, 5, 17, 8))
+        },
+        {
+          name: 'Shalini Iyer',
+          email: 'shalini.iyer@outlook.com',
+          phone: '+91 93333 44444',
+          service: 'Insurance',
+          amount: '0',
+          status: 'New',
+          formSource: 'chat',
+          createdAt: Timestamp.fromDate(new Date(now.getFullYear(), now.getMonth() - 2, 19, 12, 12))
+        }
+      ];
+
+      for (const lead of sampleLeads) {
+        await addDoc(collection(db, 'leads'), lead);
+      }
+    } catch (e) {
+      console.error('Failed to seed sample data:', e);
+    } finally {
+      setIsSeeding(false);
+    }
+  };
 
   useEffect(() => {
     const qLeads = query(collection(db, 'leads'), orderBy('createdAt', 'desc'), limit(1000));
@@ -152,6 +260,34 @@ export default function DashboardOverview() {
           Real-time metrics for Shauransh Capital Services intelligence.
         </p>
       </div>
+
+      {/* Empty Database State Notice & Seed Option */}
+      {!loading && leadCount === 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-brand-gold/5 border border-brand-gold/20 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 blur-[40px] rounded-full pointer-events-none" />
+          <div className="space-y-2 text-center md:text-left">
+            <h4 className="text-lg font-serif font-bold text-white flex items-center justify-center md:justify-start gap-2">
+              <span className="w-2 h-2 rounded-full bg-brand-gold animate-bounce" />
+              Empty CRM Database Container
+            </h4>
+            <p className="text-xs text-white/50 max-w-2xl leading-relaxed font-light">
+              Your Shauransh Capital master pipeline currently records zero active inquiries. Initialize secure institutional demo assets (Loan consultations, digital credit assessments, rate locks, and AI chatbot inquiries spanning the past 6 months) to test real-time graphs and CRM state controls.
+            </p>
+          </div>
+          <button
+            onClick={handleInitializeSampleData}
+            disabled={isSeeding}
+            className="w-full md:w-auto px-8 py-3.5 bg-brand-gold hover:bg-brand-gold/90 text-[#020817] font-black text-[10px] uppercase tracking-widest rounded-xl transition-all hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg shadow-brand-gold/10 disabled:opacity-50 shrink-0"
+          >
+            {isSeeding ? <Loader2 size={13} className="animate-spin" /> : <Sparkles size={13} />}
+            {isSeeding ? "Provisioning Ledger..." : "Initialize Demo Registry"}
+          </button>
+        </motion.div>
+      )}
 
       {/* Stats Cards */}
       <div className="grid md:grid-cols-2 gap-6">

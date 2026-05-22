@@ -9,7 +9,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="pt-32 pb-12 bg-[#030d1d] border-t border-white/5 relative overflow-hidden" id="footer">
+    <footer className="pt-20 md:pt-32 pb-12 bg-[#030d1d] border-t border-white/5 relative overflow-hidden" id="footer">
       {/* Cinematic End-Cap Gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-blue/50 to-brand-blue opacity-80" />
       <div className="absolute bottom-0 left-0 w-full h-[600px] bg-gradient-to-t from-brand-gold/10 to-transparent pointer-events-none opacity-50" />
@@ -20,7 +20,7 @@ export default function Footer() {
             <div className="flex items-center gap-6">
               <motion.div 
                 whileHover={{ rotate: 5, scale: 1.05 }}
-                className="w-20 h-20 rounded-full overflow-hidden border-2 border-brand-gold/30 bg-white shadow-2xl p-1 shrink-0"
+                className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-brand-gold/30 bg-white shadow-2xl p-1 shrink-0"
               >
                 <img 
                   src="/src/assets/images/official_shauransh_logo_v2_1779023780680.png" 
@@ -30,10 +30,10 @@ export default function Footer() {
                 />
               </motion.div>
               <div className="flex flex-col leading-tight">
-                <span className="text-3xl font-sans font-black text-white tracking-[0.1em]">
+                <span className="text-2xl md:text-3xl font-sans font-black text-white tracking-[0.1em]">
                   SHAURANSH
                 </span>
-                <span className="text-[12px] uppercase tracking-[0.5em] font-black italic gold-text-gradient mt-0.5">
+                <span className="text-[10px] md:text-[12px] uppercase tracking-[0.5em] font-black italic gold-text-gradient mt-0.5">
                   CAPITAL SERVICES
                 </span>
               </div>

@@ -48,7 +48,7 @@ export default function WhyChooseUs() {
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div className="flex flex-col gap-10 order-2 lg:order-1 relative">
             {/* Background Typography */}
-            <div className="absolute -top-10 -left-10 text-[180px] font-serif italic text-white/[0.02] select-none pointer-events-none font-black leading-none">
+            <div className="absolute -top-10 -left-10 text-[100px] md:text-[180px] font-serif italic text-white/[0.02] select-none pointer-events-none font-black leading-none hidden sm:block">
               Services
             </div>
             
@@ -85,7 +85,7 @@ export default function WhyChooseUs() {
               >
                 The Shauransh Advantage
               </motion.span>
-              <h2 className="text-5xl md:text-6xl lg:text-[70px] font-serif font-medium leading-[0.9] tracking-tight text-white">
+              <h2 className="text-4xl md:text-6xl lg:text-[70px] font-serif font-medium leading-[1.1] md:leading-[0.9] tracking-tight text-white transition-all duration-500">
                 Why <span className="italic gold-text-gradient font-semibold">Institutional Leaders</span> Partner With Us
               </h2>
             </div>
@@ -103,7 +103,7 @@ export default function WhyChooseUs() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
-              className="relative p-10 lg:p-12 glass-card rounded-[40px] border-brand-gold/20 bg-gradient-to-br from-brand-gold/10 to-transparent overflow-hidden"
+              className="relative p-8 md:p-10 lg:p-12 glass-card rounded-[32px] md:rounded-[40px] border-brand-gold/20 bg-gradient-to-br from-brand-gold/10 to-transparent overflow-hidden"
             >
               {/* Decorative Glow */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/20 rounded-full blur-[60px]" />
@@ -113,7 +113,7 @@ export default function WhyChooseUs() {
                   initial={{ scale: 0.8, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   transition={{ type: "spring", stiffness: 100, delay: 0.8 }}
-                  className="text-8xl md:text-9xl font-serif italic gold-text-gradient font-black tracking-tighter leading-none"
+                  className="text-6xl md:text-9xl font-serif italic gold-text-gradient font-black tracking-tighter leading-none"
                 >
                   99%
                 </motion.div>
