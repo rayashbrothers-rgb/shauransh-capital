@@ -1,28 +1,20 @@
-import { motion } from 'motion/react';
 import { 
   LayoutDashboard, 
-  FileText, 
   Settings, 
-  Users, 
-  MessageSquare, 
-  Calculator, 
   PieChart, 
-  Bell, 
-  LogOut,
+  MessageSquare, 
   ChevronRight,
-  Image as ImageIcon,
-  Star,
-  Users2,
+  LogOut,
   X
 } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
 import { cn } from '../../lib/utils';
+import { useNavigation, AdminSubView } from '../../context/NavigationContext';
 
-const menuItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', path: '/authorized' },
-  { icon: MessageSquare, label: 'Contact Requests', path: '/authorized/contacts' },
-  { icon: PieChart, label: 'Analytics', path: '/authorized/analytics' },
-  { icon: Settings, label: 'Settings', path: '/authorized/settings' },
+const menuItems: { icon: any; label: string; view: AdminSubView }[] = [
+  { icon: LayoutDashboard, label: 'Dashboard', view: 'dashboard' },
+  { icon: MessageSquare, label: 'Contact Requests', view: 'crm' },
+  { icon: PieChart, label: 'Analytics', view: 'analytics' },
+  { icon: Settings, label: 'Settings', view: 'settings' },
 ];
 
 interface AdminSidebarProps {
@@ -31,6 +23,8 @@ interface AdminSidebarProps {
 }
 
 export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
+  const { adminSubView, setAdminSubView, logout } = useNavigation();
+
   return (
     <>
       {/* Mobile Overlay */}
@@ -67,59 +61,64 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
           </button>
         </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto px-4 py-8 space-y-1 custom-scrollbar">
-        {menuItems.map((item) => (
-          <NavLink
-            key={item.label}
-            to={item.path}
-            end={item.path === '/authorized'}
-            className={({ isActive }) => cn(
-              "flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-300 group",
-              isActive 
-                ? "bg-brand-gold/10 text-brand-gold border border-brand-gold/20" 
-                : "text-white/50 hover:text-white hover:bg-white/5"
-            )}
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto px-4 py-8 space-y-1 custom-scrollbar">
+          {menuItems.map((item) => {
+            const isActive = adminSubView === item.view;
+            return (
+              <button
+                key={item.label}
+                onClick={() => {
+                  setAdminSubView(item.view);
+                  setIsOpen(false);
+                }}
+                className={cn(
+                  "w-full flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-300 group text-left",
+                  isActive 
+                    ? "bg-brand-gold/10 text-brand-gold border border-brand-gold/20" 
+                    : "text-white/50 hover:text-white hover:bg-white/5"
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <item.icon size={20} className={cn(
+                    "transition-transform group-hover:scale-110",
+                    isActive ? "text-brand-gold" : "text-white/50 group-hover:text-white"
+                  )} />
+                  <span className="text-sm font-medium">{item.label}</span>
+                </div>
+                <ChevronRight size={14} className={cn(
+                  "transition-all",
+                  isActive ? "opacity-100 text-brand-gold" : "opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
+                )} />
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Sidebar Footer */}
+        <div className="p-6 border-t border-white/5 bg-brand-blue/50">
+          <button 
+            onClick={logout}
+            className="flex items-center gap-3 w-full px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all group hover:bg-red-500/5 text-left"
           >
-            <div className="flex items-center gap-3">
-              <item.icon size={20} className={cn(
-                "transition-transform group-hover:scale-110",
-                "group-[.active]:text-brand-gold"
-              )} />
-              <span className="text-sm font-medium">{item.label}</span>
-            </div>
-            <ChevronRight size={14} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-          </NavLink>
-        ))}
-      </nav>
+            <LogOut size={20} className="group-hover:-translate-x-1 transition-transform" />
+            <span className="text-sm font-medium">Logout</span>
+          </button>
+        </div>
 
-      {/* Sidebar Footer */}
-      <div className="p-6 border-t border-white/5 bg-brand-blue/50">
-        <button 
-          onClick={() => {
-            localStorage.removeItem('shauransh_admin_auth');
-            window.location.reload();
-          }}
-          className="flex items-center gap-3 w-full px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all group"
-        >
-          <LogOut size={20} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="text-sm font-medium">Logout</span>
-        </button>
-      </div>
-
-      <style>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(212, 164, 55, 0.2);
-          border-radius: 10px;
-        }
-      `}</style>
-    </aside>
+        <style>{`
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(212, 164, 55, 0.2);
+            border-radius: 10px;
+          }
+        `}</style>
+      </aside>
     </>
   );
 }

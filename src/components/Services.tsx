@@ -1,5 +1,4 @@
 import { motion } from 'motion/react';
-import { Link, useNavigate } from 'react-router-dom';
 import { 
   User, 
   Briefcase, 
@@ -11,32 +10,35 @@ import {
   CircleUserRound,
   ArrowUpRight 
 } from 'lucide-react';
+import { useNavigation, ActiveView } from '../context/NavigationContext';
 
 export default function Services() {
-  const services = [
+  const { setActiveView } = useNavigation();
+
+  const services: { title: string; desc: string; icon: any; view?: ActiveView }[] = [
     {
       title: 'Personal Loans',
       desc: 'Flexible funding for your personal aspirations with minimal documentation.',
       icon: <User className="w-8 h-8" />,
-      path: '/services/personal-loan'
+      view: 'personal-loan'
     },
     {
       title: 'Business Loans',
       desc: 'Engineered for scalability and capital growth of your enterprise.',
       icon: <Briefcase className="w-8 h-8" />,
-      path: '/services/business-loan'
+      view: 'business-loan'
     },
     {
       title: 'Home Loans',
       desc: 'Step into your dream residence with attractive rates and terms.',
       icon: <Home className="w-8 h-8" />,
-      path: '/services/home-loan'
+      view: 'home-loan'
     },
     {
       title: 'Vehicle Loans',
       desc: 'Accelerate your travel lifestyle with quick approval automobile financing.',
       icon: <Car className="w-8 h-8" />,
-      path: '/services/vehicle-loan'
+      view: 'vehicle-loan'
     },
     {
       title: 'Loan Against Property',
@@ -47,13 +49,13 @@ export default function Services() {
       title: 'Insurance',
       desc: 'Comprehensive protection strategies for your assets, life, and legacy.',
       icon: <ShieldCheck className="w-8 h-8" />,
-      path: '/services/insurance'
+      view: 'insurance'
     },
     {
       title: 'Financial Solutions',
       desc: 'Bespoke wealth management and investment strategies for high-net-worth individuals.',
       icon: <BarChart3 className="w-8 h-8" />,
-      path: '/services/financial-solutions'
+      view: 'financial-solutions'
     },
     {
       title: 'Expert Advisors',
@@ -76,8 +78,6 @@ export default function Services() {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
   };
-
-  const navigate = useNavigate();
 
   return (
     <section className="py-24 bg-black/20" id="services">
@@ -121,9 +121,8 @@ export default function Services() {
                 variants={itemVariants}
                 whileHover={{ y: -12, scale: isFeatured ? 1.02 : 1.01 }}
                 onClick={() => {
-                  if (service.path) {
-                    navigate(service.path);
-                    window.scrollTo(0, 0);
+                  if (service.view) {
+                    setActiveView(service.view);
                   } else {
                     const el = document.getElementById('eligibility');
                     el?.scrollIntoView({ behavior: 'smooth' });

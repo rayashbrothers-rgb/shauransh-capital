@@ -1,7 +1,10 @@
 import { motion } from 'motion/react';
 import { Facebook, Twitter, Linkedin, Instagram, ArrowUp } from 'lucide-react';
+import { useNavigation } from '../context/NavigationContext';
 
 export default function Footer() {
+  const { setActiveView } = useNavigation();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -120,7 +123,7 @@ export default function Footer() {
               <a href="#" className="hover:text-brand-gold transition-colors">Regulatory Disclosures</a>
               <a href="#" className="hover:text-brand-gold transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-brand-gold transition-colors">Terms of Engagement</a>
-              <a href="/authorized" className="text-brand-gold/40 hover:text-brand-gold transition-colors underline decoration-brand-gold/20">Authorized Gateway</a>
+              <button onClick={() => setActiveView('authorized')} className="text-brand-gold/40 hover:text-brand-gold transition-colors underline decoration-brand-gold/20 cursor-pointer text-left">Authorized Gateway</button>
             </div>
           </div>
           

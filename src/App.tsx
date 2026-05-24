@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import FloatingActions from './components/FloatingActions';
 import GeminiChatbot from './components/GeminiChatbot';
+import { NavigationProvider, useNavigation } from './context/NavigationContext';
 
 // Lazy load pages
 const LandingPage = lazy(() => import('./pages/LandingPage'));
@@ -12,10 +13,6 @@ const VehicleLoans = lazy(() => import('./pages/VehicleLoans'));
 const FinancialSolutions = lazy(() => import('./pages/FinancialSolutions'));
 const Insurance = lazy(() => import('./pages/Insurance'));
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout'));
-const DashboardOverview = lazy(() => import('./pages/admin/DashboardOverview'));
-const WebsiteManagement = lazy(() => import('./pages/admin/WebsiteManagement'));
-const CRM = lazy(() => import('./pages/admin/CRM'));
-const AdminSettings = lazy(() => import('./pages/admin/Settings'));
 
 // Loading Fallback
 const PageLoader = () => (
@@ -32,34 +29,41 @@ const PageLoader = () => (
   </div>
 );
 
+function AppContent() {
+  const { activeView } = useNavigation();
+
+  switch (activeView) {
+    case 'home':
+      return <LandingPage />;
+    case 'personal-loan':
+      return <PersonalLoans />;
+    case 'business-loan':
+      return <BusinessLoans />;
+    case 'home-loan':
+      return <HomeLoans />;
+    case 'vehicle-loan':
+      return <VehicleLoans />;
+    case 'financial-solutions':
+      return <FinancialSolutions />;
+    case 'insurance':
+      return <Insurance />;
+    case 'authorized':
+      return <AdminLayout />;
+    default:
+      return <LandingPage />;
+  }
+}
+
 export default function App() {
   return (
     <Router>
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/services/personal-loan" element={<PersonalLoans />} />
-          <Route path="/services/business-loan" element={<BusinessLoans />} />
-          <Route path="/services/home-loan" element={<HomeLoans />} />
-          <Route path="/services/vehicle-loan" element={<VehicleLoans />} />
-          <Route path="/services/financial-solutions" element={<FinancialSolutions />} />
-          <Route path="/services/insurance" element={<Insurance />} />
-          
-          {/* Authorized Routes */}
-          <Route path="/authorized" element={<AdminLayout />}>
-            <Route index element={<DashboardOverview />} />
-            <Route path="contacts" element={<CRM />} />
-            <Route path="analytics" element={<DashboardOverview />} />
-            <Route path="settings" element={<AdminSettings />} />
-            <Route path="*" element={<Navigate to="/authorized" replace />} />
-          </Route>
-
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Suspense>
-      <FloatingActions />
-      <GeminiChatbot />
+      <NavigationProvider>
+        <Suspense fallback={<PageLoader />}>
+          <AppContent />
+        </Suspense>
+        <FloatingActions />
+        <GeminiChatbot />
+      </NavigationProvider>
     </Router>
   );
 }

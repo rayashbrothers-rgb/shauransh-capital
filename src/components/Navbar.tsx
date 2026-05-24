@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronRight, User } from 'lucide-react';
+import { useNavigation } from '../context/NavigationContext';
 
 export default function Navbar() {
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const { activeView, setActiveView } = useNavigation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -27,6 +26,29 @@ export default function Navbar() {
 
   const [activeLink, setActiveLink] = useState('Home');
 
+  const handleNavClick = (href: string, name: string) => {
+    setActiveLink(name);
+    if (activeView !== 'home') {
+      setActiveView('home');
+      setTimeout(() => {
+        if (href === '#') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          const el = document.querySelector(href);
+          el?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      if (href === '#') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const el = document.querySelector(href);
+        el?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
@@ -41,10 +63,10 @@ export default function Navbar() {
     >
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link to="/">
+          <div onClick={() => handleNavClick('#', 'Home')} className="cursor-pointer">
             <motion.div 
               whileHover={{ scale: 1.02 }}
-              className="flex items-center gap-3 lg:gap-5 group cursor-pointer"
+              className="flex items-center gap-3 lg:gap-5 group"
             >
               <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-full overflow-hidden border-2 border-brand-gold/30 bg-white shadow-2xl transition-all duration-500 group-hover:border-brand-gold/60 group-hover:shadow-brand-gold/20 p-0.5">
                 <img 
@@ -55,7 +77,7 @@ export default function Navbar() {
                 />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="text-lg lg:text-2xl font-sans font-black tracking-[0.1em] lg:tracking-[0.15em] text-white leading-none">
+                <span className="text-lg lg:text-2xl font-sans font-black tracking-[0.1em] lg:tracking-[0.15em] text-white leading-none animate-pulse-slow">
                   SHAURANSH
                 </span>
                 <div className="flex flex-col mt-1 lg:mt-1.5">
@@ -68,18 +90,17 @@ export default function Navbar() {
                 </div>
               </div>
             </motion.div>
-          </Link>
+          </div>
         </div>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-10 lg:gap-14">
           <div className="flex items-center gap-8 lg:gap-10">
             {navLinks.map((link) => (
-              <Link
+              <button
                 key={link.name}
-                to={isHomePage ? link.href : `/${link.href}`}
-                onClick={() => setActiveLink(link.name)}
-                className={`text-[11px] lg:text-[12px] uppercase tracking-[0.25em] font-black transition-all duration-300 relative py-2 group ${
+                onClick={() => handleNavClick(link.href, link.name)}
+                className={`text-[11px] lg:text-[12px] uppercase tracking-[0.25em] font-black transition-all duration-300 relative py-2 group cursor-pointer ${
                   activeLink === link.name ? 'text-brand-gold' : 'text-white/50 hover:text-white'
                 }`}
               >
@@ -89,7 +110,7 @@ export default function Navbar() {
                     activeLink === link.name ? 'w-full' : 'w-0 group-hover:w-1/2'
                   }`}
                 />
-              </Link>
+              </button>
             ))}
           </div>
 
@@ -103,19 +124,19 @@ export default function Navbar() {
                 const el = document.getElementById('eligibility');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-10 py-4 bg-brand-gold rounded-full text-[12px] lg:text-[13px] font-black uppercase tracking-[0.2em] text-[#061633] flex items-center gap-3 shadow-[0_10px_20px_rgba(212, 164, 55, 0.15)] transition-all duration-500"
+              className="px-10 py-4 bg-brand-gold rounded-full text-[12px] lg:text-[13px] font-black uppercase tracking-[0.2em] text-[#061633] flex items-center gap-3 shadow-[0_10px_20px_rgba(212, 164, 55, 0.15)] transition-all duration-500 cursor-pointer"
               id="nav-apply-now"
             >
               Apply Now <ChevronRight size={14} strokeWidth={4} />
             </motion.button>
             
-            <a 
-              href="/authorized" 
-              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-brand-gold hover:border-brand-gold hover:bg-white/5 transition-all duration-500"
+            <button 
+              onClick={() => setActiveView('authorized')}
+              className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-brand-gold hover:border-brand-gold hover:bg-white/5 transition-all duration-500 cursor-pointer"
               title="Authorized Login"
             >
               <User size={18} />
-            </a>
+            </button>
           </div>
         </div>
 
@@ -139,14 +160,13 @@ export default function Navbar() {
           >
             <div className="flex flex-col p-6 gap-4">
               {navLinks.map((link) => (
-                <Link
+                <button
                   key={link.name}
-                  to={isHomePage ? link.href : `/${link.href}`}
-                  className="text-lg font-medium text-white/80 hover:text-brand-gold"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => handleNavClick(link.href, link.name)}
+                  className="text-left py-2 text-lg font-medium text-white/80 hover:text-brand-gold cursor-pointer"
                 >
                   {link.name}
-                </Link>
+                </button>
               ))}
               <button 
                 onClick={() => {
@@ -154,13 +174,19 @@ export default function Navbar() {
                   const el = document.getElementById('eligibility');
                   el?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="w-full py-4 gold-gradient rounded-xl font-bold flex items-center justify-center gap-2"
+                className="w-full py-4 bg-brand-gold text-brand-blue rounded-xl font-bold flex items-center justify-center gap-2"
               >
                 Apply Now <ChevronRight size={18} />
               </button>
-              <a href="/authorized" className="w-full py-4 border border-white/10 rounded-xl font-bold text-center text-white/50 hover:text-brand-gold transition-colors">
+              <button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setActiveView('authorized');
+                }}
+                className="w-full py-4 border border-white/10 rounded-xl font-bold text-center text-white/50 hover:text-brand-gold transition-colors cursor-pointer"
+              >
                 Authorized Access
-              </a>
+              </button>
             </div>
           </motion.div>
         )}
