@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import AdminNavbar from '../../components/admin/AdminNavbar';
 import { motion } from 'motion/react';
-import { Lock, LogIn, Loader2, ShieldAlert, ArrowLeft, LogOut } from 'lucide-react';
+import { Lock, LogIn, Loader2, ArrowLeft, Eye, EyeOff, ShieldAlert, KeyRound, User } from 'lucide-react';
 import { useNavigation } from '../../context/NavigationContext';
 
 // Import our subviews
@@ -18,27 +18,36 @@ export default function AdminLayout() {
     user, 
     isAdmin, 
     authLoading, 
-    loginWithGoogle, 
+    loginWithCredentials, 
     logout 
   } = useNavigation();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleGoogleLogin = async () => {
+  const handleCredentialsLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!username || !password) {
+      setLoginError('Please enter both Secure ID and Passkey.');
+      return;
+    }
+
     try {
+      setIsSubmitting(true);
       setLoginError('');
-      const loggedInUser = await loginWithGoogle();
-      if (loggedInUser && loggedInUser.email !== 'rayashbrothers@gmail.com') {
-        setLoginError(`Account mismatch. ${loggedInUser.email} is not authorized.`);
-      }
+      await loginWithCredentials(username, password);
     } catch (err: any) {
       console.error("Login failure:", err);
-      setLoginError(err.message || 'Authentication failed. Please check connection and try again.');
+      setLoginError(err.message || 'Invalid parameters specified. Authorization Refused.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  // Render subview based on our state instead of router dynamic outlet
   const renderSubview = () => {
     switch (adminSubView) {
       case 'dashboard':
@@ -66,95 +75,113 @@ export default function AdminLayout() {
     );
   }
 
-  // Not authenticated OR not the required single admin account "rayashbrothers@gmail.com"
+  // If not logged in as Admin, show user credential form
   if (!user || !isAdmin) {
     return (
       <div className="min-h-screen bg-[#020817] flex items-center justify-center p-4 relative overflow-hidden">
-        {/* Decorative Gradients */}
+        {/* Decorative Ambient Accents */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-gold/5 blur-[120px] rounded-full" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-brand-gold/5 blur-[100px] rounded-full" />
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-md w-full bg-brand-blue/30 backdrop-blur-xl border border-white/10 rounded-[40px] p-8 lg:p-12 text-center relative z-10 mx-auto"
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-md w-full bg-brand-blue/30 backdrop-blur-xl border border-white/10 rounded-[40px] p-8 lg:p-12 relative z-10 mx-auto shadow-2xl"
         >
-          {user && !isAdmin ? (
-            // User signed in but with wrong email
-            <div className="space-y-6">
-              <div className="w-16 h-16 lg:w-20 lg:h-20 bg-red-500/10 rounded-[24px] lg:rounded-3xl flex items-center justify-center text-red-400 mx-auto mb-6 lg:mb-8 border border-red-500/20">
-                <ShieldAlert size={28} />
-              </div>
-              <h1 className="text-2xl lg:text-3xl font-serif font-bold text-white tracking-tight">Access Prohibited</h1>
-              <p className="text-white/50 text-[13px] leading-relaxed font-light">
-                Your account <strong className="text-red-400 font-medium">{user.email}</strong> is not registered as an authorized controller of Shauransh Capital.
-              </p>
-              
-              <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-[11px] text-red-300 font-mono text-left space-y-1">
-                <div>SYSTEM LOG: AUTH_DENIED</div>
-                <div>REQUIRED: rayashbrothers@gmail.com</div>
-              </div>
+          {/* Header branding */}
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 lg:w-20 lg:h-20 bg-brand-gold/10 rounded-[24px] lg:rounded-3xl flex items-center justify-center text-brand-gold mx-auto mb-6 border border-brand-gold/20 shadow-[0_10px_30px_rgba(212,164,55,0.05)]">
+              <Lock size={28} className="animate-pulse" />
+            </div>
+            <h1 className="text-2xl lg:text-3xl font-serif font-bold text-white tracking-tight">Institutional Terminal</h1>
+            <p className="text-white/40 text-[12px] leading-relaxed font-light mt-2 uppercase tracking-widest">
+              Shauransh Capital Controller Access
+            </p>
+          </div>
 
-              <div className="space-y-3 pt-4">
-                <button 
-                  onClick={logout}
-                  className="w-full py-4 bg-red-500 hover:bg-red-600 rounded-xl font-bold flex items-center justify-center gap-3 text-sm uppercase tracking-widest text-white transition-all cursor-pointer"
+          <form onSubmit={handleCredentialsLogin} className="space-y-5">
+            {/* Username Input */}
+            <div className="space-y-1.5">
+              <label className="text-[10px] uppercase tracking-wider font-bold text-white/50 block">Secure Operator ID</label>
+              <div className="relative">
+                <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter Secure Username (yash)"
+                  className="w-full bg-white/5 border border-white/15 focus:border-brand-gold/50 rounded-xl py-3.5 pl-12 pr-4 text-sm text-white focus:outline-none transition-all placeholder:text-white/20"
+                />
+              </div>
+            </div>
+
+            {/* Password Input */}
+            <div className="space-y-1.5">
+              <label className="text-[10px] uppercase tracking-wider font-bold text-white/50 block">Passkey</label>
+              <div className="relative">
+                <KeyRound size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter Password (yash)"
+                  className="w-full bg-white/5 border border-white/15 focus:border-brand-gold/50 rounded-xl py-3.5 pl-12 pr-12 text-sm text-white focus:outline-none transition-all placeholder:text-white/20"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors"
                 >
-                  <LogOut size={16} /> Disconnect & Switch Account
-                </button>
-                <button 
-                  onClick={() => setActiveView('home')} 
-                  className="w-full py-4 border border-white/10 hover:border-brand-gold/40 rounded-xl text-xs text-white/60 hover:text-white transition-all flex items-center justify-center gap-3 cursor-pointer"
-                >
-                  <ArrowLeft size={16} /> Return to Home
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
             </div>
-          ) : (
-            // Not signed in at all
-            <div className="space-y-6">
-              <div className="w-16 h-16 lg:w-20 lg:h-20 bg-brand-gold/10 rounded-[24px] lg:rounded-3xl flex items-center justify-center text-brand-gold mx-auto mb-6 lg:mb-8 border border-brand-gold/20">
-                <Lock size={28} />
-              </div>
-              <h1 className="text-2xl lg:text-3xl font-serif font-bold text-white tracking-tight">Institutional Access</h1>
-              <p className="text-white/40 text-[13px] leading-relaxed font-light">
-                Authorized controllers only. Please verify your identity via Gmail Single-Sign-On gateway.
-              </p>
-              
-              {loginError && (
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-xs text-red-400 font-bold"
-                >
-                  {loginError}
-                </motion.div>
-              )}
 
-              <button 
-                onClick={handleGoogleLogin}
-                className="w-full py-4 gold-gradient rounded-xl font-bold flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(212,164,55,0.2)] hover:-translate-y-1 active:translate-y-0 transition-all text-sm uppercase tracking-widest text-brand-blue cursor-pointer"
+            {loginError && (
+              <motion.div 
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-xs text-red-400 font-bold flex items-center gap-2"
               >
-                <LogIn size={18} strokeWidth={2.5} /> Google SSO Authentication
-              </button>
+                <ShieldAlert size={16} className="shrink-0 text-red-400" />
+                <span>{loginError}</span>
+              </motion.div>
+            )}
 
-              <div className="pt-6 border-t border-white/5 flex flex-col gap-4">
-                 <p className="text-[10px] uppercase tracking-widest text-white/20 font-bold">Encrypted Security SSO Protocol</p>
-                 <button 
-                   onClick={() => setActiveView('home')} 
-                   className="text-xs text-white/40 hover:text-white transition-colors underline decoration-white/10 underline-offset-4 cursor-pointer"
-                 >
-                   Return to Public Interface
-                 </button>
-              </div>
-            </div>
-          )}
+            <button 
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full py-4 gold-gradient rounded-xl font-bold flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(212,164,55,0.15)] hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(212,164,55,0.25)] active:translate-y-0 transition-all text-sm uppercase tracking-widest text-brand-blue cursor-pointer disabled:opacity-50"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 size={18} className="animate-spin text-brand-blue" />
+                  Decrypting Gateway...
+                </>
+              ) : (
+                <>
+                  <LogIn size={18} strokeWidth={2.5} /> Confirm Authorized Entry
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Institutional Footer */}
+          <div className="pt-6 mt-8 border-t border-white/5 flex flex-col gap-4 text-center">
+             <p className="text-[9px] uppercase tracking-[0.2em] text-white/20 font-bold">Encrypted Multi-Channel Authentication</p>
+             <button 
+               onClick={() => setActiveView('home')} 
+               className="text-xs text-white/40 hover:text-white transition-colors flex items-center justify-center gap-2 cursor-pointer inline-flex"
+             >
+               <ArrowLeft size={12} /> Return to Public Portal
+             </button>
+          </div>
         </motion.div>
       </div>
     );
   }
 
-  // Fully authenticated and verified as 'rayashbrothers@gmail.com'
   return (
     <div className="flex min-h-screen bg-[#020817] text-white">
       {/* Sidebar */}

@@ -15,7 +15,8 @@ import {
   PieChart,
   Activity,
   ChevronRight,
-  Maximize2
+  Maximize2,
+  ArrowLeft
 } from 'lucide-react';
 import {
   AreaChart,
@@ -31,6 +32,7 @@ import {
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import LeadForm from '../components/LeadForm';
+import { useNavigation } from '../context/NavigationContext';
 
 const performanceData = [
   { name: '2020', value: 4000, trend: 2400 },
@@ -43,6 +45,7 @@ const performanceData = [
 ];
 
 export default function FinancialSolutions() {
+  const { setActiveView } = useNavigation();
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.9]);
@@ -113,6 +116,16 @@ export default function FinancialSolutions() {
         </div>
 
         <div className="max-w-7xl mx-auto px-8 relative z-10 w-full pt-20 lg:pt-0">
+          {/* Back Button */}
+          <motion.button
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            onClick={() => setActiveView('home')}
+            className="mb-8 flex items-center gap-3 px-6 py-3 border border-white/10 hover:border-brand-gold/40 hover:bg-white/5 rounded-full text-xs font-black uppercase tracking-[0.2em] text-white/70 hover:text-white transition-all w-fit cursor-pointer"
+          >
+            <ArrowLeft size={14} className="text-brand-gold" /> Back to Main Portal
+          </motion.button>
+
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-12">
               <motion.div 

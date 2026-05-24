@@ -1,12 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { 
-  onAuthStateChanged, 
-  signOut, 
-  User as FirebaseUser,
-  GoogleAuthProvider,
-  signInWithPopup
-} from 'firebase/auth';
-import { auth, googleProvider } from '../lib/firebase';
 
 export type ActiveView = 
   | 'home' 
@@ -20,22 +12,27 @@ export type ActiveView =
 
 export type AdminSubView = 'dashboard' | 'crm' | 'analytics' | 'settings';
 
+interface AdminUser {
+  displayName: string;
+  email: string;
+  photoURL: string | null;
+}
+
 interface NavigationContextType {
   activeView: ActiveView;
   setActiveView: (view: ActiveView) => void;
   adminSubView: AdminSubView;
   setAdminSubView: (subView: AdminSubView) => void;
-  user: FirebaseUser | null;
+  user: AdminUser | null;
   isAdmin: boolean;
   authLoading: boolean;
-  loginWithGoogle: () => Promise<FirebaseUser | null>;
+  loginWithCredentials: (u: string, p: string) => Promise<boolean>;
   logout: () => Promise<void>;
 }
 
 const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
 
 export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Check localStorage for saved view state to survive refreshes gracefully
   const [activeView, setActiveViewInternal] = useState<ActiveView>(() => {
     const saved = localStorage.getItem('shauransh_active_view');
     return (saved as ActiveView) || 'home';
@@ -46,7 +43,11 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     return (saved as AdminSubView) || 'dashboard';
   });
 
-  const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [user, setUser] = useState<AdminUser | null>(() => {
+    const savedUser = localStorage.getItem('shauransh_admin_user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
   const [authLoading, setAuthLoading] = useState<boolean>(true);
 
   // Sync state to local storage and scroll to top smoothly
@@ -61,47 +62,44 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     localStorage.setItem('shauransh_admin_subview', subView);
   };
 
-  const allowedEmail = 'rayashbrothers@gmail.com';
-  const isAdmin = user !== null && user.email === allowedEmail;
+  const isAdmin = user !== null && user.email === 'rayashbrothers@gmail.com';
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    // Elegant system clearance delay
+    const timer = setTimeout(() => {
       setAuthLoading(false);
-    });
+    }, 700);
 
-    return () => unsubscribe();
+    return () => clearTimeout(timer);
   }, []);
 
-  const loginWithGoogle = async () => {
-    try {
-      setAuthLoading(true);
-      // Force Google Account prompt to allow switching accounts if needed
-      googleProvider.setCustomParameters({
-        prompt: 'select_account'
-      });
-      const result = await signInWithPopup(auth, googleProvider);
-      setUser(result.user);
-      return result.user;
-    } catch (error) {
-      console.error("Error signing in with Google:", error);
-      throw error;
-    } finally {
+  const loginWithCredentials = async (u: string, p: string): Promise<boolean> => {
+    setAuthLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 600)); // Deluxe mock delay for security feel
+
+    if (u === 'yash' && p === 'yash') {
+      const loggedInAdmin: AdminUser = {
+        displayName: 'Yash Malhotra',
+        email: 'rayashbrothers@gmail.com',
+        photoURL: null,
+      };
+      setUser(loggedInAdmin);
+      localStorage.setItem('shauransh_admin_user', JSON.stringify(loggedInAdmin));
       setAuthLoading(false);
+      return true;
+    } else {
+      setAuthLoading(false);
+      throw new Error('Invalid Secure Access Credentials.');
     }
   };
 
   const logout = async () => {
-    try {
-      setAuthLoading(true);
-      await signOut(auth);
-      setUser(null);
-      setActiveView('home');
-    } catch (error) {
-      console.error("Error signing out:", error);
-    } finally {
-      setAuthLoading(false);
-    }
+    setAuthLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    setUser(null);
+    localStorage.removeItem('shauransh_admin_user');
+    setActiveView('home');
+    setAuthLoading(false);
   };
 
   return (
@@ -114,7 +112,7 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         user,
         isAdmin,
         authLoading,
-        loginWithGoogle,
+        loginWithCredentials,
         logout
       }}
     >

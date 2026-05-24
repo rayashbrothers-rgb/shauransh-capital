@@ -12,14 +12,17 @@ import {
   ChevronRight, 
   Plus,
   ArrowRight,
-  TrendingUp
+  TrendingUp,
+  ArrowLeft
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import LeadForm from '../components/LeadForm';
 import { getSettings } from '../lib/settings';
+import { useNavigation } from '../context/NavigationContext';
 
 export default function VehicleLoans() {
+  const { setActiveView } = useNavigation();
   const [loanAmount, setLoanAmount] = useState(1000000);
   const [interestRate, setInterestRate] = useState(8.9);
   const [tenure, setTenure] = useState(5);
@@ -161,6 +164,16 @@ export default function VehicleLoans() {
         </div>
 
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12 relative z-10 w-full">
+          {/* Back Button */}
+          <motion.button
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            onClick={() => setActiveView('home')}
+            className="mb-8 flex items-center gap-3 px-6 py-3 border border-white/10 hover:border-brand-gold/40 hover:bg-white/5 rounded-full text-xs font-black uppercase tracking-[0.2em] text-white/70 hover:text-white transition-all w-fit cursor-pointer"
+          >
+            <ArrowLeft size={14} className="text-brand-gold" /> Back to Main Portal
+          </motion.button>
+
           <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-20 items-center">
             <div className="flex flex-col gap-10">
               <motion.div

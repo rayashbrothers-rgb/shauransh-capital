@@ -13,7 +13,8 @@ import {
   PieChart,
   ArrowUpRight,
   ChevronRight,
-  Plus
+  Plus,
+  ArrowLeft
 } from 'lucide-react';
 import { 
   AreaChart, 
@@ -27,6 +28,7 @@ import {
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import LeadForm from '../components/LeadForm';
+import { useNavigation } from '../context/NavigationContext';
 
 const growthData = [
   { month: 'Jan', expansion: 1000, capital: 800 },
@@ -38,6 +40,7 @@ const growthData = [
 ];
 
 export default function BusinessLoans() {
+  const { setActiveView } = useNavigation();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const solutions = [
@@ -132,6 +135,16 @@ export default function BusinessLoans() {
         </div>
 
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12 relative z-10 w-full">
+          {/* Back Button */}
+          <motion.button
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            onClick={() => setActiveView('home')}
+            className="mb-8 flex items-center gap-3 px-6 py-3 border border-white/10 hover:border-brand-gold/40 hover:bg-white/5 rounded-full text-xs font-black uppercase tracking-[0.2em] text-white/70 hover:text-white transition-all w-fit cursor-pointer"
+          >
+            <ArrowLeft size={14} className="text-brand-gold" /> Back to Main Portal
+          </motion.button>
+
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-20 items-center">
             <div className="flex flex-col gap-10">
               <motion.div
