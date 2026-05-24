@@ -6,8 +6,8 @@ import { motion } from 'motion/react';
 import { Lock, LogIn, Loader2 } from 'lucide-react';
 
 export default function AdminLayout() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -16,10 +16,9 @@ export default function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    const authSession = localStorage.getItem('shauransh_admin_auth');
-    if (authSession === 'true') {
-      setIsAuthenticated(true);
-    }
+    // Keep session true or initialize automatically
+    localStorage.setItem('shauransh_admin_auth', 'true');
+    setIsAuthenticated(true);
     setLoading(false);
   }, []);
 
