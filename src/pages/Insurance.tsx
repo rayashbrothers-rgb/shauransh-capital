@@ -175,10 +175,10 @@ export default function Insurance() {
                  />
                  <div className="absolute inset-0 bg-gradient-to-t from-brand-blue via-transparent to-transparent" />
                  
-                 <div className="absolute bottom-12 left-12 right-12 p-10 glass-card rounded-3xl border-brand-gold/10 backdrop-blur-3xl text-center">
-                    <ShieldCheck className="mx-auto text-brand-gold mb-4" size={48} />
+                 <div className="absolute bottom-4 left-4 right-4 sm:bottom-12 sm:left-12 sm:right-12 p-4 sm:p-10 glass-card rounded-[20px] sm:rounded-3xl border-brand-gold/10 backdrop-blur-3xl text-center">
+                    <ShieldCheck className="mx-auto text-brand-gold mb-2 sm:mb-4 w-8 h-8 sm:w-12 sm:h-12" />
                     <p className="text-[10px] uppercase font-black tracking-[0.4em] text-brand-gold mb-2">Institutional Grade</p>
-                    <p className="text-2xl font-serif font-black italic gold-text-gradient leading-none">Security Guaranteed</p>
+                    <p className="text-sm sm:text-2xl font-serif font-black italic gold-text-gradient leading-none">Security Guaranteed</p>
                  </div>
               </div>
             </motion.div>
@@ -201,7 +201,7 @@ export default function Insurance() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
             {insuranceTypes.map((type, i) => (
               <motion.div
                 key={i}
@@ -209,7 +209,7 @@ export default function Insurance() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="p-10 lg:p-14 glass-card rounded-[60px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-700"
+                className="p-6 sm:p-10 lg:p-14 glass-card rounded-[28px] sm:rounded-[60px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-700"
               >
                 <div className="w-20 h-20 rounded-[28px] bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-xl border border-brand-gold/10 group-hover:scale-110 group-hover:shadow-brand-gold/30">
                   <div className="transition-transform duration-500 group-hover:scale-110">
@@ -236,7 +236,7 @@ export default function Insurance() {
       {/* Trust Metrics */}
       <section className="py-20 bg-white/[0.01] border-y border-white/5">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-12">
             {[
               { val: "99%", label: "Claim Delta" },
               { val: "24h", label: "Advocacy Response" },
@@ -278,11 +278,11 @@ export default function Insurance() {
               >
                 <button 
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full p-10 flex items-center justify-between text-left group"
+                  className="w-full p-6 sm:p-10 flex items-center justify-between text-left group"
                 >
-                  <span className={`text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
-                  <div className={`w-12 h-12 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
-                    <Plus size={24} strokeWidth={3} />
+                  <span className={`text-base sm:text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 flex items-center justify-center flex-shrink-0 transition-all duration-500 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
+                    <Plus size={20} className="sm:w-6 sm:h-6" strokeWidth={3} />
                   </div>
                 </button>
                 <motion.div 
@@ -290,7 +290,7 @@ export default function Insurance() {
                   animate={{ height: openFaq === i ? 'auto' : 0, opacity: openFaq === i ? 1 : 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="p-10 pt-0 text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-10">
+                  <div className="p-6 sm:p-10 pt-0 text-base sm:text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-0 sm:mx-10 animate-fade-in">
                     {faq.a}
                   </div>
                 </motion.div>
@@ -303,7 +303,7 @@ export default function Insurance() {
       {/* Final CTA Section */}
       <section className="py-32 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12 relative z-10 text-center">
-          <div className="glass-card p-20 lg:p-32 rounded-[100px] border-brand-gold/10 flex flex-col items-center gap-12 shadow-[0_80px_160px_rgba(0,0,0,0.6)] relative overflow-hidden group">
+          <div className="glass-card p-6 sm:p-20 lg:p-32 rounded-[32px] sm:rounded-[100px] border-brand-gold/10 flex flex-col items-center gap-12 shadow-[0_80px_160px_rgba(0,0,0,0.6)] relative overflow-hidden group">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,164,55,0.1)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             
             <div className="flex flex-col gap-8 relative z-10">

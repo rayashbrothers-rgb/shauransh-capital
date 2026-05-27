@@ -111,19 +111,19 @@ export default function EMICalculator() {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-7 glass-card p-10 md:p-14 rounded-[50px] space-y-16 border-white/5 shadow-2xl relative overflow-hidden"
+            className="lg:col-span-7 glass-card p-6 sm:p-10 lg:p-14 rounded-[28px] sm:rounded-[50px] space-y-10 sm:space-y-16 border-white/5 shadow-2xl relative overflow-hidden"
           >
             {/* Background Accent */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/5 blur-[100px] rounded-full pointer-events-none" />
 
             {/* Loan Amount */}
-            <div className="space-y-8">
-              <div className="flex justify-between items-end">
-                <div className="flex flex-col gap-2">
+            <div className="space-y-6 sm:space-y-8">
+              <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
+                <div className="flex flex-col gap-1 sm:gap-2">
                   <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Capital Required</label>
-                  <h3 className="text-xl font-bold text-white tracking-tight">Loan Amount</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">Loan Amount</h3>
                 </div>
-                <div className="text-3xl font-serif font-black gold-text-gradient italic tracking-tighter">{formatCurrency(loanAmount)}</div>
+                <div className="text-2xl sm:text-3xl font-serif font-black gold-text-gradient italic tracking-tighter">{formatCurrency(loanAmount)}</div>
               </div>
               <div className="relative pt-2">
                 <input 
@@ -144,13 +144,13 @@ export default function EMICalculator() {
             </div>
 
             {/* Interest Rate */}
-            <div className="space-y-8">
-              <div className="flex justify-between items-end">
-                <div className="flex flex-col gap-2">
+            <div className="space-y-6 sm:space-y-8">
+              <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
+                <div className="flex flex-col gap-1 sm:gap-2">
                   <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Interest Yield</label>
-                  <h3 className="text-xl font-bold text-white tracking-tight">Annual Percentage Rate</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">Annual Percentage Rate</h3>
                 </div>
-                <div className="text-3xl font-serif font-black gold-text-gradient italic tracking-tighter">{interestRate}%</div>
+                <div className="text-2xl sm:text-3xl font-serif font-black gold-text-gradient italic tracking-tighter">{interestRate}%</div>
               </div>
               <div className="relative pt-2">
                 <input 
@@ -171,13 +171,13 @@ export default function EMICalculator() {
             </div>
 
             {/* Tenure */}
-            <div className="space-y-8">
-              <div className="flex justify-between items-end">
-                <div className="flex flex-col gap-2">
+            <div className="space-y-6 sm:space-y-8">
+              <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
+                <div className="flex flex-col gap-1 sm:gap-2">
                   <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Amortization Period</label>
-                  <h3 className="text-xl font-bold text-white tracking-tight">Tenure in Years</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">Tenure in Years</h3>
                 </div>
-                <div className="text-3xl font-serif font-black gold-text-gradient italic tracking-tighter">{tenure} <span className="text-sm font-sans tracking-normal opacity-60">Years</span></div>
+                <div className="text-2xl sm:text-3xl font-serif font-black gold-text-gradient italic tracking-tighter">{tenure} <span className="text-sm font-sans tracking-normal opacity-60">Years</span></div>
               </div>
               <div className="relative pt-2">
                 <input 
@@ -205,42 +205,42 @@ export default function EMICalculator() {
             viewport={{ once: true }}
             className="lg:col-span-5 h-full"
           >
-            <div className="relative h-full p-[2px] rounded-[50px] bg-gradient-to-br from-brand-gold via-brand-gold/20 to-transparent group overflow-hidden">
+            <div className="relative h-full p-[2px] rounded-[32px] sm:rounded-[50px] bg-gradient-to-br from-brand-gold via-brand-gold/20 to-transparent group overflow-hidden">
               <div className="absolute inset-0 bg-brand-gold/10 blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
               
-              <div className="relative bg-[#061633] rounded-[48px] p-10 lg:p-12 h-full flex flex-col justify-between border-white/5">
-                <div className="flex flex-col gap-10">
-                  <div className="flex justify-between items-start">
-                    <div className="w-20 h-20 rounded-[24px] bg-brand-gold/10 flex items-center justify-center text-brand-gold shadow-[0_10px_30px_rgba(212,164,55,0.1)] border border-brand-gold/20">
-                      <Calculator size={36} strokeWidth={1.5} />
+              <div className="relative bg-[#061633] rounded-[30px] sm:rounded-[48px] p-6 sm:p-10 lg:p-12 h-full flex flex-col justify-between border-white/5">
+                <div className="flex flex-col gap-8 sm:gap-10">
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-xl sm:rounded-[24px] bg-brand-gold/10 flex items-center justify-center text-brand-gold shadow-[0_10px_30px_rgba(212,164,55,0.1)] border border-brand-gold/20 shrink-0">
+                      <Calculator className="w-8 h-8 sm:w-9 sm:h-9" strokeWidth={1.5} />
                     </div>
-                    <div className="px-5 py-2 bg-brand-gold/10 border border-brand-gold/20 rounded-full">
-                      <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-gold italic">Premium Estimator</span>
+                    <div className="px-4 py-1.5 sm:px-5 sm:py-2 bg-brand-gold/10 border border-brand-gold/20 rounded-full shrink-0">
+                      <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-brand-gold italic">Premium Estimator</span>
                     </div>
                   </div>
 
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white/30">Monthly Installment</h3>
+                  <div className="space-y-3 sm:space-y-4">
+                    <h3 className="text-xs sm:text-sm font-black uppercase tracking-[0.4em] text-white/30">Monthly Installment</h3>
                     <motion.div 
                       key={results.emi}
                       initial={{ scale: 0.95, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="text-6xl lg:text-7xl font-serif font-black italic gold-text-gradient tracking-tighter"
+                      className="text-4xl sm:text-5xl lg:text-7xl font-serif font-black italic gold-text-gradient tracking-tighter"
                     >
                       {formatCurrency(results.emi)}
                     </motion.div>
-                    <p className="text-sm text-white/30 font-light max-w-[240px]">Estimated monthly obligations based on institutional interest structures.</p>
+                    <p className="text-xs sm:text-sm text-white/30 font-light max-w-[240px]">Estimated monthly obligations based on institutional interest structures.</p>
                   </div>
                 </div>
                 
-                <div className="mt-16 space-y-6">
-                  <div className="flex justify-between items-center py-4 border-b border-white/5">
-                    <span className="text-[11px] uppercase font-black tracking-[0.2em] text-white/30">Total Interest Payable</span>
-                    <span className="text-lg font-serif font-bold text-white italic tracking-tight">{formatCurrency(results.totalInterest)}</span>
+                <div className="mt-10 sm:mt-16 space-y-6">
+                  <div className="flex justify-between items-center py-3 sm:py-4 border-b border-white/5">
+                    <span className="text-[10px] sm:text-[11px] uppercase font-black tracking-[0.2em] text-white/30">Total Interest Payable</span>
+                    <span className="text-base sm:text-lg font-serif font-bold text-white italic tracking-tight">{formatCurrency(results.totalInterest)}</span>
                   </div>
-                  <div className="flex justify-between items-center py-4 border-b border-white/5">
-                    <span className="text-[11px] uppercase font-black tracking-[0.2em] text-white/30">Total Repayment Sum</span>
-                    <span className="text-lg font-serif font-bold text-white italic tracking-tight">{formatCurrency(results.totalPayment)}</span>
+                  <div className="flex justify-between items-center py-3 sm:py-4 border-b border-white/5">
+                    <span className="text-[10px] sm:text-[11px] uppercase font-black tracking-[0.2em] text-white/30">Total Repayment Sum</span>
+                    <span className="text-base sm:text-lg font-serif font-bold text-white italic tracking-tight">{formatCurrency(results.totalPayment)}</span>
                   </div>
                   
                   {isSubmitted ? (
@@ -254,12 +254,12 @@ export default function EMICalculator() {
                     </motion.div>
                   ) : (
                     <form onSubmit={handleLockRate} className="mt-8 space-y-4">
-                      <div className="flex gap-4">
+                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                         <input 
                           required
                           type="text" 
                           placeholder="Name"
-                          className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-brand-gold/50 text-white"
+                          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-brand-gold/50 text-white"
                           value={contactInfo.name}
                           onChange={(e) => setContactInfo({...contactInfo, name: e.target.value})}
                         />
@@ -267,7 +267,7 @@ export default function EMICalculator() {
                           required
                           type="tel" 
                           placeholder="Mobile"
-                          className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-brand-gold/50 text-white"
+                          className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-brand-gold/50 text-white"
                           value={contactInfo.phone}
                           onChange={(e) => setContactInfo({...contactInfo, phone: e.target.value})}
                         />
@@ -277,7 +277,7 @@ export default function EMICalculator() {
                         whileTap={{ y: 0 }}
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full py-5 gold-gradient rounded-[24px] font-black text-[11px] uppercase tracking-[0.3em] text-brand-blue shadow-[0_15px_30px_rgba(212,164,55,0.2)] transition-all duration-500 disabled:opacity-50"
+                        className="w-full py-4 sm:py-5 gold-gradient rounded-xl sm:rounded-[24px] font-black text-[11px] uppercase tracking-[0.3em] text-brand-blue shadow-[0_15px_30px_rgba(212,164,55,0.2)] transition-all duration-500 disabled:opacity-50"
                       >
                         {isSubmitting ? 'Securing...' : 'Lock This Rate Now'}
                       </motion.button>

@@ -133,7 +133,7 @@ export default function LeadForm({ defaultLoanType, defaultAmount, formSource = 
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true }}
-            className="glass-card p-10 lg:p-14 rounded-[50px] relative border-brand-gold/10 shadow-[0_50px_100px_rgba(0,0,0,0.5)] overflow-hidden"
+            className="glass-card p-6 sm:p-10 lg:p-14 rounded-[28px] sm:rounded-[50px] relative border-brand-gold/10 shadow-[0_50px_100px_rgba(0,0,0,0.5)] overflow-hidden"
           >
             {/* Form Background Pattern */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/5 blur-[80px] rounded-full pointer-events-none" />

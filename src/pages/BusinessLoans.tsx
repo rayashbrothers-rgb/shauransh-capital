@@ -295,7 +295,7 @@ export default function BusinessLoans() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className="glass-card p-10 lg:p-14 rounded-[60px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-700"
+                className="glass-card p-6 sm:p-10 lg:p-14 rounded-[28px] sm:rounded-[60px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-700"
               >
                 <div className="w-16 h-16 rounded-[24px] bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-xl border border-brand-gold/10 group-hover:scale-110 group-hover:shadow-brand-gold/30">
                   <div className="transition-transform duration-500 group-hover:scale-110">
@@ -318,7 +318,7 @@ export default function BusinessLoans() {
       {/* Features Billboard */}
       <section className="py-32 bg-white/[0.02] border-y border-white/5">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-12">
             {features.map((feature, i) => (
               <motion.div 
                 key={i}
@@ -348,7 +348,7 @@ export default function BusinessLoans() {
                transition={{ duration: 1 }}
                className="relative"
              >
-                <div className="aspect-square rounded-[80px] overflow-hidden border-2 border-white/5 shadow-2xl relative group">
+                <div className="aspect-square rounded-[32px] sm:rounded-[80px] overflow-hidden border-2 border-white/5 shadow-2xl relative group">
                    <img 
                     src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" 
                     alt="Corporate Tower" 
@@ -357,14 +357,14 @@ export default function BusinessLoans() {
                    <div className="absolute inset-0 bg-gradient-to-t from-brand-blue via-transparent to-transparent opacity-80" />
                    
                    {/* Overlay Detail */}
-                   <div className="absolute bottom-16 left-16 right-16 glass-card p-10 rounded-[40px] border-brand-gold/20 backdrop-blur-2xl">
+                   <div className="absolute bottom-6 left-6 right-6 sm:bottom-16 sm:left-16 sm:right-16 glass-card p-4 sm:p-10 rounded-[20px] sm:rounded-[40px] border-brand-gold/20 backdrop-blur-2xl">
                       <div className="flex items-center gap-6">
-                         <div className="w-16 h-16 rounded-2xl bg-brand-gold flex items-center justify-center text-brand-blue shadow-lg shrink-0">
-                            <TrendingUp size={32} strokeWidth={2.5} />
+                         <div className="w-10 h-10 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-brand-gold flex items-center justify-center text-brand-blue shadow-lg shrink-0">
+                            <TrendingUp size={20} className="sm:w-8 sm:h-8" strokeWidth={2.5} />
                          </div>
                          <div>
-                            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-gold">Industrial Velocity</p>
-                            <p className="text-2xl font-serif font-bold text-white italic">Aggressive MSME Scaling</p>
+                            <p className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-brand-gold">Industrial Velocity</p>
+                            <p className="text-sm sm:text-2xl font-serif font-bold text-white italic">Aggressive MSME Scaling</p>
                          </div>
                       </div>
                    </div>
@@ -428,10 +428,10 @@ export default function BusinessLoans() {
               >
                 <button 
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full p-8 lg:p-10 flex items-center justify-between text-left group"
+                  className="w-full p-6 sm:p-8 lg:p-10 flex items-center justify-between text-left group"
                 >
-                  <span className={`text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
-                  <div className={`w-10 h-10 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
+                  <span className={`text-lg sm:text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
+                  <div className={`w-10 h-10 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 flex-shrink-0 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
                     <Plus size={20} strokeWidth={3} />
                   </div>
                 </button>
@@ -440,7 +440,7 @@ export default function BusinessLoans() {
                   animate={{ height: openFaq === i ? 'auto' : 0, opacity: openFaq === i ? 1 : 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="p-10 pt-0 text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-10">
+                  <div className="p-6 sm:p-10 pt-0 text-base sm:text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-0 sm:mx-10">
                     {faq.a}
                   </div>
                 </motion.div>
@@ -453,7 +453,7 @@ export default function BusinessLoans() {
       {/* Final CTA Section */}
       <section className="py-32 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12 relative z-10">
-          <div className="glass-card p-16 lg:p-28 rounded-[80px] border-brand-gold/20 flex flex-col items-center text-center gap-12 shadow-[0_60px_120px_rgba(0,0,0,0.5)] relative overflow-hidden group">
+          <div className="glass-card p-6 sm:p-16 lg:p-28 rounded-[32px] sm:rounded-[80px] border-brand-gold/20 flex flex-col items-center text-center gap-12 shadow-[0_60px_120px_rgba(0,0,0,0.5)] relative overflow-hidden group">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,164,55,0.08)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             
             <div className="flex flex-col gap-6 relative z-10">

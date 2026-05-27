@@ -51,34 +51,34 @@ export default function EligibilityChecker() {
   return (
     <section className="py-24 bg-black/10" id="eligibility">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="glass-card rounded-[40px] overflow-hidden grid lg:grid-cols-2">
-          <div className="p-8 md:p-16 border-r border-white/5 flex flex-col justify-center">
+        <div className="glass-card rounded-[24px] sm:rounded-[40px] overflow-hidden grid lg:grid-cols-2">
+          <div className="p-6 sm:p-10 md:p-16 lg:border-r lg:border-b-0 border-b border-white/5 flex flex-col justify-center">
             <span className="text-brand-gold text-xs font-bold uppercase tracking-[0.4em] mb-4">Precision Analysis</span>
-            <h2 className="text-4xl font-serif font-bold mb-8 leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold mb-8 leading-tight">
               Instant <span className="italic gold-text-gradient">Eligibility Assurance</span>
             </h2>
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               <div className="flex gap-4">
                 <div className="w-6 h-6 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <CheckCircle size={14} />
                 </div>
-                <p className="text-white/60 text-sm">Real-time credit policy matching across 50+ lenders.</p>
+                <p className="text-white/60 text-xs sm:text-sm">Real-time credit policy matching across 50+ lenders.</p>
               </div>
               <div className="flex gap-4">
                 <div className="w-6 h-6 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0">
                   <CheckCircle size={14} />
                 </div>
-                <p className="text-white/60 text-sm">Confidential assessment with no impact on your CIBIL score.</p>
+                <p className="text-white/60 text-xs sm:text-sm">Confidential assessment with no impact on your CIBIL score.</p>
               </div>
             </div>
             
-            <div className="mt-12 p-6 rounded-2xl bg-brand-gold/5 border border-brand-gold/10 inline-flex items-center gap-4">
-              <ShieldCheck className="text-brand-gold" size={32} />
-              <div className="text-xs uppercase tracking-widest font-bold opacity-60">Verified Institutional Access</div>
+            <div className="mt-12 p-5 sm:p-6 rounded-2xl bg-brand-gold/5 border border-brand-gold/10 inline-flex items-center gap-4 self-start">
+              <ShieldCheck className="text-brand-gold shrink-0" size={32} />
+              <div className="text-[10px] sm:text-xs uppercase tracking-widest font-bold opacity-60">Verified Institutional Access</div>
             </div>
           </div>
 
-          <div className="p-8 md:p-16 bg-white/[0.02]">
+          <div className="p-6 sm:p-10 md:p-16 bg-white/[0.02]">
             <AnimatePresence mode="wait">
               {step === 1 ? (
                 <motion.div 

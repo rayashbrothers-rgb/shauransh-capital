@@ -474,7 +474,7 @@ export default function FinancialSolutions() {
       {/* Flagship CTA */}
       <section className="py-40 relative">
          <div className="max-w-7xl mx-auto px-8 relative z-10">
-            <div className="glass-card p-24 md:p-40 rounded-[120px] mb-20 border-brand-gold/10 relative overflow-hidden group text-center flex flex-col items-center gap-16 shadow-[0_100px_200px_rgba(0,0,0,0.8)]">
+            <div className="glass-card p-6 sm:p-24 md:p-40 rounded-[32px] sm:rounded-[120px] mb-20 border-brand-gold/10 relative overflow-hidden group text-center flex flex-col items-center gap-8 sm:gap-16 shadow-[0_100px_200px_rgba(0,0,0,0.8)]">
                <div className="absolute inset-0 bg-[#020617]/80 backdrop-blur-3xl" />
                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,164,55,0.1)_0%,transparent_70%)]" />
                
@@ -484,11 +484,11 @@ export default function FinancialSolutions() {
                   </div>
                   <div className="space-y-6">
                     <span className="text-brand-gold text-xs font-black uppercase tracking-[0.8em] animate-pulse block">Strategic Mandate</span>
-                    <h2 className="text-6xl md:text-8xl lg:text-[120px] font-serif font-medium leading-[0.8] tracking-tighter text-white">
+                    <h2 className="text-4xl sm:text-6xl md:text-8xl lg:text-[120px] font-serif font-medium leading-[1] sm:leading-[0.8] tracking-tighter text-white">
                        Secure Your <br /> <span className="italic font-black gold-text-gradient">Financial Future.</span>
                     </h2>
                   </div>
-                  <p className="text-2xl text-slate-400 font-light max-w-3xl leading-relaxed italic">
+                  <p className="text-base sm:text-2xl text-slate-400 font-light max-w-3xl leading-relaxed italic">
                      Our institutional-grade advisory is now available for select global clients. Let's engineer your legacy.
                   </p>
                </div>
@@ -497,14 +497,14 @@ export default function FinancialSolutions() {
                   <motion.button 
                     whileHover={{ scale: 1.05, y: -5 }}
                     onClick={() => document.getElementById('fs-form')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="px-20 py-8 gold-gradient text-[#020617] font-black uppercase tracking-[0.4em] text-[15px] rounded-full shadow-[0_40px_80px_rgba(212,164,55,0.3)] transition-all duration-500"
+                    className="px-8 sm:px-20 py-5 sm:py-8 gold-gradient text-[#020617] font-black uppercase tracking-[0.4em] text-[15px] rounded-full shadow-[0_40px_80px_rgba(212,164,55,0.3)] transition-all duration-500"
                   >
                      Initiate Protocol
                   </motion.button>
                   <motion.button 
                     whileHover={{ scale: 1.05, y: -5 }}
                     onClick={() => document.getElementById('fs-form')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="px-20 py-8 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.4em] text-[15px] rounded-full transition-all duration-500"
+                    className="px-8 sm:px-20 py-5 sm:py-8 border-2 border-white/10 hover:border-brand-gold/50 text-white font-black uppercase tracking-[0.4em] text-[15px] rounded-full transition-all duration-500"
                   >
                      Consult Partner
                   </motion.button>

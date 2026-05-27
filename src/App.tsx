@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import FloatingActions from './components/FloatingActions';
 import GeminiChatbot from './components/GeminiChatbot';
@@ -31,6 +31,10 @@ const PageLoader = () => (
 
 function AppContent() {
   const { activeView } = useNavigation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeView]);
 
   switch (activeView) {
     case 'home':

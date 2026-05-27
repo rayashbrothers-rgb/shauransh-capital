@@ -293,7 +293,7 @@ export default function VehicleLoans() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className="glass-card p-12 lg:p-16 rounded-[60px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-700"
+                className="glass-card p-6 sm:p-12 lg:p-16 rounded-[28px] sm:rounded-[60px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-700"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 blur-[50px] rounded-full" />
                 <div className="w-20 h-20 rounded-[32px] bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-xl group-hover:scale-110 group-hover:shadow-brand-gold/30">
@@ -348,21 +348,21 @@ export default function VehicleLoans() {
             <h2 className="text-5xl md:text-6xl font-serif font-medium leading-[1.2] tracking-tight text-white">Interactive <br /> <span className="italic font-semibold gold-text-gradient">Drive Simulator.</span></h2>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-12 items-stretch">
-            <div className="lg:col-span-12 glass-card p-10 md:p-20 rounded-[80px] border-white/5 relative overflow-hidden bg-[#061633]/50">
+          <div className="grid lg:grid-cols-12 gap-6 sm:gap-12 items-stretch">
+            <div className="lg:col-span-12 glass-card p-5 sm:p-10 md:p-20 rounded-[28px] sm:rounded-[80px] border-white/5 relative overflow-hidden bg-[#061633]/50">
                {/* Dashboard Glow */}
                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-gold/30 to-transparent" />
                
-               <div className="grid lg:grid-cols-[1fr_0.8fr] gap-20 relative z-10">
-                 <div className="flex flex-col gap-12">
+               <div className="grid lg:grid-cols-[1fr_0.8fr] gap-10 lg:gap-20 relative z-10">
+                 <div className="flex flex-col gap-8 sm:gap-12">
                     {/* Loan Amount */}
-                    <div className="space-y-8 group">
-                      <div className="flex justify-between items-end">
-                        <div className="flex flex-col gap-2">
+                    <div className="space-y-6 sm:space-y-8 group">
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
+                        <div className="flex flex-col gap-1 sm:gap-2">
                           <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 group-hover:text-brand-gold transition-colors">Vehicle Valuation</label>
-                          <h3 className="text-2xl font-bold text-white tracking-tight">Loan Amount</h3>
+                          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Loan Amount</h3>
                         </div>
-                        <div className="text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{formatCurrency(loanAmount)}</div>
+                        <div className="text-2xl sm:text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{formatCurrency(loanAmount)}</div>
                       </div>
                       <div className="relative pt-2">
                         <input 
@@ -379,13 +379,13 @@ export default function VehicleLoans() {
                     </div>
 
                     {/* Interest Rate */}
-                    <div className="space-y-8 group">
-                      <div className="flex justify-between items-end">
-                        <div className="flex flex-col gap-2">
+                    <div className="space-y-6 sm:space-y-8 group">
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
+                        <div className="flex flex-col gap-1 sm:gap-2">
                           <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 group-hover:text-brand-gold transition-colors">Yield Optimization</label>
-                          <h3 className="text-2xl font-bold text-white tracking-tight">Interest Rate (% p.a)</h3>
+                          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Interest Rate (% p.a)</h3>
                         </div>
-                        <div className="text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{interestRate}%</div>
+                        <div className="text-2xl sm:text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{interestRate}%</div>
                       </div>
                       <div className="relative pt-2">
                         <input 
@@ -402,13 +402,13 @@ export default function VehicleLoans() {
                     </div>
 
                     {/* Tenure */}
-                    <div className="space-y-8 group">
-                      <div className="flex justify-between items-end">
-                        <div className="flex flex-col gap-2">
+                    <div className="space-y-6 sm:space-y-8 group">
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
+                        <div className="flex flex-col gap-1 sm:gap-2">
                           <label className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 group-hover:text-brand-gold transition-colors">Ownership Duration</label>
-                          <h3 className="text-2xl font-bold text-white tracking-tight">Tenure in Years</h3>
+                          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Tenure in Years</h3>
                         </div>
-                        <div className="text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{tenure} <span className="text-sm font-sans tracking-normal opacity-30">Yrs</span></div>
+                        <div className="text-2xl sm:text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{tenure} <span className="text-sm font-sans tracking-normal opacity-30">Yrs</span></div>
                       </div>
                       <div className="relative pt-2">
                         <input 
@@ -430,27 +430,27 @@ export default function VehicleLoans() {
                       key={results.emi}
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="p-14 lg:p-20 rounded-[70px] bg-[#030d1d] border-brand-gold/20 shadow-[0_60px_150px_rgba(0,0,0,0.7)] relative overflow-hidden group/card"
+                      className="p-6 sm:p-14 lg:p-20 rounded-[32px] sm:rounded-[70px] bg-[#030d1d] border-brand-gold/20 shadow-[0_60px_150px_rgba(0,0,0,0.7)] relative overflow-hidden group/card"
                     >
                        <div className="absolute inset-0 bg-gradient-to-br from-brand-gold/5 via-transparent to-transparent opacity-50" />
                        
-                       <div className="flex flex-col gap-14 relative z-10">
-                          <div className="flex flex-col gap-6">
-                             <span className="text-[11px] font-black uppercase tracking-[0.5em] text-white/20 group-hover/card:text-brand-gold/50 transition-colors">Monthly Obligation</span>
-                             <div className="text-6xl md:text-8xl font-serif font-black italic gold-text-gradient tracking-tighter leading-none glow-text">
+                       <div className="flex flex-col gap-10 sm:gap-14 relative z-10">
+                          <div className="flex flex-col gap-4 sm:gap-6 text-left sm:text-center lg:text-left">
+                             <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.5em] text-white/20 group-hover/card:text-brand-gold/50 transition-colors">Monthly Obligation</span>
+                             <div className="text-3xl sm:text-5xl md:text-8xl font-serif font-black italic gold-text-gradient tracking-tighter leading-none glow-text">
                                 {formatCurrency(results.emi)}
                              </div>
-                             <p className="text-sm text-white/30 font-light max-w-xs italic">Estimated repayment sum based on Tier-1 institutional benchmarks.</p>
+                             <p className="text-xs sm:text-sm text-white/30 font-light max-w-xs italic">Estimated repayment sum based on Tier-1 institutional benchmarks.</p>
                           </div>
 
-                          <div className="space-y-6">
-                             <div className="flex justify-between items-center py-4 border-b border-white/5">
+                          <div className="space-y-4 sm:space-y-6">
+                             <div className="flex justify-between items-center py-3 sm:py-4 border-b border-white/5">
                                 <span className="text-[10px] uppercase font-black tracking-[0.3em] text-white/20">Funding Cap</span>
-                                <span className="text-xl font-serif font-bold text-white italic">{formatCurrency(results.totalPayment)}</span>
+                                <span className="text-lg sm:text-xl font-serif font-bold text-white italic">{formatCurrency(results.totalPayment)}</span>
                              </div>
-                             <div className="flex justify-between items-center py-4">
+                             <div className="flex justify-between items-center py-3 sm:py-4">
                                 <span className="text-[10px] uppercase font-black tracking-[0.3em] text-white/20">Cost of Capital</span>
-                                <span className="text-xl font-serif font-bold text-white italic">{formatCurrency(results.totalInterest)}</span>
+                                <span className="text-lg sm:text-xl font-serif font-bold text-white italic">{formatCurrency(results.totalInterest)}</span>
                              </div>
                           </div>
 
@@ -461,7 +461,7 @@ export default function VehicleLoans() {
                               setShowFormWithAmount(loanAmount.toString());
                               document.getElementById('vehicle-form')?.scrollIntoView({ behavior: 'smooth' });
                             }}
-                            className="w-full py-8 gold-gradient rounded-[40px] font-black text-[14px] uppercase tracking-[0.4em] text-brand-blue shadow-[0_20px_50px_rgba(212,164,55,0.3)] transition-all duration-500"
+                            className="w-full py-4 sm:py-8 gold-gradient rounded-xl sm:rounded-[40px] font-black text-xs sm:text-[14px] uppercase tracking-[0.4em] text-brand-blue shadow-[0_20px_50px_rgba(212,164,55,0.3)] transition-all duration-500"
                           >
                              Approve This Limit
                           </motion.button>
@@ -520,11 +520,11 @@ export default function VehicleLoans() {
               >
                 <button 
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full p-10 flex items-center justify-between text-left group"
+                  className="w-full p-6 sm:p-10 flex items-center justify-between text-left group"
                 >
-                  <span className={`text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
-                  <div className={`w-12 h-12 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
-                    <Plus size={24} strokeWidth={3} />
+                  <span className={`text-base sm:text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 flex items-center justify-center flex-shrink-0 transition-all duration-500 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
+                    <Plus size={20} className="sm:w-6 sm:h-6" strokeWidth={3} />
                   </div>
                 </button>
                 <motion.div 
@@ -532,7 +532,7 @@ export default function VehicleLoans() {
                   animate={{ height: openFaq === i ? 'auto' : 0, opacity: openFaq === i ? 1 : 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="p-10 pt-0 text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-10">
+                  <div className="p-6 sm:p-10 pt-0 text-base sm:text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-0 sm:mx-10">
                     {faq.a}
                   </div>
                 </motion.div>
@@ -545,7 +545,7 @@ export default function VehicleLoans() {
       {/* Final CTA */}
       <section className="py-32 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12 relative z-10 text-center">
-           <div className="glass-card p-24 lg:p-36 rounded-[120px] border-brand-gold/10 flex flex-col items-center gap-12 shadow-[0_100px_200px_rgba(0,0,0,0.6)] relative overflow-hidden group">
+           <div className="glass-card p-6 sm:p-24 lg:p-36 rounded-[32px] sm:rounded-[120px] border-brand-gold/10 flex flex-col items-center gap-12 shadow-[0_100px_200px_rgba(0,0,0,0.6)] relative overflow-hidden group">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,164,55,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
               
               <div className="flex flex-col gap-10 relative z-10">

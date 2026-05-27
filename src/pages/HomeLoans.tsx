@@ -260,7 +260,7 @@ export default function HomeLoans() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="p-10 lg:p-14 glass-card rounded-[60px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-700"
+                className="p-6 sm:p-10 lg:p-14 glass-card rounded-[28px] sm:rounded-[60px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-700"
               >
                 <div className="w-20 h-20 rounded-[28px] bg-brand-gold/5 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-xl border border-brand-gold/10 group-hover:scale-110 group-hover:shadow-brand-gold/30">
                   <div className="transition-transform duration-500 group-hover:scale-110">
@@ -283,18 +283,18 @@ export default function HomeLoans() {
               <h2 className="text-5xl md:text-6xl font-serif font-medium leading-[1.2] tracking-tight">Residential <span className="italic font-semibold gold-text-gradient">Wealth Simulator.</span></h2>
            </div>
 
-           <div className="grid lg:grid-cols-12 gap-12 items-stretch">
-             <div className="lg:col-span-12 glass-card p-10 md:p-20 rounded-[80px] border-white/5 relative overflow-hidden">
-                <div className="grid lg:grid-cols-2 gap-24 relative z-10">
-                   <div className="flex flex-col gap-14">
+            <div className="grid lg:grid-cols-12 gap-6 sm:gap-12 items-stretch">
+             <div className="lg:col-span-12 glass-card p-5 sm:p-10 md:p-20 rounded-[28px] sm:rounded-[80px] border-white/5 relative overflow-hidden">
+                <div className="grid lg:grid-cols-2 gap-10 lg:gap-24 relative z-10">
+                   <div className="flex flex-col gap-8 sm:gap-14">
                       {/* Loan Amount */}
-                      <div className="space-y-8">
-                        <div className="flex justify-between items-end">
-                          <div className="flex flex-col gap-2">
+                      <div className="space-y-6 sm:space-y-8">
+                        <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
+                          <div className="flex flex-col gap-1 sm:gap-2">
                             <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Total Outlay Required</label>
-                            <h3 className="text-2xl font-bold text-white tracking-tight">Loan Amount</h3>
+                            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Loan Amount</h3>
                           </div>
-                          <div className="text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{formatCurrency(loanAmount)}</div>
+                          <div className="text-2xl sm:text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{formatCurrency(loanAmount)}</div>
                         </div>
                         <div className="relative pt-2">
                           <input 
@@ -310,13 +310,13 @@ export default function HomeLoans() {
                       </div>
 
                       {/* Interest Rate */}
-                      <div className="space-y-8">
-                        <div className="flex justify-between items-end">
-                          <div className="flex flex-col gap-2">
+                      <div className="space-y-6 sm:space-y-8">
+                        <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
+                          <div className="flex flex-col gap-1 sm:gap-2">
                             <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Contractual Yield</label>
-                            <h3 className="text-2xl font-bold text-white tracking-tight">Interest Rate (% p.a)</h3>
+                            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Interest Rate (% p.a)</h3>
                           </div>
-                          <div className="text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{interestRate}%</div>
+                          <div className="text-2xl sm:text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{interestRate}%</div>
                         </div>
                         <div className="relative pt-2">
                           <input 
@@ -332,13 +332,13 @@ export default function HomeLoans() {
                       </div>
 
                       {/* Tenure */}
-                      <div className="space-y-8">
-                        <div className="flex justify-between items-end">
-                          <div className="flex flex-col gap-2">
+                      <div className="space-y-6 sm:space-y-8">
+                        <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
+                          <div className="flex flex-col gap-1 sm:gap-2">
                             <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Stability Horizon</label>
-                            <h3 className="text-2xl font-bold text-white tracking-tight">Tenure in Years</h3>
+                            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Tenure in Years</h3>
                           </div>
-                          <div className="text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{tenure} <span className="text-sm font-sans tracking-normal opacity-40">Yrs</span></div>
+                          <div className="text-2xl sm:text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{tenure} <span className="text-sm font-sans tracking-normal opacity-40">Yrs</span></div>
                         </div>
                         <div className="relative pt-2">
                           <input 
@@ -359,25 +359,25 @@ export default function HomeLoans() {
                         key={results.emi}
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="p-14 lg:p-20 rounded-[70px] bg-[#061633] border-brand-gold/15 shadow-[0_60px_120px_rgba(0,0,0,0.6)] relative"
+                        className="p-6 sm:p-14 lg:p-20 rounded-[32px] sm:rounded-[70px] bg-[#061633] border-brand-gold/15 shadow-[0_60px_120px_rgba(0,0,0,0.6)] relative"
                       >
                         <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/5 blur-[120px] rounded-full" />
-                        <div className="flex flex-col gap-12 text-center lg:text-left">
-                          <div className="flex flex-col gap-4">
-                            <span className="text-[11px] font-black uppercase tracking-[0.5em] text-white/20">Amortized Monthly Installment</span>
-                            <div className="text-5xl md:text-7xl lg:text-8xl font-serif font-black italic gold-text-gradient tracking-tighter leading-none">
+                        <div className="flex flex-col gap-8 sm:gap-12 text-center lg:text-left">
+                          <div className="flex flex-col gap-3 sm:gap-4">
+                            <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.5em] text-white/20">Amortized Monthly Installment</span>
+                            <div className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-serif font-black italic gold-text-gradient tracking-tighter leading-none">
                               {formatCurrency(results.emi)}
                             </div>
                           </div>
                           
-                          <div className="grid grid-cols-2 gap-10">
-                            <div className="flex flex-col gap-2">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10 text-left sm:text-center lg:text-left">
+                            <div className="flex flex-col gap-1 sm:gap-2">
                               <span className="text-[10px] uppercase font-black tracking-[0.3em] text-white/20">Total Repayment</span>
-                              <span className="text-2xl font-serif font-bold text-white italic tracking-tight">{formatCurrency(results.totalPayment)}</span>
+                              <span className="text-xl sm:text-2xl font-serif font-bold text-white italic tracking-tight">{formatCurrency(results.totalPayment)}</span>
                             </div>
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-1 sm:gap-2">
                               <span className="text-[10px] uppercase font-black tracking-[0.3em] text-white/20">Interest Outflow</span>
-                              <span className="text-2xl font-serif font-bold text-white italic tracking-tight">{formatCurrency(results.totalInterest)}</span>
+                              <span className="text-xl sm:text-2xl font-serif font-bold text-white italic tracking-tight">{formatCurrency(results.totalInterest)}</span>
                             </div>
                           </div>
                           
@@ -386,12 +386,12 @@ export default function HomeLoans() {
                               setShowFormWithAmount(loanAmount.toString());
                               document.getElementById('home-form')?.scrollIntoView({ behavior: 'smooth' });
                             }}
-                            className="w-full py-7 gold-gradient rounded-[32px] font-black text-[14px] uppercase tracking-[0.4em] text-brand-blue shadow-2xl hover:scale-[1.02] transition-all duration-500"
+                            className="w-full py-4 sm:py-7 gold-gradient rounded-xl sm:rounded-[32px] font-black text-xs sm:text-[14px] uppercase tracking-[0.4em] text-brand-blue shadow-2xl hover:scale-[1.02] transition-all duration-500"
                           >
                              Seal Interest Agreement
                           </button>
                         </div>
-                      </motion.div>
+                     </motion.div>
                    </div>
                 </div>
              </div>
@@ -451,11 +451,11 @@ export default function HomeLoans() {
               >
                 <button 
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full p-10 flex items-center justify-between text-left group"
+                  className="w-full p-6 sm:p-10 flex items-center justify-between text-left group"
                 >
-                  <span className={`text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
-                  <div className={`w-12 h-12 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
-                    <Plus size={24} strokeWidth={3} />
+                  <span className={`text-base sm:text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 flex items-center justify-center flex-shrink-0 transition-all duration-500 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
+                    <Plus size={20} className="sm:w-6 sm:h-6" strokeWidth={3} />
                   </div>
                 </button>
                 <motion.div 
@@ -463,7 +463,7 @@ export default function HomeLoans() {
                   animate={{ height: openFaq === i ? 'auto' : 0, opacity: openFaq === i ? 1 : 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="p-10 pt-0 text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-10">
+                  <div className="p-6 sm:p-10 pt-0 text-base sm:text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-0 sm:mx-10 animate-fade-in">
                     {faq.a}
                   </div>
                 </motion.div>
@@ -476,7 +476,7 @@ export default function HomeLoans() {
       {/* Final CTA */}
       <section className="py-32 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12 relative z-10 text-center">
-          <div className="glass-card p-20 lg:p-32 rounded-[100px] border-brand-gold/10 flex flex-col items-center gap-12 shadow-[0_80px_160px_rgba(0,0,0,0.6)] relative overflow-hidden group">
+          <div className="glass-card p-6 sm:p-20 lg:p-32 rounded-[32px] sm:rounded-[100px] border-brand-gold/10 flex flex-col items-center gap-12 shadow-[0_80px_160px_rgba(0,0,0,0.6)] relative overflow-hidden group">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,164,55,0.1)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             
             <div className="flex flex-col gap-8 relative z-10">

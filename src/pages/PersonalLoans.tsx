@@ -292,8 +292,8 @@ export default function PersonalLoans() {
 
       {/* Trust Metrics */}
       <section className="py-20 relative">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
             {[
               { val: "1000+", label: "Capital Successes" },
               { val: "99%", label: "Approval Delta" },
@@ -306,7 +306,7 @@ export default function PersonalLoans() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="glass-card p-10 rounded-[40px] border-white/5 text-center flex flex-col gap-2 group hover:border-brand-gold/20 transition-all duration-500"
+                className="glass-card p-5 sm:p-10 rounded-[24px] sm:rounded-[40px] border-white/5 text-center flex flex-col gap-2 group hover:border-brand-gold/20 transition-all duration-500"
               >
                 <div className="text-4xl lg:text-5xl font-serif font-black italic gold-text-gradient leading-none group-hover:scale-110 transition-transform duration-500">
                   {stat.val}
@@ -343,7 +343,7 @@ export default function PersonalLoans() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="glass-card p-10 lg:p-12 rounded-[50px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-500"
+                className="glass-card p-6 sm:p-10 lg:p-12 rounded-[28px] sm:rounded-[50px] border-white/5 hover:border-brand-gold/20 group relative overflow-hidden transition-all duration-500"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 blur-[60px] rounded-full group-hover:bg-brand-gold/10 transition-all" />
                 <div className="w-16 h-16 rounded-2xl bg-brand-gold/10 flex items-center justify-center text-brand-gold mb-10 group-hover:bg-brand-gold group-hover:text-brand-blue transition-all duration-500 shadow-lg group-hover:scale-110 group-hover:shadow-brand-gold/30">
@@ -410,13 +410,13 @@ export default function PersonalLoans() {
               <p className="text-xl text-white/40 leading-relaxed font-light max-w-md">
                 We prioritize clients with established financial tracks and professional stability to ensure rapid institutional clearance.
               </p>
-              <div className="flex items-center gap-6 p-10 glass-card rounded-[40px] border-brand-gold/20 bg-brand-gold/5">
-                <div className="w-16 h-16 rounded-2xl bg-brand-gold flex items-center justify-center text-brand-blue shadow-lg">
+              <div className="flex flex-col sm:flex-row items-center gap-6 p-6 sm:p-10 glass-card rounded-[24px] sm:rounded-[40px] border-brand-gold/20 bg-brand-gold/5 text-center sm:text-left">
+                <div className="w-16 h-16 rounded-2xl bg-brand-gold flex items-center justify-center text-brand-blue shadow-lg shrink-0">
                   <ShieldCheck size={32} strokeWidth={2.5} />
                 </div>
                 <div>
                   <p className="text-[10px] uppercase font-black tracking-[0.3em] text-brand-gold">Compliance Rating</p>
-                  <p className="text-2xl font-serif font-bold text-white italic">Elite Tier-1 Verified</p>
+                  <p className="text-xl sm:text-2xl font-serif font-bold text-white italic">Elite Tier-1 Verified</p>
                 </div>
               </div>
             </div>
@@ -429,7 +429,7 @@ export default function PersonalLoans() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="glass-card p-10 rounded-[50px] border-white/5 flex flex-col gap-1 hover:border-brand-gold/20 transition-all duration-500"
+                  className="glass-card p-6 sm:p-10 rounded-[28px] sm:rounded-[50px] border-white/5 flex flex-col gap-1 hover:border-brand-gold/20 transition-all duration-500"
                 >
                   <p className="text-[10px] uppercase font-black tracking-[0.3em] text-white/30 mb-2">{item.label}</p>
                   <p className="text-2xl font-bold text-white tracking-tight">{item.value}</p>
@@ -449,20 +449,20 @@ export default function PersonalLoans() {
             <h2 className="text-5xl md:text-6xl font-serif font-medium leading-[1.2] tracking-tight">Interactive <span className="italic font-semibold gold-text-gradient">Capital Estimator.</span></h2>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-12 items-stretch">
-            <div className="lg:col-span-12 glass-card p-10 md:p-20 rounded-[80px] border-white/5 relative overflow-hidden">
+          <div className="grid lg:grid-cols-12 gap-6 sm:gap-12 items-stretch">
+            <div className="lg:col-span-12 glass-card p-6 sm:p-10 md:p-20 rounded-[32px] sm:rounded-[50px] md:rounded-[80px] border-white/5 relative overflow-hidden">
                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(212,164,55,0.03)_0%,transparent_70%)] pointer-events-none" />
                
-               <div className="grid lg:grid-cols-[1fr_0.8fr] gap-20 relative z-10">
-                  <div className="flex flex-col gap-12">
+               <div className="grid lg:grid-cols-[1fr_0.8fr] gap-10 lg:gap-20 relative z-10">
+                  <div className="flex flex-col gap-8 sm:gap-12">
                     {/* Loan Amount */}
                     <div className="space-y-8">
-                      <div className="flex justify-between items-end">
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
                         <div className="flex flex-col gap-2">
                           <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Desired Funding</label>
-                          <h3 className="text-2xl font-bold text-white tracking-tight">Loan Amount</h3>
+                          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Loan Amount</h3>
                         </div>
-                        <div className="text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{formatCurrency(loanAmount)}</div>
+                        <div className="text-2xl sm:text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{formatCurrency(loanAmount)}</div>
                       </div>
                       <div className="relative pt-2">
                         <input 
@@ -480,12 +480,12 @@ export default function PersonalLoans() {
 
                     {/* Interest Rate */}
                     <div className="space-y-8">
-                      <div className="flex justify-between items-end">
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
                         <div className="flex flex-col gap-2">
                           <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Interest Matrix</label>
-                          <h3 className="text-2xl font-bold text-white tracking-tight">Rate of Interest (% p.a)</h3>
+                          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Rate of Interest (% p.a)</h3>
                         </div>
-                        <div className="text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{interestRate}%</div>
+                        <div className="text-2xl sm:text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{interestRate}%</div>
                       </div>
                       <div className="relative pt-2">
                         <input 
@@ -503,12 +503,12 @@ export default function PersonalLoans() {
 
                     {/* Tenure */}
                     <div className="space-y-8">
-                      <div className="flex justify-between items-end">
+                      <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-2">
                         <div className="flex flex-col gap-2">
                           <label className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Time Vector</label>
-                          <h3 className="text-2xl font-bold text-white tracking-tight">Tenure (Years)</h3>
+                          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Tenure (Years)</h3>
                         </div>
-                        <div className="text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{tenure} <span className="text-sm font-sans tracking-normal opacity-40">Years</span></div>
+                        <div className="text-2xl sm:text-4xl font-serif font-black gold-text-gradient italic tracking-tighter">{tenure} <span className="text-sm font-sans tracking-normal opacity-40">Years</span></div>
                       </div>
                       <div className="relative pt-2">
                         <input 
@@ -530,13 +530,13 @@ export default function PersonalLoans() {
                       key={results.emi}
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="p-12 lg:p-16 rounded-[60px] bg-[#061633] border-brand-gold/10 shadow-[0_50px_100px_rgba(0,0,0,0.5)] relative overflow-hidden"
+                      className="p-6 sm:p-12 lg:p-16 rounded-[32px] sm:rounded-[60px] bg-[#061633] border-brand-gold/10 shadow-[0_50px_100px_rgba(0,0,0,0.5)] relative overflow-hidden"
                     >
                       <div className="absolute top-0 right-0 w-40 h-40 bg-brand-gold/5 blur-[80px] rounded-full" />
                       <div className="flex flex-col gap-10">
                         <div className="flex flex-col gap-4">
                           <span className="text-[11px] uppercase font-black tracking-[0.4em] text-white/30">Contractual Monthly EMI</span>
-                          <div className="text-5xl lg:text-7xl font-serif font-black italic gold-text-gradient tracking-tighter">
+                          <div className="text-4xl sm:text-5xl lg:text-7xl font-serif font-black italic gold-text-gradient tracking-tighter">
                             {formatCurrency(results.emi)}
                           </div>
                         </div>
@@ -572,8 +572,8 @@ export default function PersonalLoans() {
       <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-brand-gold/5 blur-[150px] rounded-full translate-y-1/2 scale-150" />
         
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-12 relative z-10">
-          <div className="glass-card p-12 lg:p-24 rounded-[80px] border-brand-gold/20 flex flex-col items-center text-center gap-10 shadow-[0_50px_100px_rgba(0,0,0,0.4)] relative">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
+          <div className="glass-card p-6 sm:p-12 lg:p-24 rounded-[32px] sm:rounded-[80px] border-brand-gold/20 flex flex-col items-center text-center gap-10 shadow-[0_50px_100px_rgba(0,0,0,0.4)] relative">
             <div className="absolute top-0 right-1/4 w-32 h-32 bg-brand-gold/10 blur-[60px] rounded-full" />
             <div className="absolute bottom-0 left-1/4 w-32 h-32 bg-blue-500/10 blur-[60px] rounded-full" />
 
@@ -644,10 +644,10 @@ export default function PersonalLoans() {
               >
                 <button 
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full p-8 lg:p-10 flex items-center justify-between text-left group"
+                  className="w-full p-6 sm:p-8 lg:p-10 flex items-center justify-between text-left group"
                 >
-                  <span className={`text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
-                  <div className={`w-10 h-10 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
+                  <span className={`text-lg sm:text-xl font-bold transition-all duration-500 ${openFaq === i ? 'text-brand-gold italic' : 'text-white/80 group-hover:text-white'}`}>{faq.q}</span>
+                  <div className={`w-10 h-10 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 flex-shrink-0 ${openFaq === i ? 'bg-brand-gold border-brand-gold text-brand-blue rotate-45' : 'text-white/30 group-hover:border-brand-gold group-hover:text-brand-gold'}`}>
                     <Plus size={20} strokeWidth={3} />
                   </div>
                 </button>
@@ -663,7 +663,7 @@ export default function PersonalLoans() {
                   }}
                   className="overflow-hidden"
                 >
-                  <div className="p-10 pt-0 text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-10">
+                  <div className="p-6 sm:p-10 pt-0 text-base sm:text-lg text-white/40 font-light leading-relaxed border-t border-white/5 mx-0 sm:mx-10">
                     {faq.a}
                   </div>
                 </motion.div>
