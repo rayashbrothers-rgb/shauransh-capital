@@ -26,9 +26,10 @@ import {
 } from 'recharts';
 import { db } from '../../lib/firebase';
 import { collection, query, onSnapshot, orderBy, limit } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
+import { useNavigation } from '../../context/NavigationContext';
 
 export default function DashboardOverview() {
+  const { setAdminSubView } = useNavigation();
   const [leadCount, setLeadCount] = useState(0);
   const [recentLeads, setRecentLeads] = useState<any[]>([]);
   const [newTodayCount, setNewTodayCount] = useState(0);
@@ -484,7 +485,7 @@ export default function DashboardOverview() {
       >
         <div className="flex items-center justify-between mb-10">
           <h3 className="text-xl font-serif font-bold text-white">Recent Intelligent Inquiry</h3>
-          <Link to="/authorized/contacts" className="px-6 py-2 border border-white/10 rounded-lg text-xs font-bold uppercase tracking-widest hover:border-brand-gold/40 transition-all">View All CRM</Link>
+          <button onClick={() => setAdminSubView('crm')} className="px-6 py-2 border border-white/10 rounded-lg text-xs font-bold uppercase tracking-widest hover:border-brand-gold/40 hover:text-brand-gold transition-all cursor-pointer">View All CRM</button>
         </div>
         <div className="overflow-x-auto">
           {loading ? (
@@ -529,9 +530,9 @@ export default function DashboardOverview() {
                        {lead.createdAt?.toDate ? lead.createdAt.toDate().toLocaleDateString() : '---'}
                     </td>
                     <td className="py-5 pr-4 text-right">
-                      <Link to="/authorized/contacts" className="p-2 text-white/30 hover:text-brand-gold transition-colors inline-block">
+                      <button onClick={() => setAdminSubView('crm')} className="p-2 text-white/30 hover:text-brand-gold transition-colors inline-block cursor-pointer">
                         <ArrowUpRight size={18} />
-                      </Link>
+                      </button>
                     </td>
                   </tr>
                 ))}

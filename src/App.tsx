@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import FloatingActions from './components/FloatingActions';
 import GeminiChatbot from './components/GeminiChatbot';
 import { NavigationProvider, useNavigation } from './context/NavigationContext';
+import { AnimatePresence, motion } from 'motion/react';
 
 // Lazy load pages
 const LandingPage = lazy(() => import('./pages/LandingPage'));
@@ -36,26 +37,43 @@ function AppContent() {
     window.scrollTo(0, 0);
   }, [activeView]);
 
-  switch (activeView) {
-    case 'home':
-      return <LandingPage />;
-    case 'personal-loan':
-      return <PersonalLoans />;
-    case 'business-loan':
-      return <BusinessLoans />;
-    case 'home-loan':
-      return <HomeLoans />;
-    case 'vehicle-loan':
-      return <VehicleLoans />;
-    case 'financial-solutions':
-      return <FinancialSolutions />;
-    case 'insurance':
-      return <Insurance />;
-    case 'authorized':
-      return <AdminLayout />;
-    default:
-      return <LandingPage />;
-  }
+  const renderView = () => {
+    switch (activeView) {
+      case 'home':
+        return <LandingPage />;
+      case 'personal-loan':
+        return <PersonalLoans />;
+      case 'business-loan':
+        return <BusinessLoans />;
+      case 'home-loan':
+        return <HomeLoans />;
+      case 'vehicle-loan':
+        return <VehicleLoans />;
+      case 'financial-solutions':
+        return <FinancialSolutions />;
+      case 'insurance':
+        return <Insurance />;
+      case 'authorized':
+        return <AdminLayout />;
+      default:
+        return <LandingPage />;
+    }
+  };
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={activeView}
+        initial={{ opacity: 0, filter: 'blur(8px)', y: 15 }}
+        animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+        exit={{ opacity: 0, filter: 'blur(8px)', y: -15 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full min-h-screen bg-[#061633] overflow-x-hidden"
+      >
+        {renderView()}
+      </motion.div>
+    </AnimatePresence>
+  );
 }
 
 export default function App() {

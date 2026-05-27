@@ -356,7 +356,7 @@ export default function HomeLoans() {
 
                    <div className="flex flex-col justify-center">
                      <motion.div 
-                        key={results.emi}
+
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         className="p-6 sm:p-14 lg:p-20 rounded-[32px] sm:rounded-[70px] bg-[#061633] border-brand-gold/15 shadow-[0_60px_120px_rgba(0,0,0,0.6)] relative"

@@ -47,46 +47,49 @@ export default function Testimonials() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-10">
-          {reviews.map((review, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.2, duration: 1, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="glass-card p-8 md:p-12 lg:p-14 rounded-[40px] md:rounded-[60px] relative group border-white/5 hover:border-brand-gold/20 shadow-2xl transition-all duration-700"
-            >
-              <div className="absolute top-8 right-8 md:top-12 md:right-12 opacity-5 text-brand-gold group-hover:opacity-20 transition-all duration-700 group-hover:scale-125 rotate-12 group-hover:rotate-0">
-                <Quote size={60} className="md:w-20 md:h-20" strokeWidth={1} />
-              </div>
-              
-              <div className="flex gap-2 mb-8 md:mb-10 text-brand-gold/40 group-hover:text-brand-gold transition-colors duration-700">
-                {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="currentColor" />)}
-              </div>
-              
-              <p className="text-xl lg:text-2xl text-white/70 mb-12 leading-relaxed font-serif italic tracking-wide group-hover:text-white transition-colors duration-700">
-                "{review.content}"
-              </p>
-              
-              <div className="flex items-center gap-6 pt-10 border-t border-white/10">
-                <div className="relative">
-                  <img 
-                    src={review.image} 
-                    alt={review.name} 
-                    className="w-16 h-16 rounded-[20px] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 border-2 border-white/5 group-hover:border-brand-gold/30" 
-                  />
-                  <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-brand-gold flex items-center justify-center text-brand-blue shadow-lg scale-0 group-hover:scale-100 transition-transform duration-500 delay-200">
-                    <Star size={10} fill="currentColor" />
+        <div className="grid lg:grid-cols-3 gap-10 lg:pb-16">
+          {reviews.map((review, i) => {
+            const offsetStyle = i === 1 ? 'lg:translate-y-12' : i === 2 ? 'lg:translate-y-6' : 'lg:translate-y-0';
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.2, duration: 1, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className={`glass-card p-8 md:p-12 lg:p-14 rounded-[40px] md:rounded-[60px] relative group border-white/[0.03] hover:border-brand-gold/30 shadow-2xl transition-all duration-700 ${offsetStyle}`}
+              >
+                <div className="absolute top-8 right-8 md:top-12 md:right-12 opacity-5 text-brand-gold group-hover:opacity-20 transition-all duration-700 group-hover:scale-125 rotate-12 group-hover:rotate-0">
+                  <Quote size={60} className="md:w-20 md:h-20" strokeWidth={1} />
+                </div>
+                
+                <div className="flex gap-2 mb-8 md:mb-10 text-brand-gold/40 group-hover:text-brand-gold transition-colors duration-700">
+                  {[...Array(5)].map((_, j) => <Star key={j} size={16} fill="currentColor" />)}
+                </div>
+                
+                <p className="text-xl lg:text-2xl text-white/70 mb-12 leading-relaxed font-serif italic tracking-wide group-hover:text-white transition-colors duration-700">
+                  "{review.content}"
+                </p>
+                
+                <div className="flex items-center gap-6 pt-10 border-t border-white/10">
+                  <div className="relative">
+                    <img 
+                      src={review.image} 
+                      alt={review.name} 
+                      className="w-16 h-16 rounded-[20px] object-cover grayscale group-hover:grayscale-0 transition-all duration-700 border-2 border-white/5 group-hover:border-brand-gold/30" 
+                    />
+                    <div className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full bg-brand-gold flex items-center justify-center text-brand-blue shadow-lg scale-0 group-hover:scale-100 transition-transform duration-500 delay-200">
+                      <Star size={10} fill="currentColor" />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <h4 className="text-xl font-bold text-white tracking-tight">{review.name}</h4>
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-gold/60">{review.role}</p>
                   </div>
                 </div>
-                <div className="flex flex-col gap-1">
-                  <h4 className="text-xl font-bold text-white tracking-tight">{review.name}</h4>
-                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-gold/60">{review.role}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

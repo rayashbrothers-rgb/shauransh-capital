@@ -427,7 +427,7 @@ export default function VehicleLoans() {
 
                  <div className="flex flex-col justify-center">
                     <motion.div 
-                      key={results.emi}
+
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       className="p-6 sm:p-14 lg:p-20 rounded-[32px] sm:rounded-[70px] bg-[#030d1d] border-brand-gold/20 shadow-[0_60px_150px_rgba(0,0,0,0.7)] relative overflow-hidden group/card"

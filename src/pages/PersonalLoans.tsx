@@ -527,7 +527,7 @@ export default function PersonalLoans() {
 
                   <div className="flex flex-col justify-center h-full">
                     <motion.div 
-                      key={results.emi}
+
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       className="p-6 sm:p-12 lg:p-16 rounded-[32px] sm:rounded-[60px] bg-[#061633] border-brand-gold/10 shadow-[0_50px_100px_rgba(0,0,0,0.5)] relative overflow-hidden"

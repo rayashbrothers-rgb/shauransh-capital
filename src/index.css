@@ -20,6 +20,9 @@
 }
 
 @layer base {
+  html, body {
+    @apply overflow-x-hidden w-full max-w-full;
+  }
   body {
     @apply bg-brand-blue text-white selection:bg-brand-gold/30 selection:text-white;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
@@ -27,7 +30,7 @@
 }
 
 .glass-card {
-  @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
+  @apply bg-white/[0.025] backdrop-blur-2xl border border-white/[0.04] shadow-[0_32px_80px_-20px_rgba(0,0,0,0.8)] transition-all duration-500;
 }
 
 .gold-gradient {

@@ -221,14 +221,11 @@ export default function EMICalculator() {
 
                   <div className="space-y-3 sm:space-y-4">
                     <h3 className="text-xs sm:text-sm font-black uppercase tracking-[0.4em] text-white/30">Monthly Installment</h3>
-                    <motion.div 
-                      key={results.emi}
-                      initial={{ scale: 0.95, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
+                    <div 
                       className="text-4xl sm:text-5xl lg:text-7xl font-serif font-black italic gold-text-gradient tracking-tighter"
                     >
                       {formatCurrency(results.emi)}
-                    </motion.div>
+                    </div>
                     <p className="text-xs sm:text-sm text-white/30 font-light max-w-[240px]">Estimated monthly obligations based on institutional interest structures.</p>
                   </div>
                 </div>
